@@ -5,11 +5,13 @@ interface StyledButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   marginTop?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
-export const StyledButton: FC<StyledButtonProps> = ({ children, onClick, marginTop }) => {
+export const StyledButton: FC<StyledButtonProps> = ({ children, onClick, marginTop, type }) => {
   return (
     <Button
+      type={type}
       sx={{
         width: '100%',
         height: '56px',

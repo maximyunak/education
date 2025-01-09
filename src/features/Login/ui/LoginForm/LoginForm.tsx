@@ -19,12 +19,21 @@ import Visibility from '@mui/icons-material/Visibility';
 import { LoginWithSocial } from '../Buttons/LoginWithSocial';
 import { googleIcon, vkIcon, yandexIcon } from 'shared/assets';
 import { InputTitle, StyledButton, StyledInput, Title } from 'shared/lib';
+import { useState } from 'react';
+
+interface ValidationErrors {
+  email: string;
+  password: string;
+}
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state: RootState) => state.login);
   const [showPassword, setShowPassword] = React.useState(false);
-  console.log(userData);
+  const [errors, setErrors] = useState<ValidationErrors>({
+    email: '',
+    password: '',
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,20 +43,84 @@ export const LoginForm = () => {
     event.preventDefault();
   };
 
+  const validateField = (field: string, value: string) => {
+    let error = '';
+
+    switch (field) {
+      case 'email':
+        if (!value) {
+          error = 'Введите email';
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+          error = 'Некорректный email';
+        }
+        break;
+      case 'password':
+        if (!value) {
+          error = 'Введите пароль';
+        } else if (value.length < 8) {
+          error = 'Пароль должен содержать минимум 8 символов';
+        }
+        break;
+    }
+
+    setErrors((prev) => ({ ...prev, [field]: error }));
+  };
+
   const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setLoginData({ [field]: event.target.value }));
+    const value = event.target.value;
+    dispatch(setLoginData({ [field]: value }));
+    validateField(field, value);
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: ValidationErrors = {
+      email: '',
+      password: '',
+    };
+
+    let isValid = true;
+
+    if (!userData.email) {
+      newErrors.email = 'Введите email';
+      isValid = false;
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.email)) {
+      newErrors.email = 'Некорректный email';
+      isValid = false;
+    }
+
+    if (!userData.password) {
+      newErrors.password = 'Введите пароль';
+      isValid = false;
+    } else if (userData.password.length < 8) {
+      newErrors.password = 'Пароль должен содержать минимум 8 символов';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Form is valid', userData);
+      // Здесь будет логика отправки формы
+    }
   };
 
   return (
     <div style={{ maxWidth: '400px', width: '100%' }}>
       <Title>Вход</Title>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <TextContainer>
           <InputTitle>Электронная почта</InputTitle>
           <StyledInput
             placeholder="Email"
+            type="email"
             value={userData.email}
             onChange={handleChange('email')}
+            error={!!errors.email}
+            errorMessage={errors.email}
           />
         </TextContainer>
         <TextContainer>
@@ -57,6 +130,8 @@ export const LoginForm = () => {
             type={showPassword ? 'text' : 'password'}
             value={userData.password}
             onChange={handleChange('password')}
+            error={!!errors.password}
+            errorMessage={errors.password}
             endAdornment={
               <InputAdornment position="end" sx={{ marginRight: '5px' }}>
                 <IconButton
@@ -74,7 +149,7 @@ export const LoginForm = () => {
           <StyledLink to="/">Забыли пароль?</StyledLink>
         </TextContainer>
 
-        <StyledButton>Войти</StyledButton>
+        <StyledButton type="submit">Войти</StyledButton>
       </Form>
 
       <LoginWith>

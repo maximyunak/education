@@ -23,6 +23,7 @@ export const StyledLink = styled(Link)`
   color: #000;
   display: flex;
   justify-content: flex-end;
+  margin-top: 10px;
 `;
 
 export const LoginWith = styled.div`
