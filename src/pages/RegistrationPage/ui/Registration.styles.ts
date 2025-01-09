@@ -6,15 +6,15 @@ export const Registration = styled.div`
   margin: 0 auto;
   width: 100%;
   min-height: 100vh;
-  /* align-items: center; */
+  align-items: center;
 `;
 
 export const RegistrationContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 812px;
   width: 100%;
-  max-width: 1187px;
   margin: 0 auto;
   @media (max-width: 980px) {
     width: 100%;

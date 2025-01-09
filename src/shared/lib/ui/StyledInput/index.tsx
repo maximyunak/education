@@ -2,11 +2,12 @@ import { OutlinedInput } from '@mui/material';
 import { FC } from 'react';
 
 interface StyledInputProps {
-  placeholder: string;
+  placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: string;
   type?: string;
   endAdornment?: React.ReactNode;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 export const StyledInput: FC<StyledInputProps> = ({
@@ -15,6 +16,7 @@ export const StyledInput: FC<StyledInputProps> = ({
   value,
   type,
   endAdornment,
+  ref,
 }) => {
   return (
     <OutlinedInput
@@ -24,6 +26,7 @@ export const StyledInput: FC<StyledInputProps> = ({
       value={value}
       type={type}
       endAdornment={endAdornment}
+      ref={ref}
     />
   );
 };
