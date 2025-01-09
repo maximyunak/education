@@ -1,14 +1,15 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { LoginReducer } from 'features/Login';
+import { RegistrationReducer } from 'features/Registration';
 
 const rootReducer = combineReducers({
-  // someSlice,
+  registration: RegistrationReducer,
+  login: LoginReducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
-    // middleware: (getDefaultMiddleware) =>
-    //   getDefaultMiddleware().concat(authApi.middleware).concat(eventApi.middleware),
   });
 };
 

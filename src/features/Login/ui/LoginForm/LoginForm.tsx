@@ -1,4 +1,7 @@
 import React from 'react';
+import { useAppDispatch, useAppSelector } from 'shared/lib';
+import { RootState } from 'app/store';
+import { setLoginData } from '../../models/LoginSlice';
 import {
   Form,
   Line,
@@ -18,28 +21,42 @@ import { googleIcon, vkIcon, yandexIcon } from 'shared/assets';
 import { InputTitle, StyledButton, StyledInput, Title } from 'shared/lib';
 
 export const LoginForm = () => {
+  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state: RootState) => state.login);
   const [showPassword, setShowPassword] = React.useState(false);
+  console.log(userData);
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-
   const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+
+  const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setLoginData({ [field]: event.target.value }));
+  };
+
   return (
     <div style={{ maxWidth: '400px', width: '100%' }}>
       <Title>Вход</Title>
       <Form>
         <TextContainer>
           <InputTitle>Электронная почта</InputTitle>
-          <StyledInput placeholder="Email" />
+          <StyledInput
+            placeholder="Email"
+            value={userData.email}
+            onChange={handleChange('email')}
+          />
         </TextContainer>
         <TextContainer>
           <InputTitle>Пароль</InputTitle>
           <StyledInput
             placeholder="Пароль"
             type={showPassword ? 'text' : 'password'}
+            value={userData.password}
+            onChange={handleChange('password')}
             endAdornment={
               <InputAdornment position="end" sx={{ marginRight: '5px' }}>
                 <IconButton
