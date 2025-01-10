@@ -12,14 +12,19 @@ const LayoutContainer = styled.div`
   padding: 0 15px;
 `;
 
+const Container = styled.div`
+  max-width: 1260px;
+  margin: 0 auto;
+`;
+
 export const Layout: React.FC<LayoutProps> = () => {
   return (
     <LayoutContainer>
-      <div className="container flex gap-4 justify-center">
-        <main className="w-full">
+      <Container>
+        <main>
           <Outlet />
         </main>
-      </div>
+      </Container>
     </LayoutContainer>
   );
 };

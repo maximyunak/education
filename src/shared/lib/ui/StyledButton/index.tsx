@@ -6,9 +6,16 @@ interface StyledButtonProps {
   onClick?: () => void;
   marginTop?: string;
   type?: 'button' | 'submit' | 'reset';
+  variant?: 'contained' | 'outlined';
 }
 
-export const StyledButton: FC<StyledButtonProps> = ({ children, onClick, marginTop, type }) => {
+export const StyledButton: FC<StyledButtonProps> = ({
+  children,
+  onClick,
+  marginTop,
+  type,
+  variant = 'contained',
+}) => {
   return (
     <Button
       type={type}
@@ -21,7 +28,7 @@ export const StyledButton: FC<StyledButtonProps> = ({ children, onClick, marginT
         borderRadius: '10px',
         marginTop: marginTop,
       }}
-      variant="contained"
+      variant={variant}
       onClick={onClick}
     >
       {children}
