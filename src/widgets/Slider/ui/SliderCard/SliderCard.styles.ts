@@ -21,6 +21,9 @@ export const SliderContent = styled('div')`
     max-width: 60%;
     margin: 0 auto;
   }
+  @media (max-width: 374px) {
+    min-width: 220px;
+  }
 `;
 
 export const SliderCardInfo = styled('div')`
