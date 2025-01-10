@@ -3,9 +3,9 @@ import {
   InputTitle,
   StyledButton,
   StyledInput,
-  Title,
   useAppSelector,
   useAppDispatch,
+  UppercaseTitle,
 } from 'shared/lib';
 import { ButtonWrapper, InputColumn, InputWrapper, TextContainer } from './RegistrationForm.styles';
 import { setUserData } from 'features/Registration/model/RegistrationSlice';
@@ -179,7 +179,7 @@ export const RegistrationForm = () => {
 
   return (
     <RegistrationFormContainer>
-      <Title>Регистрация</Title>
+      <UppercaseTitle>Регистрация</UppercaseTitle>
       <form onSubmit={handleSubmit}>
         <InputWrapper>
           <InputColumn>

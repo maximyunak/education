@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'shared/lib';
+import { UppercaseTitle, useAppDispatch, useAppSelector } from 'shared/lib';
 import { RootState } from 'app/store';
 import { setLoginData } from '../../models/LoginSlice';
 import {
@@ -18,7 +18,7 @@ import Visibility from '@mui/icons-material/Visibility';
 
 import { LoginWithSocial } from '../Buttons/LoginWithSocial';
 import { googleIcon, vkIcon, yandexIcon } from 'shared/assets';
-import { InputTitle, StyledButton, StyledInput, Title } from 'shared/lib';
+import { InputTitle, StyledButton, StyledInput } from 'shared/lib';
 import { useState } from 'react';
 
 interface ValidationErrors {
@@ -110,7 +110,7 @@ export const LoginForm = () => {
 
   return (
     <div style={{ maxWidth: '400px', width: '100%' }}>
-      <Title>Вход</Title>
+      <UppercaseTitle>Вход</UppercaseTitle>
       <Form onSubmit={handleSubmit}>
         <TextContainer>
           <InputTitle>Электронная почта</InputTitle>

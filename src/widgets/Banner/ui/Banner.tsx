@@ -41,8 +41,8 @@ export const Banner: React.FC<BannerProps> = ({ title, subtitle, info, image, bu
       <ImageContainer>
         <img src={image} alt="stonks" />
         <InfoContainer>
-          {info.map((item) => (
-            <InfoItem key={item.title}>
+          {info.map((item, index) => (
+            <InfoItem key={`${item.title}--${index}`}>
               <BannerTitle>{item.title}</BannerTitle>
               <HelpText>{item.subtitle}</HelpText>
             </InfoItem>
