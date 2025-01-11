@@ -17,19 +17,19 @@ export const slides = [
   },
   {
     image: LawyerImage,
-    title: 'Юриспруденция',
+    title: 'Экономика',
     description: 'Педагог высшего образования по программам подготовки кадров высшей квалификации',
     academicHours: '250',
   },
   {
     image: EducationImage,
-    title: 'Педагогика',
+    title: 'Психология',
     description: 'Педагог высшего образования по программам подготовки кадров высшей квалификации',
     academicHours: '250',
   },
   {
     image: BioTechImage,
-    title: 'Медицина',
+    title: 'Бизнес',
     description: 'Педагог высшего образования по программам подготовки кадров высшей квалификации',
     academicHours: '250',
   },
@@ -41,7 +41,6 @@ export const slides = [
     academicHours: '250',
   },
 ];
-
 export const tabs = [
   'Все курсы',
   'Педагогика',
