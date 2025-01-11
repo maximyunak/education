@@ -5,7 +5,7 @@ import { Title } from 'shared/lib/ui/Title';
 
 import { bannerInfo, slides, tabs } from '../consts/consts';
 import { Slider } from 'widgets/Slider';
-import { MyTabs } from 'widgets/Tabs/ui/Tabs';
+import { MyTabs } from 'widgets/Tabs';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
