@@ -1,4 +1,4 @@
-import { Avatar, Drawer } from '@mui/material';
+import { Avatar, Drawer, useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Logo } from 'shared/assets/images';
 import {
@@ -10,6 +10,8 @@ import {
   ProfileContainer,
   Text,
   PhoneBlock,
+  HeaderBase,
+  Menu,
 } from './Header.styles';
 import { Button } from '@mui/material';
 
@@ -20,16 +22,14 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ExAva from './exAva.png';
 import { useState } from 'react';
 
-export const Header = () => {
-  const [open, setOpen] = useState(false);
-
+const HeaderUi = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
         <LogoBlock>
           <img src={Logo} alt="logo" />
           <Link to="/courses">
-            <Button sx={{ textTransform: 'none' }} variant="outlined" onClick={() => setOpen(true)}>
+            <Button sx={{ textTransform: 'none' }} variant="outlined">
               Все курсы
             </Button>
           </Link>
@@ -57,14 +57,43 @@ export const Header = () => {
           <PhoneIcon />
           <Text>+7 (999) 999-99-99</Text>
         </PhoneBlock>
+        <NotificationsNoneOutlinedIcon
+          sx={{ marginRight: 1, '@media (max-width: 970px)': { display: 'none' } }}
+        />
         <ProfileBlock>
-          <NotificationsNoneOutlinedIcon sx={{ marginRight: 2 }} />
           <Avatar alt="avatar" src={ExAva} />
           <Text>Федоров Сергей</Text>
           <KeyboardArrowDownIcon />
         </ProfileBlock>
       </ProfileContainer>
     </HeaderContainer>
+  );
+};
+
+export const Header = () => {
+  const [open, setOpen] = useState(false);
+  const width = useMediaQuery('(max-width: 970px)');
+
+  return (
+    <div>
+      {width ? (
+        <HeaderBase>
+          <img src={Logo} alt="logo" />
+          {/* <MenuIcon onClick={() => setOpen(true)} /> */}
+          <Menu className={open ? 'open' : ''} onClick={() => setOpen(true)}>
+            <span />
+            <span />
+            <span />
+          </Menu>
+        </HeaderBase>
+      ) : (
+        <HeaderUi />
+      )}
+
+      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+        <HeaderUi />
+      </Drawer>
+    </div>
   );
 };
 {

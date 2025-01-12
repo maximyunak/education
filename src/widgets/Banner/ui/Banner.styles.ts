@@ -5,10 +5,13 @@ export const BannerContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 800px;
+  height: 700px;
   gap: 20px;
   padding-bottom: 140px;
   position: relative;
+  @media (max-width: 1200px) {
+    height: 600px;
+  }
   @media (max-width: 970px) {
     flex-direction: column;
     height: auto;
