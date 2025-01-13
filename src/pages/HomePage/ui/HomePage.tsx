@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Banner } from 'widgets/Banner';
-import { HomeTabsContainer, TabsWrapper } from './Home.styles';
+import { AdvantagesContainer, HomeTabsContainer, TabsWrapper } from './Home.styles';
 import { Title } from 'shared/lib/ui/Title';
 
 import { bannerInfo, slides, tabs } from '../consts/consts';
 import { Slider } from 'widgets/Slider';
 import { MyTabs } from 'widgets/Tabs';
+import { Container } from 'app/layout';
+import { Adwantages } from 'widgets/Adwantages';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -24,16 +26,26 @@ export const HomePage = () => {
   return (
     <div style={{ marginBottom: '100px' }}>
       {/* // ! banner section */}
-      <Banner {...bannerInfo} />
+      <Container>
+        <Banner {...bannerInfo} />
+      </Container>
       {/* // ! tabs section */}
-      <HomeTabsContainer>
-        <Title>Найди то, что тебе нужно</Title>
-        <TabsWrapper>
-          <MyTabs tabs={tabs} selectedTab={selectedTab} handleTabChange={handleTabChange} />
-        </TabsWrapper>
-      </HomeTabsContainer>
-      {/* // ! slider section */}
-      <Slider slides={sliderData} key={selectedTab} />
+      <Container>
+        <HomeTabsContainer>
+          <Title>Найди то, что тебе нужно</Title>
+          <TabsWrapper>
+            <MyTabs tabs={tabs} selectedTab={selectedTab} handleTabChange={handleTabChange} />
+          </TabsWrapper>
+        </HomeTabsContainer>
+        {/* // ! slider section */}
+        <Slider slides={sliderData} key={selectedTab} />
+      </Container>
+      <AdvantagesContainer>
+        <Container>
+          <Title>Преимущества УДПО</Title>
+          <Adwantages />
+        </Container>
+      </AdvantagesContainer>
     </div>
   );
 };

@@ -46,3 +46,18 @@ export const TabsWrapper = styled('div')`
   -ms-overflow-style: none;
   scrollbar-width: none;
 `;
+
+export const AdvantagesContainer = styled('div')`
+  background-color: #f6f8f9;
+  margin-top: 100px;
+  padding: 120px 0;
+
+  @media (max-width: 1180px) {
+    padding: 80px 0;
+    margin-top: 80px;
+  }
+  @media (max-width: 800px) {
+    padding: 60px 0;
+    margin-top: 20px;
+  }
+`;
