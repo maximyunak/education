@@ -34,6 +34,7 @@ export const LoginForm = () => {
     email: '',
     password: '',
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,7 +70,11 @@ export const LoginForm = () => {
   const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     dispatch(setLoginData({ [field]: value }));
-    validateField(field, value);
+
+    // Проверяем ошибки только если форма уже была отправлена
+    if (isSubmitted) {
+      validateField(field, value);
+    }
   };
 
   const validateForm = (): boolean => {
@@ -80,6 +85,7 @@ export const LoginForm = () => {
 
     let isValid = true;
 
+    // Проверка email
     if (!userData.email) {
       newErrors.email = 'Введите email';
       isValid = false;
@@ -88,6 +94,7 @@ export const LoginForm = () => {
       isValid = false;
     }
 
+    // Проверка пароля
     if (!userData.password) {
       newErrors.password = 'Введите пароль';
       isValid = false;
@@ -102,6 +109,7 @@ export const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitted(true); // Устанавливаем флаг, что форма была отправлена
     if (validateForm()) {
       console.log('Form is valid', userData);
       // Здесь будет логика отправки формы
@@ -119,7 +127,7 @@ export const LoginForm = () => {
             type="email"
             value={userData.email}
             onChange={handleChange('email')}
-            error={!!errors.email}
+            error={isSubmitted && !!errors.email}
             errorMessage={errors.email}
           />
         </TextContainer>
@@ -130,7 +138,7 @@ export const LoginForm = () => {
             type={showPassword ? 'text' : 'password'}
             value={userData.password}
             onChange={handleChange('password')}
-            error={!!errors.password}
+            error={isSubmitted && !!errors.password}
             errorMessage={errors.password}
             endAdornment={
               <InputAdornment position="end" sx={{ marginRight: '5px' }}>

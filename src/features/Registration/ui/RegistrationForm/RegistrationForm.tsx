@@ -37,6 +37,7 @@ export const RegistrationForm = () => {
     phone: '',
     password: '',
   });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -86,14 +87,9 @@ export const RegistrationForm = () => {
     const value = event.target.value;
 
     if (field === 'phone') {
-      // Убираем все нецифровые символы
       const numbersOnly = value.replace(/\D/g, '');
-
-      // Ограничиваем длину до 11 цифр
       if (numbersOnly.length <= 11) {
         let formattedPhone = '';
-
-        // Форматируем номер телефона
         if (numbersOnly.length > 0) {
           formattedPhone = '+7 ';
           if (numbersOnly.length > 1) {
@@ -109,15 +105,18 @@ export const RegistrationForm = () => {
             formattedPhone += `-${numbersOnly.slice(9, 11)}`;
           }
         }
-
         dispatch(setUserData({ [field]: formattedPhone }));
-        validateField(field, formattedPhone);
+        if (isSubmitted) {
+          validateField(field, formattedPhone);
+        }
       }
       return;
     }
 
     dispatch(setUserData({ [field]: value }));
-    validateField(field, value);
+    if (isSubmitted) {
+      validateField(field, value);
+    }
   };
 
   const validateForm = (): boolean => {
@@ -171,6 +170,7 @@ export const RegistrationForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitted(true);
     if (validateForm()) {
       console.log('Form is valid', userData);
       // Здесь будет логика отправки формы
@@ -189,8 +189,8 @@ export const RegistrationForm = () => {
                 placeholder="Фамилия"
                 value={userData.lastName}
                 onChange={handleChange('lastName')}
-                error={!!errors.lastName}
-                errorMessage={errors.lastName}
+                error={isSubmitted && !!errors.lastName}
+                errorMessage={isSubmitted ? errors.lastName : ''}
               />
             </TextContainer>
 
@@ -200,8 +200,8 @@ export const RegistrationForm = () => {
                 placeholder="Имя"
                 value={userData.firstName}
                 onChange={handleChange('firstName')}
-                error={!!errors.firstName}
-                errorMessage={errors.firstName}
+                error={isSubmitted && !!errors.firstName}
+                errorMessage={isSubmitted ? errors.firstName : ''}
               />
             </TextContainer>
 
@@ -223,8 +223,8 @@ export const RegistrationForm = () => {
                 type="email"
                 value={userData.email}
                 onChange={handleChange('email')}
-                error={!!errors.email}
-                errorMessage={errors.email}
+                error={isSubmitted && !!errors.email}
+                errorMessage={isSubmitted ? errors.email : ''}
               />
             </TextContainer>
 
@@ -235,8 +235,8 @@ export const RegistrationForm = () => {
                 type="tel"
                 value={userData.phone}
                 onChange={handleChange('phone')}
-                error={!!errors.phone}
-                errorMessage={errors.phone}
+                error={isSubmitted && !!errors.phone}
+                errorMessage={isSubmitted ? errors.phone : ''}
               />
             </TextContainer>
 
@@ -247,8 +247,8 @@ export const RegistrationForm = () => {
                 type={showPassword ? 'text' : 'password'}
                 value={userData.password}
                 onChange={handleChange('password')}
-                error={!!errors.password}
-                errorMessage={errors.password}
+                error={isSubmitted && !!errors.password}
+                errorMessage={isSubmitted ? errors.password : ''}
                 endAdornment={
                   <InputAdornment position="end" sx={{ marginRight: '5px' }}>
                     <IconButton

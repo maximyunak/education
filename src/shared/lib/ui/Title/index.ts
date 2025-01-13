@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 
-export const Title = styled.h1`
-  font-size: 32px;
-  text-transform: uppercase;
-  font-weight: 600;
-`;
+export const Title = styled('h1')({
+  fontSize: '32px',
+  textTransform: 'uppercase',
+  fontWeight: 600,
+});
