@@ -15,10 +15,10 @@ export const HomeTabsContainer = styled('div')`
     min-height: 48px;
     overflow-x: auto;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
 
     .MuiTabs-flexContainer {
-      justify-content: center;
+      /* justify-content: center; */
     }
 
     &::-webkit-scrollbar {
@@ -29,7 +29,7 @@ export const HomeTabsContainer = styled('div')`
   }
 
   .MuiTabs-scroller {
-    overflow: unset !important;
+    /* overflow: unset !important; */
   }
 `;
 

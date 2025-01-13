@@ -33,7 +33,7 @@ export const MyTabs: FC<TabsProps> = ({ tabs, selectedTab, handleTabChange }) =>
           key={tab}
           label={tab}
           sx={{
-            minWidth: 'unset',
+            // minWidth: 'unset',
             padding: '12px 24px',
             whiteSpace: 'nowrap',
             textTransform: 'none',
