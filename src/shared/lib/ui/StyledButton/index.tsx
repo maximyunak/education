@@ -7,6 +7,7 @@ interface StyledButtonProps {
   marginTop?: string;
   type?: 'button' | 'submit' | 'reset';
   variant?: 'contained' | 'outlined';
+  maxWidth?: string;
 }
 
 export const StyledButton: FC<StyledButtonProps> = ({
@@ -15,6 +16,7 @@ export const StyledButton: FC<StyledButtonProps> = ({
   marginTop,
   type,
   variant = 'contained',
+  maxWidth,
 }) => {
   return (
     <Button
@@ -27,6 +29,14 @@ export const StyledButton: FC<StyledButtonProps> = ({
         fontWeight: '500',
         borderRadius: '10px',
         marginTop: marginTop,
+        maxWidth: maxWidth,
+        '@media (max-width: 800px)': {
+          maxWidth: '160px',
+          fontSize: '14px',
+        },
+        '@media (max-width: 620px)': {
+          height: '40px',
+        },
       }}
       variant={variant}
       onClick={onClick}

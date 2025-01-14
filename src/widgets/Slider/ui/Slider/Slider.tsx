@@ -15,13 +15,14 @@ import {
 } from './Slider.styles';
 
 import 'swiper/css';
-import './style.css';
+// import './style.css';
 
 import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import NavigateBeforeOutlinedIcon from '@mui/icons-material/NavigateBeforeOutlined';
 import { SliderCard } from '../SliderCard/SliderCard';
 
 interface SliderProps {
+  currentKey: string;
   slides: {
     image: string;
     title: string;
@@ -30,7 +31,7 @@ interface SliderProps {
   }[];
 }
 
-export const Slider: FC<SliderProps> = ({ slides }) => {
+export const Slider: FC<SliderProps> = ({ slides, currentKey }) => {
   return (
     <div>
       <SliderContainer>
@@ -38,9 +39,10 @@ export const Slider: FC<SliderProps> = ({ slides }) => {
           modules={[Pagination, Navigation, Mousewheel]}
           spaceBetween={20}
           slidesPerView={1}
-          slidesPerGroup={2}
           pagination={{
-            el: '#swiper-pagination',
+            el: `#${currentKey}`,
+            clickable: true,
+            type: 'bullets',
           }}
           navigation={{
             nextEl: '#next',
@@ -52,7 +54,7 @@ export const Slider: FC<SliderProps> = ({ slides }) => {
               slidesPerView: 3,
               spaceBetween: 30,
             },
-            540: {
+            539: {
               slidesPerView: 2,
               spaceBetween: 20,
             },
@@ -64,15 +66,17 @@ export const Slider: FC<SliderProps> = ({ slides }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <SliderControls>
-          <Button id="prev" variant="outlined" sx={prevButton}>
-            <NavigateBeforeOutlinedIcon sx={swiperButtons} />
-          </Button>
-          <SwiperPagination id="swiper-pagination"></SwiperPagination>
-          <Button id="next" variant="outlined" sx={nextButton}>
-            <NavigateNextOutlinedIcon sx={swiperButtons} />
-          </Button>
-        </SliderControls>
+        {slides.length > 3 && (
+          <SliderControls>
+            <Button id="prev" variant="outlined" sx={prevButton}>
+              <NavigateBeforeOutlinedIcon sx={swiperButtons} />
+            </Button>
+            <SwiperPagination id={currentKey}></SwiperPagination>
+            <Button id="next" variant="outlined" sx={nextButton}>
+              <NavigateNextOutlinedIcon sx={swiperButtons} />
+            </Button>
+          </SliderControls>
+        )}
       </SliderContainer>
     </div>
   );

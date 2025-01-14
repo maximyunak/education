@@ -5,6 +5,13 @@ export const SliderControls = styled('div')`
   justify-content: center;
   gap: 20px;
   margin-top: 60px;
+
+  @media (max-width: 800px) {
+    margin-top: 40px;
+  }
+  @media (max-width: 620px) {
+    margin-top: 20px;
+  }
 `;
 
 export const SwiperPagination = styled('div')`
@@ -12,8 +19,31 @@ export const SwiperPagination = styled('div')`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  @media (max-width: 540px) {
-    display: none;
+  span {
+    background-color: #e5e5e5;
+    width: 13px;
+    height: 13px;
+    display: block;
+    border-radius: 50%;
+
+    &.swiper-pagination-bullet-active {
+      background-color: #000000;
+    }
+
+    @media (max-width: 800px) {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  @media (max-width: 800px) {
+    gap: 10px;
+    span {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  @media (max-width: 620px) {
+    /* display: none; */
   }
 `;
 

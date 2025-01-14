@@ -5,8 +5,24 @@ export const HomeContainer = styled('div')`
   flex-direction: column;
 `;
 
+export const Section = styled('section')`
+  padding: 120px 0;
+  &.bg-blue {
+    background-color: #f6f8f9;
+  }
+  @media (max-width: 1180px) {
+    padding: 80px 0;
+  }
+  @media (max-width: 800px) {
+    padding: 60px 0;
+  }
+  @media (max-width: 620px) {
+    padding: 40px 0;
+  }
+`;
+
 export const HomeTabsContainer = styled('div')`
-  margin-top: 60px;
+  /* margin-top: 60px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,10 +43,6 @@ export const HomeTabsContainer = styled('div')`
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
-  .MuiTabs-scroller {
-    /* overflow: unset !important; */
-  }
 `;
 
 export const TabsWrapper = styled('div')`
@@ -49,15 +61,32 @@ export const TabsWrapper = styled('div')`
 
 export const AdvantagesContainer = styled('div')`
   background-color: #f6f8f9;
-  margin-top: 100px;
-  padding: 120px 0;
-
-  @media (max-width: 1180px) {
-    padding: 80px 0;
-    margin-top: 80px;
+`;
+export const FlexBetween = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  p {
+    max-width: 570px;
+    font-size: 20px;
+    @media (max-width: 800px) {
+      max-width: 400px;
+      font-size: 14px;
+    }
+    @media (max-width: 620px) {
+      max-width: 320px;
+      letter-spacing: 0.01em;
+    }
   }
   @media (max-width: 800px) {
-    padding: 60px 0;
     margin-top: 20px;
   }
+  @media (max-width: 540px) {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
 `;
+
+export const LowPriceContainer = styled('div')``;
