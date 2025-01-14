@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { Banner } from 'widgets/Banner';
-import { ButtonMobile, FlexBetween, HomeTabsContainer, Section, TabsWrapper } from './Home.styles';
+import {
+  ButtonMobile,
+  CompanyPayTextWrapper,
+  CompanyPayContainer,
+  FlexBetween,
+  HomeTabsContainer,
+  Section,
+  TabsWrapper,
+} from './Home.styles';
 import { Title } from 'shared/lib/ui/Title';
 
 import { bannerInfo, slides, tabs } from '../consts/consts';
@@ -10,6 +18,8 @@ import { Container } from 'app/layout';
 import { Adwantages } from 'widgets/Adwantages';
 import { StyledButton } from 'shared/lib/ui/StyledButton';
 import { Formalities } from 'widgets/Formalities';
+import { Text20 } from 'shared/lib/ui/Text';
+import { CompanyPayImage } from 'shared/assets/images';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -89,6 +99,22 @@ export const HomePage = () => {
           <ButtonMobile>
             <StyledButton maxWidth="180px">Смотреть больше</StyledButton>
           </ButtonMobile>
+        </Container>
+      </Section>
+
+      <Section className="bg-blue">
+        <Container>
+          <CompanyPayContainer>
+            <CompanyPayTextWrapper>
+              <Title>Обучение за счёт вашей компании.</Title>
+              <Text20>
+                У нас действует 2 вида договора на обучение. По одному вы оплачиваете сами. А второй
+                предлагает оплатить обучение за счёт вашей компании.
+              </Text20>
+              <StyledButton maxWidth="180px">Выбрать курс</StyledButton>
+            </CompanyPayTextWrapper>
+            <img src={CompanyPayImage} alt="companyPay" />
+          </CompanyPayContainer>
         </Container>
       </Section>
     </div>

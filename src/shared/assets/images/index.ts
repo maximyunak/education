@@ -6,5 +6,6 @@ export { default as LawyerImage } from './document-flow.png';
 export { default as Logo } from './logo.svg';
 
 export { default as FormalityImage } from './formality.png';
+export { default as CompanyPayImage } from './companyPay.png';
 
 export * from './advantages';

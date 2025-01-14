@@ -17,7 +17,7 @@ export const Text17 = styled('p')({
 export const Text20 = styled('p')({
   fontSize: '20px',
   lineHeight: '28px',
-  fontWeight: 600,
+  fontWeight: 400,
   '@media (max-width: 1250px)': {
     fontSize: '18px',
   },
@@ -28,4 +28,8 @@ export const Text20 = styled('p')({
   '@media (max-width: 550px)': {
     fontSize: '15px',
   },
+});
+
+export const Text20Bold = styled(Text20)({
+  fontWeight: 600,
 });

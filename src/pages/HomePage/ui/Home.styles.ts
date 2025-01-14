@@ -101,4 +101,45 @@ export const ButtonMobile = styled('div')`
   }
 `;
 
-export const LowPriceContainer = styled('div')``;
+export const CompanyPayContainer = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  @media (max-width: 1000px) {
+    img {
+      width: 45vw;
+    }
+  }
+  @media (max-width: 750px) {
+    flex-direction: column;
+    align-items: center;
+    img {
+      width: 80vw;
+      margin-top: 6vw;
+    }
+  }
+`;
+
+export const CompanyPayTextWrapper = styled('div')`
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+
+  p {
+    margin-top: 40px;
+  }
+  button {
+    margin-top: 60px;
+  }
+  @media (max-width: 1000px) {
+    max-width: 460px;
+    p {
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 40px;
+    }
+  }
+  @media (max-width: 750px) {
+    align-items: center;
+  }
+`;
