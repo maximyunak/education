@@ -42,8 +42,8 @@ export const SwiperPagination = styled('div')`
       height: 8px;
     }
   }
-  @media (max-width: 620px) {
-    /* display: none; */
+  @media (max-width: 540px) {
+    display: none;
   }
 `;
 

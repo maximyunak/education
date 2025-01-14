@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Banner } from 'widgets/Banner';
-import { FlexBetween, HomeTabsContainer, Section, TabsWrapper } from './Home.styles';
+import { ButtonMobile, FlexBetween, HomeTabsContainer, Section, TabsWrapper } from './Home.styles';
 import { Title } from 'shared/lib/ui/Title';
 
 import { bannerInfo, slides, tabs } from '../consts/consts';
@@ -9,6 +9,7 @@ import { MyTabs } from 'widgets/Tabs';
 import { Container } from 'app/layout';
 import { Adwantages } from 'widgets/Adwantages';
 import { StyledButton } from 'shared/lib/ui/StyledButton';
+import { Formalities } from 'widgets/Formalities';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -62,9 +63,22 @@ export const HomePage = () => {
             <StyledButton maxWidth="180px">Смотреть больше</StyledButton>
           </FlexBetween>
           <Slider slides={slides} key={'LowPriceSlider'} currentKey={'LowPriceSlider'} />
+          <ButtonMobile>
+            <StyledButton maxWidth="180px">Смотреть больше</StyledButton>
+          </ButtonMobile>
         </Container>
       </Section>
-      {/* // ! Examples */}
+
+      {/* // ! Formalities */}
+
+      <Section className="bg-blue">
+        <Container>
+          <Title>Мы уладили все формальности</Title>
+          <Formalities />
+        </Container>
+      </Section>
+
+      {/* // ! Popular programs */}
       <Section>
         <Container>
           <FlexBetween>
@@ -72,6 +86,9 @@ export const HomePage = () => {
             <StyledButton maxWidth="180px">Смотреть больше</StyledButton>
           </FlexBetween>
           <Slider slides={slides} key={'PopularSlider'} currentKey={'PopularSlider'} />
+          <ButtonMobile>
+            <StyledButton maxWidth="180px">Смотреть больше</StyledButton>
+          </ButtonMobile>
         </Container>
       </Section>
     </div>

@@ -39,24 +39,27 @@ export const Slider: FC<SliderProps> = ({ slides, currentKey }) => {
           modules={[Pagination, Navigation, Mousewheel]}
           spaceBetween={20}
           slidesPerView={1}
+          slidesPerGroup={1}
           pagination={{
             el: `#${currentKey}`,
             clickable: true,
             type: 'bullets',
           }}
           navigation={{
-            nextEl: '#next',
-            prevEl: '#prev',
+            nextEl: `#${currentKey}-next`,
+            prevEl: `#${currentKey}-prev`,
           }}
           loop={true}
           breakpoints={{
             780: {
               slidesPerView: 3,
               spaceBetween: 30,
+              slidesPerGroup: 3,
             },
             539: {
               slidesPerView: 2,
               spaceBetween: 20,
+              slidesPerGroup: 2,
             },
           }}
         >
@@ -68,11 +71,11 @@ export const Slider: FC<SliderProps> = ({ slides, currentKey }) => {
         </Swiper>
         {slides.length > 3 && (
           <SliderControls>
-            <Button id="prev" variant="outlined" sx={prevButton}>
+            <Button id={`${currentKey}-prev`} variant="outlined" sx={prevButton}>
               <NavigateBeforeOutlinedIcon sx={swiperButtons} />
             </Button>
             <SwiperPagination id={currentKey}></SwiperPagination>
-            <Button id="next" variant="outlined" sx={nextButton}>
+            <Button id={`${currentKey}-next`} variant="outlined" sx={nextButton}>
               <NavigateNextOutlinedIcon sx={swiperButtons} />
             </Button>
           </SliderControls>

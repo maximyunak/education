@@ -9,6 +9,9 @@ export const Title = styled.h1`
   @media (max-width: 375px) {
     font-size: 20px;
   }
+  @media (max-width: 340px) {
+    font-size: 18px;
+  }
 `;
 export const UppercaseTitle = styled(Title)`
   text-transform: uppercase;

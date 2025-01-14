@@ -86,6 +86,18 @@ export const FlexBetween = styled('div')`
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
+    button {
+      display: none;
+    }
+  }
+`;
+
+export const ButtonMobile = styled('div')`
+  display: none;
+  @media (max-width: 540px) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 `;
 

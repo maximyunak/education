@@ -37,6 +37,9 @@ export const StyledButton: FC<StyledButtonProps> = ({
         '@media (max-width: 620px)': {
           height: '40px',
         },
+        '@media (max-width: 450px)': {
+          height: '35px',
+        },
       }}
       variant={variant}
       onClick={onClick}
