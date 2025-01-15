@@ -15,7 +15,6 @@ import {
 } from './Slider.styles';
 
 import 'swiper/css';
-// import './style.css';
 
 import NavigateNextOutlinedIcon from '@mui/icons-material/NavigateNextOutlined';
 import NavigateBeforeOutlinedIcon from '@mui/icons-material/NavigateBeforeOutlined';

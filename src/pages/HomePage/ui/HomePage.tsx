@@ -8,6 +8,9 @@ import {
   HomeTabsContainer,
   Section,
   TabsWrapper,
+  ManagerCardContainer,
+  ManagerTextContainer,
+  SwiperPagination,
 } from './Home.styles';
 import { Title } from 'shared/lib/ui/Title';
 
@@ -20,6 +23,10 @@ import { StyledButton } from 'shared/lib/ui/StyledButton';
 import { Formalities } from 'widgets/Formalities';
 import { Text20 } from 'shared/lib/ui/Text';
 import { CompanyPayImage } from 'shared/assets/images';
+import { ManagerCard } from 'widgets/ManagerCard';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -78,9 +85,7 @@ export const HomePage = () => {
           </ButtonMobile>
         </Container>
       </Section>
-
       {/* // ! Formalities */}
-
       <Section className="bg-blue">
         <Container>
           <Title>Мы уладили все формальности</Title>
@@ -115,6 +120,55 @@ export const HomePage = () => {
             </CompanyPayTextWrapper>
             <img src={CompanyPayImage} alt="companyPay" />
           </CompanyPayContainer>
+        </Container>
+      </Section>
+      {/* // ! our managers */}
+      <Section>
+        <Container>
+          <ManagerTextContainer>
+            <Title>Наши менеджеры</Title>
+            <Text20>На сайте работают менеджеры, которым вы можете задать свои вопросы.</Text20>
+          </ManagerTextContainer>
+          <ManagerCardContainer>
+            <Swiper
+              modules={[Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              pagination={{
+                clickable: true,
+                el: '#manager-slider',
+              }}
+              // navigation
+              breakpoints={{
+                920: {
+                  slidesPerView: 3,
+                },
+                560: {
+                  slidesPerView: 2,
+                },
+              }}
+            >
+              <SwiperSlide>
+                <ManagerCard
+                  name="John Doe"
+                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum inventore sunt cumque illum fugit exercitationem, illo consectetur facere in rem."
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ManagerCard
+                  name="John Doe"
+                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum inventore sunt cumque illum fugit exercitationem, illo consectetur facere in rem."
+                />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ManagerCard
+                  name="John Doe"
+                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum inventore sunt cumque illum fugit exercitationem, illo consectetur facere in rem."
+                />
+              </SwiperSlide>
+            </Swiper>
+          </ManagerCardContainer>
+            <SwiperPagination id="manager-slider" />
         </Container>
       </Section>
     </div>

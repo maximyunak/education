@@ -143,3 +143,66 @@ export const CompanyPayTextWrapper = styled('div')`
     align-items: center;
   }
 `;
+
+export const ManagerCardContainer = styled('div')`
+  margin-top: 90px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  @media (max-width: 920px) {
+    margin-top: 60px;
+  }
+  @media (max-width: 560px) {
+    margin-top: 40px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
+
+export const ManagerTextContainer = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 30px;
+  p {
+    max-width: 560px;
+    @media (max-width: 1000px) {
+      max-width: 460px;
+    }
+  }
+`;
+
+export const SwiperPagination = styled('div')`
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  span {
+    background-color: #e5e5e5;
+    width: 13px;
+    height: 13px;
+    display: block;
+    border-radius: 50%;
+
+    &.swiper-pagination-bullet-active {
+      background-color: #000000;
+    }
+
+    @media (max-width: 800px) {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  @media (max-width: 920px) {
+    display: flex;
+  }
+  @media (max-width: 800px) {
+    gap: 10px;
+    span {
+      width: 8px;
+      height: 8px;
+    }
+  }
+`;
