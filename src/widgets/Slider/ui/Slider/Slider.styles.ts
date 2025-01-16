@@ -12,6 +12,11 @@ export const SliderControls = styled('div')`
   @media (max-width: 620px) {
     margin-top: 20px;
   }
+  @media (max-width: 450px) {
+    button {
+      display: none;
+    }
+  }
 `;
 
 export const SwiperPagination = styled('div')`
@@ -41,9 +46,6 @@ export const SwiperPagination = styled('div')`
       width: 8px;
       height: 8px;
     }
-  }
-  @media (max-width: 540px) {
-    display: none;
   }
 `;
 

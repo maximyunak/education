@@ -22,8 +22,25 @@ export const ManagerCard: FC<ManagerCardProps> = ({ name, description, image }) 
   return (
     <CardContainer>
       {/* <CardImage src={image || exampleImage} alt="example" /> */}
-      <Avatar src={image} alt="example" sx={{ width: 140, height: 140, marginTop: '0px' }}>
-        {!image && <PersonIcon sx={{ width: 100, height: 100 }} />}
+      <Avatar
+        src={image}
+        alt="example"
+        sx={{
+          width: 140,
+          height: 140,
+          marginTop: '0px',
+          '@media (max-width: 920px)': { width: 80, height: 80 },
+        }}
+      >
+        {!image && (
+          <PersonIcon
+            sx={{
+              width: 100,
+              height: 100,
+              '@media (max-width: 920px)': { width: 50, height: 50 },
+            }}
+          />
+        )}
       </Avatar>
       <TextContainer>
         <Text20Bold>{name}</Text20Bold>

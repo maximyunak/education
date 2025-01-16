@@ -95,6 +95,7 @@ export const FlexBetween = styled('div')`
 export const ButtonMobile = styled('div')`
   display: none;
   @media (max-width: 540px) {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -172,7 +173,6 @@ export const ManagerTextContainer = styled('div')`
     }
   }
 `;
-
 
 export const SwiperPagination = styled('div')`
   display: none;

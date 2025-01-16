@@ -22,7 +22,13 @@ export const SliderContent = styled('div')`
     margin: 0 auto;
   }
   @media (max-width: 374px) {
-    min-width: 220px;
+    /* min-width: 220px; */
+    max-width: 100%;
+  }
+  @media (max-width: 450px) {
+    button {
+      display: none;
+    }
   }
 `;
 
