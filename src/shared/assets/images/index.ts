@@ -9,3 +9,6 @@ export { default as FormalityImage } from './formality.png';
 export { default as CompanyPayImage } from './companyPay.png';
 
 export * from './advantages';
+
+export { default as blogImage } from './blogimage.png';
+export { default as exampleAvatar } from './exampleAvatar.png';

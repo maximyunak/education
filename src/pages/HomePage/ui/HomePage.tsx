@@ -14,19 +14,21 @@ import {
 } from './Home.styles';
 import { Title } from 'shared/lib/ui/Title';
 
-import { bannerInfo, slides, tabs } from '../consts/consts';
+import { bannerInfo, blogSlider, slides, tabs } from '../consts/consts';
 import { Slider } from 'widgets/Slider';
 import { MyTabs } from 'widgets/Tabs';
 import { Container } from 'app/layout';
 import { Adwantages } from 'widgets/Adwantages';
 import { StyledButton } from 'shared/lib/ui/StyledButton';
 import { Formalities } from 'widgets/Formalities';
-import { Text20 } from 'shared/lib/ui/Text';
+import { Text17, Text20, Text20Bold } from 'shared/lib/ui/Text';
 import { CompanyPayImage } from 'shared/assets/images';
 import { ManagerCard } from 'widgets/ManagerCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
+import { AccordionDetails, AccordionSummary, Accordion } from '@mui/material';
+import { BlogSlider } from 'widgets/BlogSlider';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -92,7 +94,6 @@ export const HomePage = () => {
           <Formalities />
         </Container>
       </Section>
-
       {/* // ! Popular programs */}
       <Section>
         <Container>
@@ -168,7 +169,67 @@ export const HomePage = () => {
               </SwiperSlide>
             </Swiper>
           </ManagerCardContainer>
-            <SwiperPagination id="manager-slider" />
+          <SwiperPagination id="manager-slider" />
+        </Container>
+      </Section>
+      {/* // ! BlogSlider */}
+      <Section>
+        <Container>
+          <FlexBetween>
+            <Title>Наш блог</Title>
+            <StyledButton maxWidth="180px">Читать больше</StyledButton>
+          </FlexBetween>
+          <BlogSlider slides={blogSlider} />
+          <ButtonMobile>
+            <StyledButton maxWidth="180px">Читать больше</StyledButton>
+          </ButtonMobile>
+        </Container>
+      </Section>
+      {/* // ! Q&A */}
+      <Section>
+        <Container>
+          <Title>Вопросы и ответы</Title>
+
+          <Accordion
+            sx={{
+              borderTop: '2px solid #dee0e1',
+              borderBottom: '2px solid #dee0e1',
+              borderRadius: '0px !important',
+              boxShadow: 'none',
+            }}
+          >
+            <AccordionSummary id="panel1-header">
+              <Text20Bold>Где открывают визы</Text20Bold>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Text17>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
+                ex, sit amet blandit leo lobortis eget.
+              </Text17>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            sx={{
+              borderTop: '2px solid #dee0e1',
+              borderBottom: '2px solid #dee0e1',
+              borderRadius: '0px !important',
+              boxShadow: 'none',
+            }}
+          >
+            <AccordionSummary
+              // expandIcon={<ArrowDownwardIcon />}
+              // aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <Text20Bold>Где открывают визы</Text20Bold>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Text17>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus
+                ex, sit amet blandit leo lobortis eget.
+              </Text17>
+            </AccordionDetails>
+          </Accordion>
         </Container>
       </Section>
     </div>

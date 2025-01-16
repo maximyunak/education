@@ -68,17 +68,17 @@ export const Slider: FC<SliderProps> = ({ slides, currentKey }) => {
             </SwiperSlide>
           ))}
         </Swiper>
-        {slides.length > 3 && (
-          <SliderControls>
-            <Button id={`${currentKey}-prev`} variant="outlined" sx={prevButton}>
-              <NavigateBeforeOutlinedIcon sx={swiperButtons} />
-            </Button>
-            <SwiperPagination id={currentKey}></SwiperPagination>
-            <Button id={`${currentKey}-next`} variant="outlined" sx={nextButton}>
-              <NavigateNextOutlinedIcon sx={swiperButtons} />
-            </Button>
-          </SliderControls>
-        )}
+        {/* {slides.length > 3 && ( */}
+        <SliderControls>
+          <Button id={`${currentKey}-prev`} variant="outlined" sx={prevButton}>
+            <NavigateBeforeOutlinedIcon sx={swiperButtons} />
+          </Button>
+          <SwiperPagination id={currentKey}></SwiperPagination>
+          <Button id={`${currentKey}-next`} variant="outlined" sx={nextButton}>
+            <NavigateNextOutlinedIcon sx={swiperButtons} />
+          </Button>
+        </SliderControls>
+        {/* )} */}
       </SliderContainer>
     </div>
   );

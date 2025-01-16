@@ -147,7 +147,6 @@ export const CompanyPayTextWrapper = styled('div')`
 export const ManagerCardContainer = styled('div')`
   margin-top: 90px;
   margin-bottom: 30px;
-  padding-bottom: 30px;
   @media (max-width: 920px) {
     margin-top: 60px;
   }
@@ -173,6 +172,7 @@ export const ManagerTextContainer = styled('div')`
     }
   }
 `;
+
 
 export const SwiperPagination = styled('div')`
   display: none;

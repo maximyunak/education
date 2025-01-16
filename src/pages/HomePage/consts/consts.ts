@@ -1,4 +1,10 @@
-import { EducationImage, LawyerImage, stonksImage } from 'shared/assets/images';
+import {
+  blogImage,
+  exampleAvatar,
+  EducationImage,
+  LawyerImage,
+  stonksImage,
+} from 'shared/assets/images';
 
 import { BioTechImage } from 'shared/assets/images';
 
@@ -80,3 +86,46 @@ export const bannerInfo = {
     },
   ],
 };
+
+export const blogSlider = [
+  {
+    image: blogImage,
+    title:
+      'Как получить налоговый вычет за обучение: на что обратить внимание и стоит ли оформлять его через посредников',
+    avatar: exampleAvatar,
+    name: 'Александр Иванов',
+    date: '12.01.2025',
+    views: '123',
+    id: '1',
+  },
+  {
+    image: blogImage,
+    title:
+      'Как получить налоговый вычет за обучение: на что обратить внимание и стоит ли оформлять его через посредников',
+    avatar: exampleAvatar,
+    name: 'Александр Иванов',
+    date: '12.01.2025',
+    views: '123',
+    id: '2',
+  },
+  {
+    image: blogImage,
+    title:
+      'Как получить налоговый вычет за обучение: на что обратить внимание и стоит ли оформлять его через посредников',
+    avatar: exampleAvatar,
+    name: 'Александр Иванов',
+    date: '12.01.2025',
+    views: '123',
+    id: '3',
+  },
+  {
+    image: blogImage,
+    title:
+      'Как получить налоговый вычет за обучение: на что обратить внимание и стоит ли оформлять его через посредников',
+    avatar: exampleAvatar,
+    name: 'Александр Иванов',
+    date: '12.01.2025',
+    views: '123',
+    id: '4',
+  },
+];
