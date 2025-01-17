@@ -145,20 +145,6 @@ export const CompanyPayTextWrapper = styled('div')`
   }
 `;
 
-export const ManagerCardContainer = styled('div')`
-  margin-top: 90px;
-  margin-bottom: 30px;
-  @media (max-width: 920px) {
-    margin-top: 60px;
-  }
-  @media (max-width: 560px) {
-    margin-top: 40px;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-`;
-
 export const ManagerTextContainer = styled('div')`
   display: flex;
   justify-content: space-between;
