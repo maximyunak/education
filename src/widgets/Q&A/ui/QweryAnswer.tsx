@@ -38,6 +38,7 @@ export const QweryAnswer = () => {
       <AccordionItem>
         {accordionData1.map((el) => (
           <Accordion
+            key={`${el.id}-${mobile ? 'mobile' : 'desktop'}`}
             expanded={expanded === `panel${el.id}`}
             onChange={handleChangeFirstAccordion(`panel${el.id}`)}
             sx={{
@@ -81,6 +82,7 @@ export const QweryAnswer = () => {
       <AccordionItem>
         {accordionData2.map((el) => (
           <Accordion
+            key={`${el.id}-${mobile ? 'mobile' : 'desktop'}`}
             expanded={mobile ? expanded === `panel${el.id}` : expanded2 === `panel${el.id}`}
             onChange={
               mobile

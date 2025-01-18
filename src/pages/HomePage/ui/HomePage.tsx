@@ -26,6 +26,7 @@ import { BlogSlider } from 'widgets/BlogSlider';
 import { ExampleCourseSlider } from 'widgets/ExampleCourseSlider';
 import { ManagerSlider } from 'widgets/ManagerSlider';
 import { QweryAnswer } from 'widgets/Q&A';
+import { ScrollTop } from 'widgets/ScrollTop';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -43,7 +44,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <div style={{ display: 'none' }}>
+      <div style={{ display: 'block' }}>
         {/* // ! banner */}
         <Container>
           <Banner {...bannerInfo} />
@@ -160,6 +161,7 @@ export const HomePage = () => {
           <QweryAnswer />
         </Container>
       </Section>
+      <ScrollTop />
     </div>
   );
 };
