@@ -10,6 +10,7 @@ import {
   TabsWrapper,
   ManagerTextContainer,
   SwiperPagination,
+  FeedbackFormContainer,
 } from './Home.styles';
 import { Title } from 'shared/lib/ui/Title';
 
@@ -27,6 +28,7 @@ import { ExampleCourseSlider } from 'widgets/ExampleCourseSlider';
 import { ManagerSlider } from 'widgets/ManagerSlider';
 import { QweryAnswer } from 'widgets/Q&A';
 import { ScrollTop } from 'widgets/ScrollTop';
+import { FeedbackForm } from 'features/FeedbackForm';
 
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -44,7 +46,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <div style={{ display: 'block' }}>
+      <div style={{ display: 'none' }}>
         {/* // ! banner */}
         <Container>
           <Banner {...bannerInfo} />
@@ -157,10 +159,19 @@ export const HomePage = () => {
       <Section className="bg-blue">
         <Container>
           <Title>Вопросы и ответы</Title>
-
           <QweryAnswer />
         </Container>
       </Section>
+      {/* // ! FeedbackForm */}
+      <Section className="bg-blue">
+        <Container>
+          <FeedbackFormContainer>
+            <Title>Заполните форму обратной связи, если у вас остались вопросы</Title>
+            <FeedbackForm />
+          </FeedbackFormContainer>
+        </Container>
+      </Section>
+      {/* // ! ScrollTop */}
       <ScrollTop />
     </div>
   );

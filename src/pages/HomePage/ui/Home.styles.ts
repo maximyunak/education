@@ -192,3 +192,25 @@ export const SwiperPagination = styled('div')`
     }
   }
 `;
+
+export const FeedbackFormContainer = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  h1 {
+    max-width: 560px;
+  }
+  @media (min-width: 1180px) {
+    h1 {
+      font-size: 36px;
+    }
+  }
+  @media (max-width: 1180px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    h1 {
+      /* max-width: 700px; */
+      max-width: 100%;
+    }
+  }
+`;
