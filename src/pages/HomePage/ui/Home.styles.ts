@@ -209,8 +209,59 @@ export const FeedbackFormContainer = styled('div')`
     align-items: center;
     gap: 30px;
     h1 {
-      /* max-width: 700px; */
       max-width: 100%;
+    }
+  }
+`;
+
+export const LicenceContainer = styled('div')`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  img {
+    align-self: center;
+    width: clamp(20rem, 10.229rem + 18.61vw, 24.188rem); // 320px - 387px vw 840px - 1200px
+  }
+  @media (max-width: 820px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+
+    & > div {
+      & > div {
+        display: none;
+      }
+    }
+  }
+`;
+
+export const LicenseTextContainer = styled('div')`
+  max-width: clamp(28.125rem, 17.813rem + 19.64vw, 35rem); // 450px - 560px vw 840px - 1400px
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  & > div {
+    display: flex;
+    gap: 20px;
+  }
+`;
+
+export const MobileButtons = styled('div')`
+  display: none;
+  @media (max-width: 800px) {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  @media (max-width: 340px) {
+    flex-direction: column;
+    gap: 10px;
+    button {
+      max-width: 100% !important;
     }
   }
 `;

@@ -12,3 +12,5 @@ export * from './advantages';
 
 export { default as blogImage } from './blogimage.png';
 export { default as exampleAvatar } from './exampleAvatar.png';
+
+export { default as LicenceImage } from './licence.png';

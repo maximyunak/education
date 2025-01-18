@@ -48,7 +48,7 @@ export const Slider: FC<SliderProps> = ({ slides, currentKey }) => {
             nextEl: `#${currentKey}-next`,
             prevEl: `#${currentKey}-prev`,
           }}
-          loop={true}
+          loop={slides.length > 3}
           breakpoints={{
             780: {
               slidesPerView: 3,

@@ -24,14 +24,14 @@ export const Menu = styled('div')`
     background-color: #000;
     transition: all 0.3s ease;
   }
-  &.open span:nth-child(1) {
+  &.open span:nth-of-type(1) {
     transform: rotate(-45deg);
     margin-top: 14px;
   }
-  &.open span:nth-child(2) {
+  &.open span:nth-of-type(2) {
     opacity: 0;
   }
-  &.open span:nth-child(3) {
+  &.open span:nth-of-type(3) {
     transform: rotate(45deg);
     margin-top: -14px;
     margin-bottom: 14px;

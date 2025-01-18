@@ -40,17 +40,15 @@ export const BlogSlider: FC<BlogSliderProps> = ({ slides }) => {
           nextEl: `#blog-slider-next`,
           prevEl: `#blog-slider-prev`,
         }}
-        loop={true}
+        loop={slides.length > 3}
         breakpoints={{
           780: {
             slidesPerView: 3,
             spaceBetween: 30,
-            // slidesPerGroup: 3,
           },
           539: {
             slidesPerView: 2,
             spaceBetween: 20,
-            // slidesPerGroup: 2,
           },
         }}
       >

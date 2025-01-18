@@ -27,7 +27,7 @@ export const StyledButton: FC<StyledButtonProps> = ({
         fontSize: '16px',
         textTransform: 'none',
         fontWeight: '500',
-        borderRadius: '10px',
+        borderRadius: '4px',
         marginTop: marginTop,
         maxWidth: maxWidth,
         '@media (max-width: 800px)': {

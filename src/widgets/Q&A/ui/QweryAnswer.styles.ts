@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import { styled } from '@mui/material';
 
 export const AccordionContainer = styled('div')(`
   margin-top: 60px; 
@@ -46,10 +46,10 @@ export const ExpandIcon = styled('div')`
     height: 1px;
     background-color: #000;
     transition: all 0.3s ease;
-    &:nth-child(1) {
+    &:nth-of-type(1) {
       transform: rotate(90deg);
     }
-    &:nth-child(2) {
+    &:nth-of-type(2) {
       margin-top: -2px;
     }
   }
@@ -57,7 +57,7 @@ export const ExpandIcon = styled('div')`
   &.active {
     rotate: 90deg;
     span {
-      &:nth-child(2) {
+      &:nth-of-type(2) {
         opacity: 0;
       }
     }

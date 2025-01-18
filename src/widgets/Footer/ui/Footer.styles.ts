@@ -31,12 +31,11 @@ export const ListBlockContainer = styled('div')`
   width: 100%;
   @media (max-width: 720px) {
     grid-template-columns: repeat(2, auto);
-    /* row-gap: 30px; */
     gap: 20px 40px;
-    & > *:nth-child(3) {
+    & > *:nth-of-type(3) {
       order: 2;
     }
-    & > *:nth-child(2) {
+    & > *:nth-of-type(2) {
       order: 3;
     }
   }
@@ -46,7 +45,7 @@ export const ListBlock = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  & > :nth-child(1) {
+  & > :nth-of-type(1) {
     margin-bottom: 4px;
   }
 `;
