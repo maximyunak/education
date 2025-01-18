@@ -30,7 +30,6 @@ import { QweryAnswer } from 'widgets/Q&A';
 export const HomePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
 
-
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
     const target = event.currentTarget as HTMLElement;
@@ -44,7 +43,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <div style={{ display: 'block' }}>
+      <div style={{ display: 'none' }}>
         {/* // ! banner */}
         <Container>
           <Banner {...bannerInfo} />
