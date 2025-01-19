@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import { styled } from '@mui/material/styles';
 import { Title } from 'shared/lib/ui/Title'
 
 const MAX_WIDTH_1 = '970px';
 const MAX_WIDTH_2 = '700px';
 
-export const BannerContainer = styled.div`
+export const BannerContainer = styled('div')`
   display: grid;
   grid-template-columns: calc(570 / 1200 * 100%) 1fr;
   grid-gap: 20px;
@@ -17,7 +17,7 @@ export const BannerContainer = styled.div`
   }
 `;
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled('div')`
   grid-area: 1 / 1 / 2 / 2;
   display: flex;
   flex-direction: column;
@@ -30,7 +30,7 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const TitleInfoContainer = styled.div`
+export const TitleInfoContainer = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -44,19 +44,19 @@ export const BannerTitle = styled(Title)`
   }
 `;
 
-export const BannerSubtitle = styled.p`
+export const BannerSubtitle = styled('p')`
   font-size: 16px;
   font-weight: 600;
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled('div')`
   display: flex;
   gap: 40px;
   max-width: 420px;
 `;
 
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled('div')`
   grid-area: 1 / 2 / 2 / 3;
   position: relative;
   
@@ -76,7 +76,7 @@ export const ImageContainer = styled.div`
 `;
 
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled('div')`
   grid-area: 2 / 2 / 3 / 3;
   display: flex;
   justify-content: space-between;
@@ -92,19 +92,19 @@ export const InfoContainer = styled.div`
   }
 `;
 
-export const InfoItem = styled.div`
+export const InfoItem = styled('div')`
 `;
 
-export const InfoTitle = styled.p`
+export const InfoTitle = styled('p')`
   font-size: 36px;
   font-weight: 600;
 `;
 
-export const InfoSubtitle = styled.p`
+export const InfoSubtitle = styled('p')`
   font-weight: 600;
   margin-top: 20px;
 `;
 
-export const InfoDescription = styled.p`
+export const InfoDescription = styled('p')`
   margin-top: 5px;
 `;
