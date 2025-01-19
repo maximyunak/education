@@ -1,25 +1,33 @@
-import React, { ReactNode } from 'react';
+import styled from '@mui/material/styles/styled';
 import { Outlet } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
+import { Footer } from 'widgets/Footer';
+import { Header } from 'widgets/Header';
 
-interface LayoutProps {
-  children?: ReactNode;
-}
+const LayoutContainer = styled('div')`
+  min-width: 100vw;
+  min-height: 100vh;
+`;
 
-const LayoutContainer = styled('div')({
-  minWidth: '100vw',
-  minHeight: '100vh',
-  padding: '0 15px',
-});
+export const Container = styled('div')`
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 15px;
+`;
 
-export const Layout: React.FC<LayoutProps> = () => {
+export const BlueContainer = styled('div')`
+  background-color: #f6f8f9;
+`;
+
+export const Layout = () => {
   return (
     <LayoutContainer>
-      <div className="container flex gap-4 justify-center">
-        <main className="w-full">
-          <Outlet />
-        </main>
-      </div>
+      <Header />
+      <Outlet />
+      <BlueContainer>
+        <Container>
+          <Footer />
+        </Container>
+      </BlueContainer>
     </LayoutContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import styled from '@mui/material/styles/styled';
 
 export const InputTitle = styled('h3')({
   fontSize: '14px',

@@ -6,10 +6,10 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
