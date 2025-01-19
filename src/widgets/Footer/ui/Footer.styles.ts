@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@mui/material/styles/styled';
 
 export const FooterLine = styled('div')`
   /* margin-top: 30px; */

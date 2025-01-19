@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled from '@mui/material/styles/styled';
 
-export const InputTitle = styled.h3`
-  font-size: 14px;
-  color: #000000;
-  font-family: 'Inter';
-`;
+export const InputTitle = styled('h3')({
+  fontSize: '14px',
+  color: '#000000',
+  fontFamily: 'Inter',
+});

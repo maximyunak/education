@@ -1,7 +1,7 @@
 import { Title } from 'shared/lib/ui/Title';
-import styled from 'styled-components';
+import styled from '@mui/material/styles/styled';
 
-export const BannerContainer = styled.div`
+export const BannerContainer = styled('div')`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,7 @@ export const BannerContainer = styled.div`
   }
 `;
 
-export const BannerTitleContainer = styled.div`
+export const BannerTitleContainer = styled('div')`
   max-width: 758px;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ export const BannerTitleContainer = styled.div`
   }
 `;
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled('div')`
   margin-top: 75px;
   display: flex;
   justify-content: center;
@@ -53,14 +53,14 @@ export const InfoContainer = styled.div`
   }
 `;
 
-export const InfoItem = styled.div`
+export const InfoItem = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
 `;
 
-export const ImageContainer = styled.div`
+export const ImageContainer = styled('div')`
   min-width: 629px;
   z-index: 1;
   margin-left: -700px;
@@ -101,7 +101,7 @@ export const ImageContainer = styled.div`
   }
 `;
 
-export const HelpText = styled.p`
+export const HelpText = styled('p')`
   font-size: 17px;
   font-weight: 400;
   @media (max-width: 750px) {
@@ -124,7 +124,7 @@ export const BannerTitle = styled(Title)`
   }
 `;
 
-export const ButtonContainer = styled.div`
+export const ButtonContainer = styled('div')`
   margin-top: 40px;
   max-width: 400px;
   display: flex;
