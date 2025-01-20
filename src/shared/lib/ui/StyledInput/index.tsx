@@ -14,9 +14,9 @@ interface StyledInputProps {
 
 const ErrorText = styled(FormHelperText)({
   color: 'red',
-  fontSize: '14px',
+  fontSize: '12px',
   fontWeight: '400',
-  lineHeight: '16px',
+  lineHeight: '10px',
   letterSpacing: '0.25px',
   position: 'absolute',
   bottom: '-20px',
@@ -49,7 +49,6 @@ const StyledOutlinedInput = styled(OutlinedInput)({
 
   '& .MuiOutlinedInput-notchedOutline': {
     transition: 'border-color 0.15s ease-in-out',
-    // borderColor: 'transparent',
   },
 
   '&:hover .MuiOutlinedInput-notchedOutline': {

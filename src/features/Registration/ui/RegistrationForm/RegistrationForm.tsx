@@ -172,9 +172,12 @@ export const RegistrationForm = () => {
     e.preventDefault();
     setIsSubmitted(true);
     if (validateForm()) {
-      const res = await dispatch(registrationThunk(userData))
-      console.log("res", res)
-      // Здесь будет логика отправки формы
+      try {
+        const res = await dispatch(registrationThunk(userData));
+        console.log('res', res);
+      } catch (error) {
+        console.log('error', error);
+      }
     }
   };
 

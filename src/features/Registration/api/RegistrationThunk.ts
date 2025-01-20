@@ -11,7 +11,8 @@ export const registrationThunk = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (isAxiosError(error)) {
-        return rejectWithValue(error.response?.data?.message || 'Произошла ошибка при регистрации');
+        const errorMessage = error.response?.data?.detail;
+        return rejectWithValue(errorMessage || 'Произошла ошибка при регистрации');
       }
       return rejectWithValue('Произошла неизвестная ошибка');
     }

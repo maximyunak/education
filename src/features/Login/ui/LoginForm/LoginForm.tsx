@@ -20,6 +20,7 @@ import { LoginWithSocial } from '../Buttons/LoginWithSocial';
 import { googleIcon, vkIcon, yandexIcon } from 'shared/assets';
 import { InputTitle, StyledButton, StyledInput } from 'shared/lib';
 import { useState } from 'react';
+import { loginThunk } from 'features/Login/api/LoginThunk';
 
 interface ValidationErrors {
   email: string;
@@ -107,11 +108,17 @@ export const LoginForm = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true); // Устанавливаем флаг, что форма была отправлена
     if (validateForm()) {
       console.log('Form is valid', userData);
+      try {
+        const res = await dispatch(loginThunk(userData));
+        console.log('res', res);
+      } catch (error) {
+        console.log('error', error);
+      }
       // Здесь будет логика отправки формы
     }
   };

@@ -7,7 +7,7 @@ export const loginThunk = createAsyncThunk(
   'login/loginUser',
   async (data: LoginData, { rejectWithValue }) => {
     try {
-      const response = await $api.post('/api/login', data);
+      const response = await $api.post('/auth', data);
       const { accessToken } = response.data;
 
       if (accessToken) {

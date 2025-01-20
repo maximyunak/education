@@ -27,12 +27,13 @@ export const TextContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   gap: '6px',
+  position: 'relative',
 });
 
 export const InputColumn = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  gap: '22px',
+  gap: '25px',
   width: '100%',
   maxWidth: '353px',
 });
@@ -47,3 +48,4 @@ export const ButtonWrapper = styled('div')({
     margin: '30px auto 0',
   },
 });
+
