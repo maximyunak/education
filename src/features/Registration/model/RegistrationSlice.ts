@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { registrationThunk } from '../api/RegistrationThunk';
 
 export interface RegistrationData {
-  firstName: string;
-  lastName: string;
-  patronymic: string;
+  first_name: string;
+  last_name: string;
+  middle_name: string;
   email: string;
   phone: string;
   password: string;
@@ -22,9 +22,9 @@ const initialState: RegistrationState = {
   error: null,
   success: false,
   userData: {
-    firstName: '',
-    lastName: '',
-    patronymic: '',
+    first_name: '',
+    last_name: '',
+    middle_name: '',
     email: '',
     phone: '',
     password: '',

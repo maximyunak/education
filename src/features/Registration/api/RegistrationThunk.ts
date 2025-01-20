@@ -7,7 +7,7 @@ export const registrationThunk = createAsyncThunk(
   'registration/registerUser',
   async (data: RegistrationData, { rejectWithValue }) => {
     try {
-      const response = await $api.post('/api/register', data);
+      const response = await $api.post('/register', data);
       return response.data;
     } catch (error) {
       if (isAxiosError(error)) {

@@ -16,10 +16,11 @@ import { InputAdornment } from '@mui/material';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import { useState } from 'react';
+import { registrationThunk } from '../../api/RegistrationThunk';
 
 interface ValidationErrors {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   phone: string;
   password: string;
@@ -28,11 +29,10 @@ interface ValidationErrors {
 export const RegistrationForm = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.registration);
-  console.log(userData);
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     phone: '',
     password: '',
@@ -51,10 +51,10 @@ export const RegistrationForm = () => {
     let error = '';
 
     switch (field) {
-      case 'firstName':
+      case 'first_name':
         if (!value.trim()) error = 'Введите имя';
         break;
-      case 'lastName':
+      case 'last_name':
         if (!value.trim()) error = 'Введите фамилию';
         break;
       case 'email':
@@ -121,8 +121,8 @@ export const RegistrationForm = () => {
 
   const validateForm = (): boolean => {
     const newErrors: ValidationErrors = {
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       email: '',
       phone: '',
       password: '',
@@ -130,13 +130,13 @@ export const RegistrationForm = () => {
 
     let isValid = true;
 
-    if (!userData.firstName.trim()) {
-      newErrors.firstName = 'Введите имя';
+    if (!userData.first_name.trim()) {
+      newErrors.first_name = 'Введите имя';
       isValid = false;
     }
 
-    if (!userData.lastName.trim()) {
-      newErrors.lastName = 'Введите фамилию';
+    if (!userData.last_name.trim()) {
+      newErrors.last_name = 'Введите фамилию';
       isValid = false;
     }
 
@@ -168,11 +168,12 @@ export const RegistrationForm = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
     if (validateForm()) {
-      console.log('Form is valid', userData);
+      const res = await dispatch(registrationThunk(userData))
+      console.log("res", res)
       // Здесь будет логика отправки формы
     }
   };
@@ -187,10 +188,10 @@ export const RegistrationForm = () => {
               <InputTitle>Фамилия</InputTitle>
               <StyledInput
                 placeholder="Фамилия"
-                value={userData.lastName}
-                onChange={handleChange('lastName')}
-                error={isSubmitted && !!errors.lastName}
-                errorMessage={isSubmitted ? errors.lastName : ''}
+                value={userData.last_name}
+                onChange={handleChange('last_name')}
+                error={isSubmitted && !!errors.last_name}
+                errorMessage={isSubmitted ? errors.last_name : ''}
               />
             </TextContainer>
 
@@ -198,10 +199,10 @@ export const RegistrationForm = () => {
               <InputTitle>Имя</InputTitle>
               <StyledInput
                 placeholder="Имя"
-                value={userData.firstName}
-                onChange={handleChange('firstName')}
-                error={isSubmitted && !!errors.firstName}
-                errorMessage={isSubmitted ? errors.firstName : ''}
+                value={userData.first_name}
+                onChange={handleChange('first_name')}
+                error={isSubmitted && !!errors.first_name}
+                errorMessage={isSubmitted ? errors.first_name : ''}
               />
             </TextContainer>
 
@@ -209,8 +210,8 @@ export const RegistrationForm = () => {
               <InputTitle>Отчество</InputTitle>
               <StyledInput
                 placeholder="Отчество"
-                value={userData.patronymic}
-                onChange={handleChange('patronymic')}
+                value={userData.middle_name}
+                onChange={handleChange('middle_name')}
               />
             </TextContainer>
           </InputColumn>
