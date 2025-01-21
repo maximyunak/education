@@ -1,7 +1,5 @@
 import React from 'react';
-import { UppercaseTitle, useAppDispatch, useAppSelector } from 'shared/lib';
-import { RootState } from 'app/store';
-import { resetLogin, setLoginData } from '../../models/LoginSlice';
+import { UppercaseTitle } from 'shared/lib';
 import {
   Form,
   Line,
@@ -20,23 +18,34 @@ import { LoginWithSocial } from '../Buttons/LoginWithSocial';
 import { googleIcon, vkIcon, yandexIcon } from 'shared/assets';
 import { InputTitle, StyledButton, StyledInput } from 'shared/lib';
 import { useState } from 'react';
-import { loginThunk } from 'features/Login/api/LoginThunk';
 import { useNavigate } from 'react-router-dom';
+
+import { authRequest } from 'features/Login/api/authRequest';
+import { AxiosError } from 'axios';
 
 interface ValidationErrors {
   email: string;
   password: string;
 }
 
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
 export const LoginForm = () => {
-  const dispatch = useAppDispatch();
-  const { userData, isAuthenticated, error } = useAppSelector((state: RootState) => state.login);
+  // ! user data
+  const [userData, setUserData] = useState<LoginData>({
+    email: '',
+    password: '',
+  });
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({
     email: '',
     password: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string>('');
 
   const navigate = useNavigate();
 
@@ -73,7 +82,8 @@ export const LoginForm = () => {
 
   const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    dispatch(setLoginData({ [field]: value }));
+    // dispatch(setLoginData({ [field]: value }));
+    setUserData((prev) => ({ ...prev, [field]: value }));
 
     // Проверяем ошибки только если форма уже была отправлена
     if (isSubmitted) {
@@ -116,15 +126,12 @@ export const LoginForm = () => {
     setIsSubmitted(true);
     if (validateForm()) {
       try {
-        const res = await dispatch(loginThunk(userData));
+        const res = await authRequest(userData);
         console.log('res', res);
-        // if (!error) {
-        console.log('error', error);
-        dispatch(resetLogin());
         navigate('/');
-        // }
-      } catch (error) {
-        console.log('error', error);
+      } catch (err) {
+        const error = err as AxiosError<{ detail: string }>;
+        setServerError(error.response?.data?.detail || 'Произошла ошибка при входе');
       }
     }
   };
@@ -172,6 +179,8 @@ export const LoginForm = () => {
 
         <StyledButton type="submit">Войти</StyledButton>
       </Form>
+
+      {serverError && <div style={{ color: 'red' }}>{serverError}</div>}
 
       <LoginWith>
         <Line />
