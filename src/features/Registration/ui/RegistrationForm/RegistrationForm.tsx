@@ -11,14 +11,8 @@ import { useState } from 'react';
 import { RegistrationDataType } from 'features/Registration/model/RegistrationDataType';
 import { registerRequest } from 'features/Registration/api/registerRequest';
 import { useNavigate } from 'react-router-dom';
-
-interface ValidationErrors {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
-  password: string;
-}
+import { validateForm } from 'features/Registration/lib/ValidateForm';
+import { formatPhoneNumber } from 'features/Registration/lib/PhoneMask';
 
 export const RegistrationForm = () => {
   // ! consts
@@ -32,7 +26,7 @@ export const RegistrationForm = () => {
     password: '',
   });
   const [showPassword, setShowPassword] = React.useState(false);
-  const [errors, setErrors] = useState<ValidationErrors>({
+  const [errors, setErrors] = useState<RegistrationDataType>({
     first_name: '',
     last_name: '',
     email: '',
@@ -41,139 +35,29 @@ export const RegistrationForm = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-  const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
-
-  const validateField = (field: string, value: string) => {
-    let error = '';
-
-    switch (field) {
-      case 'first_name':
-        if (!value.trim()) error = 'Введите имя';
-        break;
-      case 'last_name':
-        if (!value.trim()) error = 'Введите фамилию';
-        break;
-      case 'email':
-        if (!value) {
-          error = 'Введите email';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-          error = 'Некорректный email';
-        }
-        break;
-      case 'phone':
-        if (!value) {
-          error = 'Введите телефон';
-        } else if (value.replace(/\D/g, '').length !== 11) {
-          error = 'Некорректный номер телефона';
-        }
-        break;
-      case 'password':
-        if (!value) {
-          error = 'Введите пароль';
-        } else if (value.length < 8) {
-          error = 'Пароль должен содержать минимум 8 символов';
-        }
-        break;
-    }
-
-    setErrors((prev) => ({ ...prev, [field]: error }));
-  };
+  // ! handlers
 
   const handleChange = (field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-
     if (field === 'phone') {
-      const numbersOnly = value.replace(/\D/g, '');
-      if (numbersOnly.length <= 11) {
-        let formattedPhone = '';
-        if (numbersOnly.length > 0) {
-          formattedPhone = '+7 ';
-          if (numbersOnly.length > 1) {
-            formattedPhone += `(${numbersOnly.slice(1, 4)}`;
-          }
-          if (numbersOnly.length > 4) {
-            formattedPhone += `) ${numbersOnly.slice(4, 7)}`;
-          }
-          if (numbersOnly.length > 7) {
-            formattedPhone += `-${numbersOnly.slice(7, 9)}`;
-          }
-          if (numbersOnly.length > 9) {
-            formattedPhone += `-${numbersOnly.slice(9, 11)}`;
-          }
-        }
-        setUserData({ ...userData, [field]: formattedPhone });
-        if (isSubmitted) {
-          validateField(field, formattedPhone);
-        }
+      const formattedPhone = formatPhoneNumber(value);
+      setUserData({ ...userData, [field]: formattedPhone });
+      if (isSubmitted) {
+        validateForm(userData, setErrors);
       }
       return;
     }
 
     setUserData({ ...userData, [field]: value });
     if (isSubmitted) {
-      validateField(field, value);
+      validateForm(userData, setErrors);
     }
-  };
-
-  const validateForm = (): boolean => {
-    const newErrors: ValidationErrors = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      password: '',
-    };
-
-    let isValid = true;
-
-    if (!userData.first_name.trim()) {
-      newErrors.first_name = 'Введите имя';
-      isValid = false;
-    }
-
-    if (!userData.last_name.trim()) {
-      newErrors.last_name = 'Введите фамилию';
-      isValid = false;
-    }
-
-    if (!userData.email) {
-      newErrors.email = 'Введите email';
-      isValid = false;
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.email)) {
-      newErrors.email = 'Некорректный email';
-      isValid = false;
-    }
-
-    if (!userData.phone) {
-      newErrors.phone = 'Введите телефон';
-      isValid = false;
-    } else if (userData.phone.replace(/\D/g, '').length !== 11) {
-      newErrors.phone = 'Некорректный номер телефона';
-      isValid = false;
-    }
-
-    if (!userData.password) {
-      newErrors.password = 'Введите пароль';
-      isValid = false;
-    } else if (userData.password.length < 8) {
-      newErrors.password = 'Пароль должен содержать минимум 8 символов';
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
-    if (validateForm()) {
+    if (validateForm(userData, setErrors)) {
       try {
         const res = await registerRequest(userData);
         console.log('res', res);
@@ -260,9 +144,9 @@ export const RegistrationForm = () => {
                   <InputAdornment position="end" sx={{ marginRight: '5px' }}>
                     <IconButton
                       aria-label={showPassword ? 'hide the password' : 'display the password'}
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      onMouseUp={handleMouseUpPassword}
+                      onClick={() => setShowPassword(!showPassword)}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onMouseUp={(e) => e.preventDefault()}
                       edge="end"
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
