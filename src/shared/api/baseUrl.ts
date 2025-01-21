@@ -7,14 +7,17 @@ const $api = axios.create({
   baseURL: BASE_URL,
 });
 
-// $api.interceptors.request.use((config) => {
-//   const token = ls.get('token', {
-//     decrypt: true,
-//   });
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
+$api.interceptors.request.use((config) => {
+  const token = ls.get('access_token', {
+    decrypt: true,
+  });
+  const type = ls.get('token_type', {
+    decrypt: true,
+  });
+  if (token) {
+    config.headers.Authorization = `${type} ${token}`;
+  }
+  return config;
+});
 
 export default $api;

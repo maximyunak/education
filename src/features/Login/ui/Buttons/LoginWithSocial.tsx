@@ -1,7 +1,12 @@
 import { Button } from '@mui/material';
 import React from 'react';
 
-export const LoginWithSocial = ({ children }: { children: React.ReactNode }) => {
+interface LoginWithSocialProps {
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+export const LoginWithSocial = ({ children, onClick }: LoginWithSocialProps) => {
   return (
     <Button
       variant="outlined"
@@ -17,6 +22,7 @@ export const LoginWithSocial = ({ children }: { children: React.ReactNode }) => 
         fontWeight: '500',
         fontFamily: 'Inter',
       }}
+      onClick={onClick}
     >
       {children}
     </Button>

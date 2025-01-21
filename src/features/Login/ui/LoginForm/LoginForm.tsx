@@ -24,6 +24,7 @@ import { AxiosError } from 'axios';
 import { authRequest } from '../../api/authRequest';
 import { LoginDataType } from '../../model/LoginDataType';
 import { validateForm } from '../../lib/ValidateForm';
+// import { $api } from 'shared/api';
 
 export const LoginForm = () => {
   // ! consts
@@ -66,6 +67,10 @@ export const LoginForm = () => {
         setServerError(error.response?.data?.detail || 'Произошла ошибка при входе');
       }
     }
+  };
+
+  const handleLoginWithSocial = async (social: string) => {
+    window.location.href = `https://api.ebtest.ru/api/v1/oauth/${social}`;
   };
 
   return (
@@ -120,15 +125,15 @@ export const LoginForm = () => {
       </LoginWith>
 
       <LoginWithContainer>
-        <LoginWithSocial>
+        <LoginWithSocial onClick={() => handleLoginWithSocial('google')}>
           <LoginWithIcon src={googleIcon} alt="google" />
           Google
         </LoginWithSocial>
-        <LoginWithSocial>
+        <LoginWithSocial onClick={() => handleLoginWithSocial('yandex')}>
           <LoginWithIcon src={yandexIcon} alt="yandex" />
           Yandex
         </LoginWithSocial>
-        <LoginWithSocial>
+        <LoginWithSocial onClick={() => handleLoginWithSocial('vk')}>
           <LoginWithIcon src={vkIcon} alt="vk" />
           VK
         </LoginWithSocial>
