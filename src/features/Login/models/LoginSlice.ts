@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import $api from 'shared/api/baseUrl';
 import { loginThunk } from '../api/LoginThunk';
 
 export interface LoginData {
@@ -37,15 +36,6 @@ const loginSlice = createSlice({
       state.isAuthenticated = false;
       state.userData = initialState.userData;
     },
-    clearError: (state) => {
-      state.error = null;
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
-      state.userData = initialState.userData;
-      localStorage.removeItem('token');
-      delete $api.defaults.headers.common.Authorization;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,5 +55,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { setLoginData, resetLogin, clearError, logout } = loginSlice.actions;
+export const { setLoginData, resetLogin } = loginSlice.actions;
 export default loginSlice.reducer;

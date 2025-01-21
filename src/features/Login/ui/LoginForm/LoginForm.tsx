@@ -1,7 +1,7 @@
 import React from 'react';
 import { UppercaseTitle, useAppDispatch, useAppSelector } from 'shared/lib';
 import { RootState } from 'app/store';
-import { setLoginData } from '../../models/LoginSlice';
+import { resetLogin, setLoginData } from '../../models/LoginSlice';
 import {
   Form,
   Line,
@@ -21,6 +21,7 @@ import { googleIcon, vkIcon, yandexIcon } from 'shared/assets';
 import { InputTitle, StyledButton, StyledInput } from 'shared/lib';
 import { useState } from 'react';
 import { loginThunk } from 'features/Login/api/LoginThunk';
+import { useNavigate } from 'react-router-dom';
 
 interface ValidationErrors {
   email: string;
@@ -29,13 +30,15 @@ interface ValidationErrors {
 
 export const LoginForm = () => {
   const dispatch = useAppDispatch();
-  const { userData } = useAppSelector((state: RootState) => state.login);
+  const { userData, isAuthenticated, error } = useAppSelector((state: RootState) => state.login);
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({
     email: '',
     password: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -110,16 +113,19 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true); // Устанавливаем флаг, что форма была отправлена
+    setIsSubmitted(true);
     if (validateForm()) {
-      console.log('Form is valid', userData);
       try {
         const res = await dispatch(loginThunk(userData));
         console.log('res', res);
+        // if (!error) {
+        console.log('error', error);
+        dispatch(resetLogin());
+        navigate('/');
+        // }
       } catch (error) {
         console.log('error', error);
       }
-      // Здесь будет логика отправки формы
     }
   };
 
