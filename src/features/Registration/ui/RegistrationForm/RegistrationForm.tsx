@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  InputTitle,
-  StyledButton,
-  StyledInput,
-  useAppSelector,
-  useAppDispatch,
-  UppercaseTitle,
-} from 'shared/lib';
+import { InputTitle, StyledButton, StyledInput, UppercaseTitle } from 'shared/lib';
 import { ButtonWrapper, InputColumn, InputWrapper, TextContainer } from './RegistrationForm.styles';
-import { setUserData } from 'features/Registration/model/RegistrationSlice';
 import { RegistrationFormContainer } from './RegistrationForm.styles';
 import { IconButton } from '@mui/material';
 import { InputAdornment } from '@mui/material';
@@ -16,7 +8,9 @@ import { InputAdornment } from '@mui/material';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Visibility from '@mui/icons-material/Visibility';
 import { useState } from 'react';
-import { registrationThunk } from '../../api/RegistrationThunk';
+import { RegistrationDataType } from 'features/Registration/model/RegistrationDataType';
+import { registerRequest } from 'features/Registration/api/registerRequest';
+import { useNavigate } from 'react-router-dom';
 
 interface ValidationErrors {
   first_name: string;
@@ -27,8 +21,16 @@ interface ValidationErrors {
 }
 
 export const RegistrationForm = () => {
-  const dispatch = useAppDispatch();
-  const { userData } = useAppSelector((state) => state.registration);
+  // ! consts
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState<RegistrationDataType>({
+    first_name: '',
+    last_name: '',
+    middle_name: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = useState<ValidationErrors>({
     first_name: '',
@@ -105,7 +107,7 @@ export const RegistrationForm = () => {
             formattedPhone += `-${numbersOnly.slice(9, 11)}`;
           }
         }
-        dispatch(setUserData({ [field]: formattedPhone }));
+        setUserData({ ...userData, [field]: formattedPhone });
         if (isSubmitted) {
           validateField(field, formattedPhone);
         }
@@ -113,7 +115,7 @@ export const RegistrationForm = () => {
       return;
     }
 
-    dispatch(setUserData({ [field]: value }));
+    setUserData({ ...userData, [field]: value });
     if (isSubmitted) {
       validateField(field, value);
     }
@@ -173,8 +175,9 @@ export const RegistrationForm = () => {
     setIsSubmitted(true);
     if (validateForm()) {
       try {
-        const res = await dispatch(registrationThunk(userData));
+        const res = await registerRequest(userData);
         console.log('res', res);
+        navigate('/login');
       } catch (error) {
         console.log('error', error);
       }

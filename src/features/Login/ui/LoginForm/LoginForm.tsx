@@ -22,29 +22,21 @@ import { useNavigate } from 'react-router-dom';
 
 import { authRequest } from 'features/Login/api/authRequest';
 import { AxiosError } from 'axios';
-
-interface ValidationErrors {
-  email: string;
-  password: string;
-}
-
-export interface LoginData {
-  email: string;
-  password: string;
-}
+import { LoginDataType } from 'features/Login/model/LoginDataType';
 
 export const LoginForm = () => {
   // ! user data
-  const [userData, setUserData] = useState<LoginData>({
+  const [userData, setUserData] = useState<LoginDataType>({
     email: '',
     password: '',
   });
   const [showPassword, setShowPassword] = React.useState(false);
-  const [errors, setErrors] = useState<ValidationErrors>({
+  const [errors, setErrors] = useState<LoginDataType>({
     email: '',
     password: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const [serverError, setServerError] = useState<string>('');
 
   const navigate = useNavigate();
@@ -92,7 +84,7 @@ export const LoginForm = () => {
   };
 
   const validateForm = (): boolean => {
-    const newErrors: ValidationErrors = {
+    const newErrors: LoginDataType = {
       email: '',
       password: '',
     };

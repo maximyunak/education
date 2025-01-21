@@ -1,11 +1,7 @@
 import $api from 'shared/api/baseUrl';
+import { LoginDataType } from '../model/LoginDataType';
 
-export interface LoginData {
-  email: string;
-  password: string;
-}
-
-export const authRequest = async (userData: LoginData) => {
+export const authRequest = async (userData: LoginDataType) => {
   const { data } = await $api.post('/auth', userData);
   return data;
 };

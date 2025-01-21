@@ -1,9 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { RegistrationReducer } from 'features/Registration';
 
-const rootReducer = combineReducers({
-  registration: RegistrationReducer,
-});
+const rootReducer = combineReducers({});
 
 export const setupStore = () => {
   return configureStore({
