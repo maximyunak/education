@@ -59,8 +59,7 @@ export const LoginForm = () => {
     setIsSubmitted(true);
     if (validateForm(userData, setErrors)) {
       try {
-        const res = await authRequest(userData);
-        console.log('res', res);
+        await authRequest(userData);
         navigate('/');
       } catch (err) {
         const error = err as AxiosError<{ detail: string }>;
