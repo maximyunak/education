@@ -51,7 +51,7 @@ export const HeaderContainer = styled('header')`
   a {
     color: #000000;
   }
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     width: 300px;
     height: 100vh;
     flex-direction: column;
@@ -72,7 +72,7 @@ export const HeaderContent = styled('div')`
     gap: 20px;
     padding: 18px 0;
   }
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     flex-direction: column;
     gap: 40px;
   }
@@ -81,10 +81,10 @@ export const HeaderContent = styled('div')`
 export const ProfileContainer = styled('div')`
   display: flex;
   align-items: center;
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     flex-direction: column;
     align-items: start;
-    align-self: end;
+    align-self: start;
     margin-top: auto;
     margin-bottom: 50px;
   }
@@ -103,7 +103,7 @@ export const LogoBlock = styled('div')`
   @media (max-width: 1180px) {
     gap: 20px;
   }
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     flex-direction: column;
     gap: 30px;
     align-items: start;
@@ -121,12 +121,12 @@ export const NavBlock = styled('nav')`
   align-items: center;
   gap: 45px;
   @media (max-width: 1500px) {
-    gap: 20px;
+    gap: 17px;
   }
   @media (max-width: 1180px) {
     gap: 10px;
   }
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     flex-direction: column;
     align-items: start;
     gap: 20px;
@@ -138,7 +138,7 @@ export const Text = styled('p')`
   @media (max-width: 1500px) {
     font-size: 14px;
   }
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     font-size: 16px;
   }
 `;
@@ -147,7 +147,6 @@ export const ProfileBlock = styled('div')`
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-left: 22px;
 
   cursor: pointer;
   @media (max-width: 1500px) {
@@ -159,7 +158,7 @@ export const ProfileBlock = styled('div')`
       display: none;
     }
   }
-  @media (max-width: 970px) {
+  @media (max-width: 1120px) {
     margin-left: 0;
     margin-top: 20px;
     p {
@@ -180,5 +179,17 @@ export const PhoneBlock = styled('div')`
     svg {
       display: none;
     }
+  }
+`;
+
+export const AuthButtons = styled('div')`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  @media (max-width: 1120px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 10px;
   }
 `;

@@ -12,6 +12,7 @@ import {
   PhoneBlock,
   HeaderBase,
   Menu,
+  AuthButtons,
 } from './Header.styles';
 import { Button } from '@mui/material';
 
@@ -58,13 +59,24 @@ const HeaderUi = () => {
           <Text>+7 (999) 999-99-99</Text>
         </PhoneBlock>
         <NotificationsNoneOutlinedIcon
-          sx={{ marginRight: 1, '@media (max-width: 970px)': { display: 'none' } }}
+          sx={{ marginRight: 2, marginLeft: 1, '@media (max-width: 1120px)': { display: 'none' } }}
         />
-        <ProfileBlock>
-          <Avatar alt="avatar" src={ExAva} />
-          <Text>Федоров Сергей</Text>
-          <KeyboardArrowDownIcon />
-        </ProfileBlock>
+        {localStorage.getItem('access_token') ? (
+          <ProfileBlock>
+            <Avatar alt="avatar" src={ExAva} />
+            <Text>Федоров Сергей</Text>
+            <KeyboardArrowDownIcon />
+          </ProfileBlock>
+        ) : (
+          <AuthButtons>
+            <Link to="/login">
+              <Button variant="contained">Войти</Button>
+            </Link>
+            <Link to="/registration">
+              <Button variant="outlined">Регистрация</Button>
+            </Link>
+          </AuthButtons>
+        )}
       </ProfileContainer>
     </HeaderContainer>
   );
@@ -72,7 +84,7 @@ const HeaderUi = () => {
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
-  const width = useMediaQuery('(max-width: 970px)');
+  const width = useMediaQuery('(max-width: 1120px)');
 
   return (
     <div>
