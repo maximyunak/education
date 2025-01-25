@@ -2,7 +2,7 @@ import { styled } from '@mui/material';
 import { Container } from 'app/layout';
 import React from 'react';
 import { Title } from 'shared/lib';
-import { VideoFilter } from 'widgets/VideoFilter';
+import { VideoFilter } from 'features/VideoFilter';
 
 export const Section = styled('section')`
   padding: 80px 0;

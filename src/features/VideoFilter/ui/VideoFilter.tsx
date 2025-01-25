@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Flex, SwitchContainer, VideoFilterContainer } from './VideoFilter.styles';
-import { StyledInput, Text17, TextGray } from 'shared/lib';
+import { StyledInput, Text17, TextGray, useAppDispatch, useAppSelector } from 'shared/lib';
 import {
   Autocomplete,
   Checkbox,
@@ -12,23 +12,52 @@ import {
 } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
+import { filterThemaItems } from '../model/VideoFilterType';
+import { setFilterText, setFilterThema, setSortingMode } from '../model/VideoFilterSlice';
 
 export const VideoFilter = () => {
-  const [isPopular, setisPopular] = useState(true);
+  const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
+    (state) => state.videoFilter,
+  );
+
+  const dispatch = useAppDispatch();
+
+  const handleSwitchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      dispatch(setSortingMode('date'));
+    } else {
+      dispatch(setSortingMode('popular'));
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setFilterText(e.target.value));
+  };
+
+  const handleChangeFilterThema = (e: any, newValue: string[]) => {
+    dispatch(setFilterThema(newValue));
+  };
+
   return (
     <VideoFilterContainer>
       <div>
         <Text17>
-          <TextGray>Найдено:</TextGray> 209
+          <TextGray>Найдено:</TextGray> {totalItems}
         </Text17>
       </div>
       <SwitchContainer>
         <Text17>По популярности</Text17>
-        <Switch checked={!isPopular} onChange={() => setisPopular(!isPopular)} />
+        <Switch checked={sortingMode === 'date'} onChange={handleSwitchChange} />
         <Text17>По дате обновления</Text17>
       </SwitchContainer>
       <Autocomplete
-        options={['мемы', 'индусы', 'гадания']}
+        // value={filterThema}
+        value={filterThema}
+        onChange={handleChangeFilterThema}
+        getOptionLabel={(option) => option}
+        options={filterThemaItems}
         multiple
         limitTags={1}
         fullWidth
@@ -58,6 +87,8 @@ export const VideoFilter = () => {
       <StyledInput
         maxHeight={50}
         placeholder="Поиск"
+        onChange={handleInputChange}
+        value={filterText}
         startAdornment={
           <InputAdornment position="start">
             <SearchIcon />

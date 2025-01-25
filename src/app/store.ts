@@ -1,6 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { VideoFilterSlice } from 'features/VideoFilter';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  videoFilter: VideoFilterSlice,
+});
 
 export const setupStore = () => {
   return configureStore({
