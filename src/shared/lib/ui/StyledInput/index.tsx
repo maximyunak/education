@@ -7,9 +7,12 @@ interface StyledInputProps {
   value?: string;
   type?: string;
   endAdornment?: React.ReactNode;
+  startAdornment?: React.ReactNode;
   ref?: React.Ref<HTMLInputElement>;
   error?: boolean;
   errorMessage?: string;
+  maxHeight?: number;
+  maxWidth?: number;
 }
 
 const ErrorText = styled(FormHelperText)({
@@ -92,13 +95,20 @@ export const StyledInput: FC<StyledInputProps> = ({
   value,
   type,
   endAdornment,
+  startAdornment,
   ref,
   error,
   errorMessage,
+  maxHeight,
+  maxWidth,
 }) => {
   return (
     <InputContainer>
       <StyledOutlinedInput
+        sx={{
+          maxWidth,
+          maxHeight: `${maxHeight}px`,
+        }}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
@@ -106,6 +116,7 @@ export const StyledInput: FC<StyledInputProps> = ({
         endAdornment={endAdornment}
         ref={ref}
         error={error}
+        startAdornment={startAdornment}
       />
       {error && <ErrorText id="component-helper-text">{errorMessage}</ErrorText>}
     </InputContainer>

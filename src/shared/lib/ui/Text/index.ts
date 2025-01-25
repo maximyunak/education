@@ -74,3 +74,7 @@ export const Text12 = styled('p')({
   lineHeight: '16px',
   fontWeight: 400,
 });
+
+export const TextGray = styled('span')`
+  color: #999;
+`;
