@@ -1,24 +1,9 @@
-import { styled } from '@mui/material';
 import { Container } from 'app/layout';
-import React from 'react';
-import { Title } from 'shared/lib';
+import { StyledButton, Title } from 'shared/lib';
 import { VideoFilter } from 'features/VideoFilter';
-
-export const Section = styled('section')`
-  padding: 80px 0;
-  &.bg-blue {
-    background-color: #f6f8f9;
-  }
-  @media (max-width: 1180px) {
-    padding: 80px 0;
-  }
-  @media (max-width: 800px) {
-    padding: 60px 0;
-  }
-  @media (max-width: 620px) {
-    padding: 40px 0;
-  }
-`;
+import { VideoPreview } from 'widgets/VideoPreview';
+import { videos } from '../consts/consts';
+import { Section, VideosContainer, MoreButton } from './VideoCatalog.styles';
 
 export const VideoCatalogPage = () => {
   return (
@@ -27,8 +12,18 @@ export const VideoCatalogPage = () => {
         <Container>
           <Title>Каталог видеолекций</Title>
           <VideoFilter />
+          <VideosContainer>
+            {videos.map((el, id) => (
+              <VideoPreview key={`${el.views}_${id}`} {...el} />
+            ))}
+          </VideosContainer>
         </Container>
       </Section>
+      <Container>
+        <MoreButton>
+          <StyledButton maxWidth="180px">Загрузить еще 10</StyledButton>
+        </MoreButton>
+      </Container>
     </div>
   );
 };
