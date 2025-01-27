@@ -72,6 +72,11 @@ export const PlayIcon = styled('div')`
   background-color: #3d8be4;
   border-radius: 50%;
   box-shadow: 0 8px 30px 0 #00000010;
+
+  @media (max-width: 600px) {
+    width: 55px;
+    height: 55px;
+  }
 `;
 
 export const InfoContainer = styled('div')`
