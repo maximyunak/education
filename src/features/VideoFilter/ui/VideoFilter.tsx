@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Switch,
   TextField,
+  useMediaQuery,
 } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,6 +20,8 @@ export const VideoFilter = () => {
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
     (state) => state.videoFilter,
   );
+
+  const width = useMediaQuery('(max-width: 350px)');
 
   const dispatch = useAppDispatch();
 
@@ -49,7 +52,11 @@ export const VideoFilter = () => {
       </div>
       <SwitchContainer>
         <Text17>По популярности</Text17>
-        <Switch checked={sortingMode === 'date'} onChange={handleSwitchChange} />
+        <Switch
+          checked={sortingMode === 'date'}
+          onChange={handleSwitchChange}
+          size={width ? 'small' : 'medium'}
+        />
         <Text17>По дате обновления</Text17>
       </SwitchContainer>
       <Autocomplete
@@ -64,6 +71,12 @@ export const VideoFilter = () => {
         sx={{
           maxWidth: '233px',
           marginTop: '-15px',
+          '@media (max-width: 1060px)': {
+            maxWidth: '200px',
+          },
+          '@media (max-width: 880px)': {
+            maxWidth: '282px',
+          },
         }}
         clearOnEscape
         renderInput={(params) => (

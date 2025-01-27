@@ -23,6 +23,8 @@ export const videos = [
     date: '02 дек 2020',
     views: 239,
     time: '1ч. 49мин.',
+    image:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzs4DX9SbMr4h0ASCtO1fHXODlCqjLqwzM0w&s',
   },
   {
     id: 'lecture-4',

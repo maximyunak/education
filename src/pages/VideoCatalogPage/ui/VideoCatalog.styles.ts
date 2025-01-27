@@ -19,8 +19,11 @@ export const Section = styled('section')`
 export const VideosContainer = styled('div')`
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 20px;
   justify-content: space-between;
+  @media (max-width: 650px) {
+    justify-content: center;
+  }
 `;
 
 export const MoreButton = styled('div')`

@@ -6,14 +6,29 @@ export const VideoContainer = styled('div')`
   gap: 10px;
   max-width: 367px;
   width: 100%;
+
+  @media (max-width: 1180px) {
+    max-width: 300px;
+  }
+  @media (max-width: 968px) {
+    max-width: 370px;
+  }
+  @media (max-width: 800px) {
+    max-width: 300px;
+  }
+
+  @media (max-width: 650px) {
+    max-width: 370px;
+  }
 `;
 
 export const Preview = styled('image')`
   position: relative;
-  width: 367px;
-  height: 208px;
+  max-width: 367px;
+  max-height: 208px;
+  width: 100%;
+  height: 100%;
   border-radius: 12px;
-
   box-shadow: 0 8px 30px 0 #00000010;
 
   img {
@@ -22,6 +37,25 @@ export const Preview = styled('image')`
     object-fit: cover;
     border-radius: 12px;
     filter: blur(3px);
+  }
+  @media (max-width: 1180px) {
+    max-height: calc(300px / 1.76);
+  }
+
+  @media (max-width: 968px) {
+    max-height: calc(370px / 1.76);
+  }
+
+  @media (max-width: 800px) {
+    max-height: calc(300px / 1.76);
+  }
+
+  @media (max-width: 650px) {
+    max-height: calc(370px / 1.76);
+  }
+
+  @media (max-width: 375px) {
+    max-height: calc((100vw - 30px) / 1.76);
   }
 `;
 
@@ -63,4 +97,8 @@ export const TimeContainer = styled('div')`
   color: white;
   padding: 6px 15px;
   border-radius: 16px;
+
+  @media (max-width: 800px) {
+    padding: 5px 10px;
+  }
 `;

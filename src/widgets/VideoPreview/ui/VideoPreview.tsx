@@ -26,6 +26,7 @@ export const VideoPreview: FC<IVideo> = ({ title, views, date, time, image, id }
     <VideoContainer>
       <Preview style={{ border: image ? 'none' : '2px solid #e5e5e5' }}>
         {image && <img src={image} />}
+
         <Link to={`/video-lecture/${id}`}>
           <PlayIcon>
             <PlayArrowIcon />
