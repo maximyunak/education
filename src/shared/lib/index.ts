@@ -18,3 +18,5 @@ export {
 
 export { SwiperPagination } from './ui/SliderPagination';
 export { SliderNext, SliderPrev } from './ui/SliderNavigation';
+
+export { PlayIcon } from './ui/PlayIcon';
