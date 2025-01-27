@@ -18,11 +18,11 @@ export const SliderContent = styled('div')`
     min-width: 250px;
   }
   @media (max-width: 540px) {
-    max-width: 60%;
+    max-width: 70vw;
     margin: 0 auto;
   }
-  @media (max-width: 374px) {
-    /* min-width: 220px; */
+
+  @media (max-width: 378px) {
     max-width: 100%;
   }
   @media (max-width: 450px) {
