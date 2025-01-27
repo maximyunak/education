@@ -1,7 +1,6 @@
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { AuthLayout, Layout } from '../layout';
-import { RegistrationPage, LoginPage, HomePage } from 'pages';
-import { VideoCatalogPage } from 'pages/VideoCatalogPage';
+import { RegistrationPage, LoginPage, HomePage, VideoCatalogPage, VideoLecturePage } from 'pages';
 
 export const AppRouter = () => {
   return (
@@ -14,6 +13,7 @@ export const AppRouter = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="video-lectures" element={<VideoCatalogPage />} />
+          <Route path="video-lecture/:id" element={<VideoLecturePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
