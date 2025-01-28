@@ -1,15 +1,8 @@
 import React, { FC } from 'react';
-import {
-  InfoContainer,
-  PlayIcon,
-  Preview,
-  TimeContainer,
-  VideoContainer,
-} from './VideoPreview.styles';
+import { InfoContainer, Preview, TimeContainer, VideoContainer } from './VideoPreview.styles';
 
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Text12, Text20Bold, TextGray } from 'shared/lib';
+import { PlayIcon, Text12, Text20Bold, TextGray } from 'shared/lib';
 import { Link } from 'react-router-dom';
 
 interface IVideo {
@@ -28,9 +21,7 @@ export const VideoPreview: FC<IVideo> = ({ title, views, date, time, image, id }
         {image && <img src={image} />}
 
         <Link to={`/video-lecture/${id}`}>
-          <PlayIcon>
-            <PlayArrowIcon />
-          </PlayIcon>
+          <PlayIcon />
         </Link>
         <TimeContainer>
           <Text12>{time}</Text12>

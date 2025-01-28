@@ -5,7 +5,7 @@ import {
   ExampleTextInfo,
   MobileButton,
 } from './ExampleCourseCard.styles';
-import { StyledButton, Text16, Text36 } from 'shared/lib';
+import { PlayIcon, StyledButton, Text16, Text36 } from 'shared/lib';
 
 interface ExampleCourseCardProps {
   title: string;
@@ -13,7 +13,12 @@ interface ExampleCourseCardProps {
   image?: string;
 }
 
+const ImageContainer = styled('div')`
+  position: relative;
+`;
+
 import exampleCourseImage from '../exampleCourse.png';
+import { styled } from '@mui/material';
 
 export const ExampleCourseCard: FC<ExampleCourseCardProps> = ({ title, description, image }) => {
   return (
@@ -23,7 +28,10 @@ export const ExampleCourseCard: FC<ExampleCourseCardProps> = ({ title, descripti
         <Text36>{description}</Text36>
         <StyledButton maxWidth="180px">Смотреть все</StyledButton>
       </ExampleTextInfo>
-      <ExampleCourseImage src={image || exampleCourseImage} alt="" />
+      <ImageContainer>
+        <ExampleCourseImage src={image || exampleCourseImage} alt="" />
+        <PlayIcon />
+      </ImageContainer>
       <MobileButton>
         <StyledButton maxWidth="180px">Смотреть все</StyledButton>
       </MobileButton>
