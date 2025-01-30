@@ -39,7 +39,7 @@ const HeaderUi = () => {
           <Link to="/video-lectures">
             <Text>Видеолекции</Text>
           </Link>
-          <Link to="/tests">
+          <Link to="/test-catalog">
             <Text>Тесты</Text>
           </Link>
           <Link to="/low-price">
@@ -108,8 +108,3 @@ export const Header = () => {
     </div>
   );
 };
-{
-  /* <Drawer anchor="top" open={open} onClose={() => setOpen(false)}>
-  <p>Hello</p>
-</Drawer> */
-}

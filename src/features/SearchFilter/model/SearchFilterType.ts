@@ -1,4 +1,4 @@
-export interface VideoFilterType {
+export interface SearchFilterType {
   totalItems: number;
   sortingMode: sortingMode;
   filterThema: filterThemaItemsType[];

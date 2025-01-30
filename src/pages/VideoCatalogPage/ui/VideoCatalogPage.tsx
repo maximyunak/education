@@ -1,6 +1,6 @@
 import { Container } from 'app/layout';
 import { StyledButton, Title } from 'shared/lib';
-import { VideoFilter } from 'features/VideoFilter';
+import { VideoFilter } from 'features/SearchFilter';
 import { VideoPreview } from 'widgets/VideoPreview';
 import { videos } from '../consts/consts';
 import { Section, VideosContainer, MoreButton } from './VideoCatalog.styles';

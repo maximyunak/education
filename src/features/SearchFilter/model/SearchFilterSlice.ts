@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { filterThemaItemsType, sortingMode, VideoFilterType } from './VideoFilterType';
+import { filterThemaItemsType, sortingMode, SearchFilterType } from './SearchFilterType';
 
 // Define the initial state
-const initialState: VideoFilterType = {
+const initialState: SearchFilterType = {
   totalItems: 10,
   sortingMode: 'popular',
   filterThema: [],
   filterText: '',
 };
 
-const VideoFilterSlice = createSlice({
+const SearchFilterSlice = createSlice({
   name: 'createTask',
   initialState,
   reducers: {
-    setFilterThema(state, action: PayloadAction<any[]>) {
+    setFilterThema(state, action: PayloadAction<filterThemaItemsType[]>) {
       state.filterThema = action.payload;
     },
     setFilterText(state, action: PayloadAction<string>) {
@@ -25,6 +25,6 @@ const VideoFilterSlice = createSlice({
   },
 });
 
-export const { setFilterThema, setFilterText, setSortingMode } = VideoFilterSlice.actions;
+export const { setFilterThema, setFilterText, setSortingMode } = SearchFilterSlice.actions;
 
-export default VideoFilterSlice.reducer;
+export default SearchFilterSlice.reducer;

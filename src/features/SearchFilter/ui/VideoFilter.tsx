@@ -13,8 +13,8 @@ import {
 } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { filterThemaItems } from '../model/VideoFilterType';
-import { setFilterText, setFilterThema, setSortingMode } from '../model/VideoFilterSlice';
+import { filterThemaItems } from '../model/SearchFilterType';
+import { setFilterText, setFilterThema, setSortingMode } from '../model/SearchFilterSlice';
 
 export const VideoFilter = () => {
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
