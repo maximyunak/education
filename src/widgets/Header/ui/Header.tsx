@@ -28,7 +28,9 @@ const HeaderUi = () => {
     <HeaderContainer>
       <HeaderContent>
         <LogoBlock>
-          <img src={Logo} alt="logo" />
+          <Link to="/">
+            <img src={Logo} alt="logo" />
+          </Link>
           <Link to="/courses">
             <Button sx={{ textTransform: 'none' }} variant="outlined">
               Все курсы
@@ -90,7 +92,9 @@ export const Header = () => {
     <div>
       {width ? (
         <HeaderBase>
-          <img src={Logo} alt="logo" />
+          <Link to="/">
+            <img src={Logo} alt="logo" />
+          </Link>
           {/* <MenuIcon onClick={() => setOpen(true)} /> */}
           <Menu className={open ? 'open' : ''} onClick={() => setOpen(true)}>
             <span />

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 
-export const Text17 = styled('p')({
+export const Text17 = styled('h3')({
   fontSize: '17px',
   lineHeight: '24px',
   fontWeight: 400,
@@ -14,7 +14,7 @@ export const Text17 = styled('p')({
   },
 });
 
-export const Text20 = styled('p')({
+export const Text20 = styled('h1')({
   fontSize: '20px',
   lineHeight: '28px',
   fontWeight: 400,

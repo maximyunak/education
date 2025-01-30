@@ -16,12 +16,10 @@ export const Section = styled('section')`
   }
 `;
 
-export const TestContainer = styled('div')`
+export const TestsContainer = styled('div')`
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   justify-content: space-between;
-  @media (max-width: 650px) {
-    justify-content: center;
-  }
+
+  row-gap: 20px;
 `;

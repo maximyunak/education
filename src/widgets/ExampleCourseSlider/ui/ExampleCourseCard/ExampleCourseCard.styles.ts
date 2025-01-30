@@ -16,12 +16,6 @@ export const ExampleTextInfo = styled('div')`
   justify-content: space-between;
   gap: 15px;
   max-width: 570px;
-  white-space: nowrap;
-  h2,
-  p {
-    overflow: hidden;
-    text-overflow: ellipsis; /* Добавляем троеточие */
-  }
   button {
     margin-top: 40px;
   }

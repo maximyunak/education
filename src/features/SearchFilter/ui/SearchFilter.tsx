@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, SwitchContainer, VideoFilterContainer } from './VideoFilter.styles';
+import { Flex, SwitchContainer, VideoFilterContainer } from './SearchFilter.styles';
 import { StyledInput, Text17, TextGray, useAppDispatch, useAppSelector } from 'shared/lib';
 import {
   Autocomplete,
@@ -13,10 +13,10 @@ import {
 } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { filterThemaItems } from '../model/SearchFilterType';
+import { filterThemaItems, filterThemaItemsType } from '../model/SearchFilterType';
 import { setFilterText, setFilterThema, setSortingMode } from '../model/SearchFilterSlice';
 
-export const VideoFilter = () => {
+export const SearchFilter = () => {
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
     (state) => state.videoFilter,
   );
@@ -39,7 +39,7 @@ export const VideoFilter = () => {
     dispatch(setFilterText(e.target.value));
   };
 
-  const handleChangeFilterThema = (e: any, newValue: string[]) => {
+  const handleChangeFilterThema = (e: any, newValue: filterThemaItemsType[]) => {
     dispatch(setFilterThema(newValue));
   };
 
