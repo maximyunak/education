@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { CreateTestSlice } from 'features/CreateTest';
 import { VideoFilterSlice } from 'features/SearchFilter';
 
 const rootReducer = combineReducers({
   videoFilter: VideoFilterSlice,
+  createTest: CreateTestSlice,
 });
 
 export const setupStore = () => {

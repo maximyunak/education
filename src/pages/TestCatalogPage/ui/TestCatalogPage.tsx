@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { Modal, styled } from '@mui/material';
 import { Container } from 'app/layout';
 import { SearchFilter } from 'features/SearchFilter';
 import { Title } from 'shared/lib';
@@ -6,6 +6,8 @@ import { Title } from 'shared/lib';
 import { Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
 import { TestPreviewType } from 'entities/TestPreview/model/TestPreviewType';
+import { CreateTestModal } from 'features/CreateTest';
+import { useState } from 'react';
 
 const tests: TestPreviewType[] = [
   {
@@ -62,6 +64,7 @@ const tests: TestPreviewType[] = [
 ];
 
 export const TestCatalogPage = () => {
+  const [open, setOpen] = useState(true);
   return (
     <div>
       <Section>
@@ -77,6 +80,9 @@ export const TestCatalogPage = () => {
           }
         </Container>
       </Section>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <CreateTestModal onClick={() => setOpen(false)} />
+      </Modal>
     </div>
   );
 };
