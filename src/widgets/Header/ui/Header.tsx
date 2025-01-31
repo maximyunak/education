@@ -23,7 +23,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ExAva from './exAva.png';
 import { useState } from 'react';
 
-const HeaderUi = () => {
+const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -37,7 +37,7 @@ const HeaderUi = () => {
             </Button>
           </Link>
         </LogoBlock>
-        <NavBlock>
+        <NavBlock onClick={onClose}>
           <Link to="/video-lectures">
             <Text>Видеолекции</Text>
           </Link>
@@ -107,7 +107,7 @@ export const Header = () => {
       )}
 
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
-        <HeaderUi />
+        <HeaderUi onClose={() => setOpen(false)} />
       </Drawer>
     </div>
   );

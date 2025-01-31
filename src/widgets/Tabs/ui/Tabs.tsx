@@ -21,6 +21,9 @@ export const MyTabs: FC<TabsProps> = ({ tabs, selectedTab, handleTabChange }) =>
             fontSize: '15px !important',
           },
         },
+        '.MuiTabs-scrollButtons': {
+          width: 'auto',
+        },
       }}
       value={selectedTab}
       onChange={handleTabChange}

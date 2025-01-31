@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { Flex, SwitchContainer, VideoFilterContainer } from './SearchFilter.styles';
+import {
+  Flex,
+  InputsContainer,
+  SwitchContainer,
+  VideoFilterContainer,
+} from './SearchFilter.styles';
 import { StyledInput, Text17, TextGray, useAppDispatch, useAppSelector } from 'shared/lib';
 import {
   Autocomplete,
@@ -59,55 +64,62 @@ export const SearchFilter = () => {
         />
         <Text17>По дате обновления</Text17>
       </SwitchContainer>
-      <Autocomplete
-        // value={filterThema}
-        value={filterThema}
-        onChange={handleChangeFilterThema}
-        getOptionLabel={(option) => option}
-        options={filterThemaItems}
-        multiple
-        limitTags={1}
-        fullWidth
-        sx={{
-          maxWidth: '233px',
-          marginTop: '-15px',
-          '@media (max-width: 1060px)': {
-            maxWidth: '200px',
-          },
-          '@media (max-width: 880px)': {
-            maxWidth: '282px',
-          },
-        }}
-        clearOnEscape
-        renderInput={(params) => (
-          <TextField {...params} label="Выберите тематику" variant="standard" fullWidth />
-        )}
-        renderTags={(value) => (
-          <div style={{ paddingRight: '5px' }}>
-            <Chip label={`${value.length} выбрано`} />
-          </div>
-        )}
-        renderOption={(props, option, { selected }) => {
-          const { key, ...optionProps } = props;
-          return (
-            <li key={key} {...optionProps}>
-              <Checkbox style={{ marginRight: 8 }} checked={selected} />
-              {option}
-            </li>
-          );
-        }}
-      />
-      <StyledInput
-        maxHeight={50}
-        placeholder="Поиск"
-        onChange={handleInputChange}
-        value={filterText}
-        startAdornment={
-          <InputAdornment position="start">
-            <SearchIcon />
-          </InputAdornment>
-        }
-      />
+      <InputsContainer>
+        <Autocomplete
+          // value={filterThema}
+          value={filterThema}
+          onChange={handleChangeFilterThema}
+          getOptionLabel={(option) => option}
+          options={filterThemaItems}
+          multiple
+          limitTags={1}
+          fullWidth
+          sx={{
+            maxWidth: '233px',
+            marginTop: '-15px',
+            '@media (max-width: 1060px)': {
+              maxWidth: '200px',
+            },
+            '@media (max-width: 880px)': {
+              maxWidth: '100%',
+            },
+            '@media (max-width: 600px)': {
+              maxWidth: '100%',
+            },
+          }}
+          clearOnEscape
+          renderInput={(params) => (
+            <TextField {...params} label="Выберите тематику" variant="standard" fullWidth />
+          )}
+          renderTags={(value) => (
+            <div style={{ paddingRight: '5px' }}>
+              <Chip label={`${value.length} выбрано`} />
+            </div>
+          )}
+          renderOption={(props, option, { selected }) => {
+            const { key, ...optionProps } = props;
+            return (
+              <li key={key} {...optionProps}>
+                <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                {option}
+              </li>
+            );
+          }}
+        />
+        <div style={{ width: '100%' }}>
+          <StyledInput
+            maxHeight={50}
+            placeholder="Поиск"
+            onChange={handleInputChange}
+            value={filterText}
+            startAdornment={
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            }
+          />
+        </div>
+      </InputsContainer>
     </VideoFilterContainer>
   );
 };
