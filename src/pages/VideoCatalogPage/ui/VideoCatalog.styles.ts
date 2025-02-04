@@ -31,3 +31,21 @@ export const MoreButton = styled('div')`
   justify-content: center;
   margin-bottom: 50px;
 `;
+
+export const UploadContainer = styled('div')`
+  width: 100%;
+  border: 3px dashed #3d8be4;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(6.25rem, 4.432rem + 9.09vw, 11.25rem);
+  margin-top: 40px;
+
+  @media (max-width: 750px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 450px) {
+    margin-top: 0px;
+  }
+`;

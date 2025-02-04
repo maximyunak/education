@@ -6,47 +6,61 @@ import {
   InputTitle,
   InputsBlock,
   ModalContainer,
+  QuestionsBlock,
+  AddQuestionContainer,
 } from './CreateTestModal.styles';
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseIcon from '@mui/icons-material/Close';
-import { Input } from '@mui/material';
-import { StyledButton } from 'shared/lib';
+import { Button, Input } from '@mui/material';
+import {
+  StyledButton,
+  StyledInput,
+  Text20,
+  Text20Bold,
+  useAppDispatch,
+  useAppSelector,
+} from 'shared/lib';
+import { Question } from '../Question';
+import { addQuestion, setDescription, setTitle } from '../../model/CreateTestSlice';
 
 export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () => void }>(
   ({ onClick }, modalRef) => {
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
+    // ! store
+    const data = useAppSelector((state) => state.createTest);
+    const dispatch = useAppDispatch();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value, name } = e.target;
       switch (name) {
         case 'title':
-          setTitle(value);
+          dispatch(setTitle(value));
           break;
         case 'desc':
-          setDesc(value);
+          dispatch(setDescription(value));
           break;
       }
     };
 
+    const handleAddQuestion = () => {
+      dispatch(addQuestion());
+    };
+
     return (
-      <ModalContainer>
+      <ModalContainer ref={modalRef} tabIndex={-1}>
         <CloseIconContainer>
           <CloseIcon onClick={onClick} />
         </CloseIconContainer>
         <DescriptionContainer>
           <InputsBlock>
             <InputTitle
-              value={title}
+              value={data.title}
               name="title"
               onChange={handleChange}
               placeholder="Введите название теста"
             />
             <Input
               name="desc"
-              value={desc}
+              value={data.description}
               onChange={handleChange}
               fullWidth
               placeholder="Описание теста"
@@ -59,6 +73,25 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
             <StyledButton maxWidth="160px">Дальше</StyledButton>
           </ButtonsBlock>
         </DescriptionContainer>
+        <QuestionsBlock>
+          {data.questions.map((el, id) => (
+            <Question {...el} id={id} key={`${el.questionTitle}_${id}`} />
+          ))}
+        </QuestionsBlock>
+        <AddQuestionContainer>
+          <Button
+            variant="contained"
+            onClick={handleAddQuestion}
+            sx={{
+              textTransform: 'none',
+              '@media (max-width: 450px)': {
+                padding: '3px 15px',
+              },
+            }}
+          >
+            Новый вопрос
+          </Button>
+        </AddQuestionContainer>
       </ModalContainer>
     );
   },

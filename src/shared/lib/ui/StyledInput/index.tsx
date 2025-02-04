@@ -13,6 +13,7 @@ interface StyledInputProps {
   errorMessage?: string;
   maxHeight?: number;
   maxWidth?: number;
+  rounded?: number;
 }
 
 const ErrorText = styled(FormHelperText)({
@@ -40,12 +41,12 @@ const ErrorText = styled(FormHelperText)({
 
 const InputContainer = styled('div')({
   position: 'relative',
+  width: '100%',
 });
 
 const StyledOutlinedInput = styled(OutlinedInput)({
   width: '100%',
-  height: '56px',
-  borderRadius: '10px',
+  height: '53px',
   fontSize: '16px',
   fontFamily: 'Inter',
   transition: 'all 0.15s ease-in-out',
@@ -101,6 +102,7 @@ export const StyledInput: FC<StyledInputProps> = ({
   errorMessage,
   maxHeight,
   maxWidth,
+  rounded,
 }) => {
   return (
     <InputContainer>
@@ -108,6 +110,7 @@ export const StyledInput: FC<StyledInputProps> = ({
         sx={{
           maxWidth,
           maxHeight: `${maxHeight}px`,
+          borderRadius: `${rounded ? rounded : 10}px`,
         }}
         placeholder={placeholder}
         onChange={onChange}

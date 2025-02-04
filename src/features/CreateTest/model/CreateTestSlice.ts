@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TestType } from './TestType';
+import { QuestionVariant, TestType } from './TestType';
 
 export interface CreateTestSlice extends TestType {
   page: number;
@@ -7,19 +7,59 @@ export interface CreateTestSlice extends TestType {
 
 const initialState: CreateTestSlice = {
   title: '',
-  desc: '',
+  description: '',
   page: 1,
-  testCategory: '',
-  testDuration: 0,
-  questions: [],
+  max_attempts: 3,
+  passing_score: 0,
+  theme: '',
+  duration: 0,
+  questions: [
+    {
+      questionTitle: 'Вопрос без названия',
+      type: QuestionVariant.SINGLE,
+      points: 3,
+      answers: [
+        { answerTitle: 'Вариант ответа', is_correct: true },
+        { answerTitle: 'Вариант ответа', is_correct: false },
+      ],
+    },
+    {
+      questionTitle: 'Вопрос без названия',
+      type: QuestionVariant.MULTIPLE,
+      points: 3,
+      answers: [
+        { answerTitle: 'Вариант ответа', is_correct: true },
+        { answerTitle: 'Вариант ответа', is_correct: false },
+      ],
+    },
+  ],
 };
 
 const CreateTestSlice = createSlice({
   name: 'createTask',
   initialState,
-  reducers: {},
+  reducers: {
+    setTitle(state, action: PayloadAction<string>) {
+      state.title = action.payload;
+    },
+    // Set the task description
+    setDescription(state, action: PayloadAction<string>) {
+      state.description = action.payload;
+    },
+    addQuestion: (state) => {
+      state.questions.push({
+        questionTitle: 'Вопрос без названия',
+        type: QuestionVariant.SINGLE,
+        points: 3,
+        answers: [
+          { answerTitle: 'Вариант ответа', is_correct: true },
+          { answerTitle: 'Вариант ответа', is_correct: false },
+        ],
+      });
+    },
+  },
 });
 
-export const {} = CreateTestSlice.actions;
+export const { setTitle, setDescription, addQuestion } = CreateTestSlice.actions;
 
 export default CreateTestSlice.reducer;

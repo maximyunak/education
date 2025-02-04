@@ -1,9 +1,9 @@
 import { Modal, styled } from '@mui/material';
 import { Container } from 'app/layout';
 import { SearchFilter } from 'features/SearchFilter';
-import { Title } from 'shared/lib';
+import { StyledButton, Title } from 'shared/lib';
 
-import { Section, TestsContainer } from './TestCatalog.styles';
+import { MoreButton, Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
 import { TestPreviewType } from 'entities/TestPreview/model/TestPreviewType';
 import { CreateTestModal } from 'features/CreateTest';
@@ -83,6 +83,14 @@ export const TestCatalogPage = () => {
       <Modal open={open} onClose={() => setOpen(false)}>
         <CreateTestModal onClick={() => setOpen(false)} />
       </Modal>
+      <Container>
+        <MoreButton>
+          <StyledButton maxWidth="180px">Загрузить еще 10</StyledButton>
+          <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
+            Создать тест
+          </StyledButton>
+        </MoreButton>
+      </Container>
     </div>
   );
 };

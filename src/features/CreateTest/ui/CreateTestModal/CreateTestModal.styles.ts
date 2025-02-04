@@ -1,6 +1,7 @@
 import { styled } from '@mui/material';
 
 export const ModalContainer = styled('div')`
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -81,4 +82,25 @@ export const InputTitle = styled('input')`
   @media (max-width: 340px) {
     font-size: 18px;
   }
+`;
+
+export const AddQuestionContainer = styled('div')`
+  width: 100%;
+  border: 3px dashed #3d8be4;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(6.25rem, 4.432rem + 9.09vw, 11.25rem);
+
+  @media (max-width: 750px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 450px) {
+    margin-top: 0px;
+  }
+`;
+
+export const QuestionsBlock = styled('div')`
+  margin-top: 15px;
 `;
