@@ -66,6 +66,24 @@ export const CreateVideoModal = React.forwardRef<HTMLDivElement, { onClick: () =
       }
     };
 
+    // !api
+    const handleSubmit = () => {
+      try {
+        const formData = new FormData();
+
+        if (video && preview) {
+          formData.append('title', title);
+          formData.append('description', desc);
+          formData.append('video', video);
+          formData.append('preview', preview);
+        }
+
+        console.log(formData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     return (
       <ModalContainer ref={modalRef} tabIndex={-1}>
         <CloseIconContainer>
@@ -87,7 +105,9 @@ export const CreateVideoModal = React.forwardRef<HTMLDivElement, { onClick: () =
               placeholder="Описание видеолекции"
             />
           </div>
-          <StyledButton maxWidth="160px">Опубликовать</StyledButton>
+          <StyledButton maxWidth="160px" onClick={handleSubmit}>
+            Опубликовать
+          </StyledButton>
         </DescriptionContainer>
         <UploadContainer>
           <Button
@@ -138,7 +158,9 @@ export const CreateVideoModal = React.forwardRef<HTMLDivElement, { onClick: () =
           )}
         </VideoPreviewContainer>
         <MobileButton>
-          <StyledButton maxWidth="160px">Опубликовать</StyledButton>
+          <StyledButton onClick={handleSubmit} maxWidth="160px">
+            Опубликовать
+          </StyledButton>
         </MobileButton>
       </ModalContainer>
     );
