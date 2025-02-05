@@ -14,6 +14,7 @@ interface StyledInputProps {
   maxHeight?: number;
   maxWidth?: number;
   rounded?: number;
+  disabled?: boolean;
 }
 
 const ErrorText = styled(FormHelperText)({
@@ -103,6 +104,7 @@ export const StyledInput: FC<StyledInputProps> = ({
   maxHeight,
   maxWidth,
   rounded,
+  disabled,
 }) => {
   return (
     <InputContainer>
@@ -111,9 +113,11 @@ export const StyledInput: FC<StyledInputProps> = ({
           maxWidth,
           maxHeight: `${maxHeight}px`,
           borderRadius: `${rounded ? rounded : 10}px`,
+          pointerEvents: disabled ? 'none' : 'all',
         }}
         placeholder={placeholder}
         onChange={onChange}
+        disabled={disabled}
         value={value}
         type={type}
         endAdornment={endAdornment}

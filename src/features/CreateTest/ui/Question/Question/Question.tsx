@@ -9,9 +9,10 @@ import {
 import { StyledInput, Text20, useAppDispatch } from 'shared/lib';
 import { AnswerType, IQuestion, QuestionVariant } from 'features/CreateTest/model/TestType';
 import { AnswerBlock } from '../Answer/Answer';
-import { Checkbox, MenuItem, Radio, Select } from '@mui/material';
+import { Checkbox, MenuItem, Radio, Select, SelectChangeEvent } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import { addAnswer, editQuestion, removeQuestion } from 'features/CreateTest/model/CreateTestSlice';
 
 interface IQuestionProps extends IQuestion {
   id: number;
@@ -22,7 +23,21 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // dispatch();
+    dispatch(editQuestion({ questionTitle: value, id }));
+  };
+
+  const handleAddAnswer = () => {
+    dispatch(addAnswer(id));
+  };
+
+  const handleChangeType = (e: SelectChangeEvent) => {
+    const editedType = e.target.value as QuestionVariant;
+
+    dispatch(editQuestion({ type: editedType, id }));
+  };
+
+  const handleDeleteQuestion = () => {
+    dispatch(removeQuestion(id));
   };
 
   return (
@@ -38,17 +53,12 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
             onChange={handleInputChange}
           />
         </QuestionTitle>
-        {/* <Select
-          startAdornment={<Radio sx={{ padding: 0, marginRight: 2 }} checked={true} />}
-          value={'один правильный ответ'}
-          // maxWidth={406}
-          // rounded={6}
-        /> */}
         <Select
           fullWidth
           defaultValue={QuestionVariant.SINGLE}
           value={type}
           sx={{ maxWidth: '406px' }}
+          onChange={handleChangeType}
           startAdornment={
             type === QuestionVariant.SINGLE ? (
               <Radio sx={{ padding: 0, marginRight: 2 }} checked={true} />
@@ -61,13 +71,43 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
           <MenuItem value={QuestionVariant.MULTIPLE}>несколько правильных ответов</MenuItem>
         </Select>
         <div>
-          <DeleteIcon sx={{ display: 'block' }} />
+          <DeleteIcon onClick={handleDeleteQuestion} sx={{ cursor: 'pointer' }} />
         </div>
       </QuestionTitleBlock>
       <AnswersContainer>
-        {answers.map((el, id) => (
-          <AnswerBlock key={`${id}__${el.answerTitle}`} {...el} />
+        {answers.map((el, index) => (
+          <AnswerBlock
+            answerId={index}
+            type={type}
+            questionId={id}
+            key={`${id}-${index}`}
+            {...el}
+          />
         ))}
+        <div onClick={handleAddAnswer} style={{ cursor: 'pointer' }}>
+          <StyledInput
+            startAdornment={
+              type === QuestionVariant.MULTIPLE ? (
+                <Checkbox
+                  name={`question_answer_${id}`}
+                  disabled
+                  sx={{ padding: 0, marginRight: 2 }}
+                  checked={false}
+                />
+              ) : (
+                <Radio
+                  name={`question_answer_${id}`}
+                  disabled
+                  sx={{ padding: 0, marginRight: 2 }}
+                />
+              )
+            }
+            placeholder={'Добавить новый вариант'}
+            maxWidth={406}
+            rounded={6}
+            disabled
+          />
+        </div>
       </AnswersContainer>
       <Line />
     </QuestionsContainer>

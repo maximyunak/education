@@ -21,24 +21,18 @@ import {
   useAppSelector,
 } from 'shared/lib';
 import { Question } from '../Question';
-import { addQuestion, setDescription, setTitle } from '../../model/CreateTestSlice';
+import { addQuestion, setField } from '../../model/CreateTestSlice';
 
 export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () => void }>(
   ({ onClick }, modalRef) => {
     // ! store
     const data = useAppSelector((state) => state.createTest);
+    console.log('🚀 ~ data:', data);
     const dispatch = useAppDispatch();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value, name } = e.target;
-      switch (name) {
-        case 'title':
-          dispatch(setTitle(value));
-          break;
-        case 'desc':
-          dispatch(setDescription(value));
-          break;
-      }
+      dispatch(setField({ name, value }));
     };
 
     const handleAddQuestion = () => {
@@ -59,7 +53,7 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
               placeholder="Введите название теста"
             />
             <Input
-              name="desc"
+              name="description"
               value={data.description}
               onChange={handleChange}
               fullWidth
@@ -75,7 +69,7 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
         </DescriptionContainer>
         <QuestionsBlock>
           {data.questions.map((el, id) => (
-            <Question {...el} id={id} key={`${el.questionTitle}_${id}`} />
+            <Question {...el} id={id} key={`$_${id}`} />
           ))}
         </QuestionsBlock>
         <AddQuestionContainer>
