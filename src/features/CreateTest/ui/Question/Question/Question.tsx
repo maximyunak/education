@@ -9,16 +9,28 @@ import {
 import { StyledInput, Text20, useAppDispatch } from 'shared/lib';
 import { AnswerType, IQuestion, QuestionVariant } from 'features/CreateTest/model/TestType';
 import { AnswerBlock } from '../Answer/Answer';
-import { Checkbox, MenuItem, Radio, Select, SelectChangeEvent } from '@mui/material';
+import {
+  Checkbox,
+  IconButton,
+  MenuItem,
+  Radio,
+  Select,
+  SelectChangeEvent,
+  useMediaQuery,
+} from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import { addAnswer, editQuestion, removeQuestion } from 'features/CreateTest/model/CreateTestSlice';
+
+import { trashIcon } from 'shared/assets/icons';
 
 interface IQuestionProps extends IQuestion {
   id: number;
 }
 
 export const Question = ({ questionTitle, points, answers, type, id }: IQuestionProps) => {
+  const isMobile = useMediaQuery('(max-width: 550px)');
+
   const dispatch = useAppDispatch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,20 +56,28 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
     <QuestionsContainer>
       <QuestionTitleBlock>
         <QuestionTitle>
-          <Text20>{id + 1}.</Text20>
+          {!isMobile && <Text20>{id + 1}.</Text20>}
           <StyledInput
             maxWidth={406}
             rounded={6}
             placeholder="Вопрос без названия"
             value={questionTitle}
             onChange={handleInputChange}
+            startAdornment={isMobile && <Text20>{id + 1}.</Text20>}
+            endAdornment={
+              isMobile && (
+                <IconButton sx={{ width: '37px', height: '37px' }}>
+                  <img src={trashIcon} onClick={handleDeleteQuestion} />
+                </IconButton>
+              )
+            }
           />
         </QuestionTitle>
         <Select
           fullWidth
           defaultValue={QuestionVariant.SINGLE}
           value={type}
-          sx={{ maxWidth: '406px' }}
+          sx={{ maxWidth: '406px', maxHeight: '53px', borderRadius: '6px' }}
           onChange={handleChangeType}
           startAdornment={
             type === QuestionVariant.SINGLE ? (
@@ -70,9 +90,11 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
           <MenuItem value={QuestionVariant.SINGLE}>один правильный ответ</MenuItem>
           <MenuItem value={QuestionVariant.MULTIPLE}>несколько правильных ответов</MenuItem>
         </Select>
-        <div>
-          <DeleteIcon onClick={handleDeleteQuestion} sx={{ cursor: 'pointer' }} />
-        </div>
+        {!isMobile && (
+          <IconButton>
+            <img src={trashIcon} onClick={handleDeleteQuestion} />
+          </IconButton>
+        )}
       </QuestionTitleBlock>
       <AnswersContainer>
         {answers.map((el, index) => (

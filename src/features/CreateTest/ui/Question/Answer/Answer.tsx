@@ -1,9 +1,13 @@
-import { Checkbox, Radio } from '@mui/material';
+import { Checkbox, IconButton, Radio, useMediaQuery } from '@mui/material';
 import { editAnswer, removeAnswer } from 'features/CreateTest/model/CreateTestSlice';
 import { AnswerType, QuestionVariant } from 'features/CreateTest/model/TestType';
 import React from 'react';
 import { StyledInput, useAppDispatch } from 'shared/lib';
-import { AnswerContainer, InputContainer } from './Answer.styles';
+import { AnswerContainer, ButtonsContainer, InputContainer } from './Answer.styles';
+
+import { trashIcon } from 'shared/assets/icons';
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export const AnswerBlock = ({
   answerTitle,
@@ -12,6 +16,10 @@ export const AnswerBlock = ({
   questionId,
   type,
 }: AnswerType & { answerId: number; questionId: number; type: QuestionVariant }) => {
+  const [isVisibleOptions, setIsVisibleOptions] = React.useState(false);
+
+  const isMobile = useMediaQuery('(max-width: 550px)');
+
   const dispatch = useAppDispatch();
 
   const handleChangeAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +49,10 @@ export const AnswerBlock = ({
   };
 
   return (
-    <AnswerContainer>
+    <AnswerContainer
+      onMouseEnter={() => setIsVisibleOptions(true)}
+      onMouseLeave={() => setIsVisibleOptions(false)}
+    >
       <InputContainer>
         <StyledInput
           onChange={handleChangeAnswer}
@@ -60,12 +71,25 @@ export const AnswerBlock = ({
               />
             )
           }
+          endAdornment={
+            isMobile && (
+              <IconButton sx={{ width: '37px', height: '37px' }}>
+                <img src={trashIcon} onClick={handleRemoveAnswer} />
+              </IconButton>
+            )
+          }
           value={answerTitle}
           maxWidth={406}
           rounded={6}
         />
       </InputContainer>
-      <button onClick={handleRemoveAnswer}>delete</button>
+      {!isMobile && (
+        <ButtonsContainer className={`${isVisibleOptions && 'active'} button`}>
+          <IconButton sx={{ width: '46px', height: '46px' }}>
+            <img src={trashIcon} onClick={handleRemoveAnswer} />
+          </IconButton>
+        </ButtonsContainer>
+      )}
     </AnswerContainer>
   );
 };
