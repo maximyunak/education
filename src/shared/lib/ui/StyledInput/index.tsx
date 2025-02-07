@@ -4,7 +4,7 @@ import { FC } from 'react';
 interface StyledInputProps {
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  value?: string;
+  value?: string | number;
   type?: string;
   endAdornment?: React.ReactNode;
   startAdornment?: React.ReactNode;
@@ -15,6 +15,8 @@ interface StyledInputProps {
   maxWidth?: number;
   rounded?: number;
   disabled?: boolean;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
 }
 
 const ErrorText = styled(FormHelperText)({
@@ -105,6 +107,8 @@ export const StyledInput: FC<StyledInputProps> = ({
   maxWidth,
   rounded,
   disabled,
+  onBlur,
+  name,
 }) => {
   return (
     <InputContainer>
@@ -114,12 +118,15 @@ export const StyledInput: FC<StyledInputProps> = ({
           maxHeight: `${maxHeight}px`,
           borderRadius: `${rounded ? rounded : 10}px`,
           pointerEvents: disabled ? 'none' : 'all',
+          width: '100%',
         }}
         placeholder={placeholder}
         onChange={onChange}
         disabled={disabled}
         value={value}
         type={type}
+        name={name}
+        onBlur={onBlur}
         endAdornment={endAdornment}
         ref={ref}
         error={error}

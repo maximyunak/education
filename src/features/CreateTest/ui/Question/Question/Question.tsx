@@ -20,7 +20,12 @@ import {
 } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import { addAnswer, editQuestion, removeQuestion } from 'features/CreateTest/model/CreateTestSlice';
+import {
+  addAnswer,
+  editQuestion,
+  removeQuestion,
+  setField,
+} from 'features/CreateTest/model/CreateTestSlice';
 
 import { trashIcon } from 'shared/assets/icons';
 
@@ -66,8 +71,8 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
             startAdornment={isMobile && <Text20>{id + 1}.</Text20>}
             endAdornment={
               isMobile && (
-                <IconButton sx={{ width: '37px', height: '37px' }}>
-                  <img src={trashIcon} onClick={handleDeleteQuestion} />
+                <IconButton sx={{ width: '37px', height: '37px' }} onClick={handleDeleteQuestion}>
+                  <img src={trashIcon} />
                 </IconButton>
               )
             }
@@ -91,8 +96,8 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
           <MenuItem value={QuestionVariant.MULTIPLE}>несколько правильных ответов</MenuItem>
         </Select>
         {!isMobile && (
-          <IconButton>
-            <img src={trashIcon} onClick={handleDeleteQuestion} />
+          <IconButton onClick={handleDeleteQuestion}>
+            <img src={trashIcon} />
           </IconButton>
         )}
       </QuestionTitleBlock>

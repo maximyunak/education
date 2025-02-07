@@ -85,8 +85,8 @@ export const AnswerBlock = ({
       </InputContainer>
       {!isMobile && (
         <ButtonsContainer className={`${isVisibleOptions && 'active'} button`}>
-          <IconButton sx={{ width: '46px', height: '46px' }}>
-            <img src={trashIcon} onClick={handleRemoveAnswer} />
+          <IconButton sx={{ width: '46px', height: '46px' }} onClick={handleRemoveAnswer}>
+            <img src={trashIcon} />
           </IconButton>
         </ButtonsContainer>
       )}

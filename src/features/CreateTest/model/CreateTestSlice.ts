@@ -39,9 +39,28 @@ const CreateTestSlice = createSlice({
   name: 'createTask',
   initialState,
   reducers: {
-    setField(state: CreateTestSlice, action: PayloadAction<{ name: string; value: string }>) {
+    setField(state, action: PayloadAction<{ name: string; value: string | number }>) {
       const { name, value } = action.payload;
-      name === 'title' ? (state.title = value) : (state.description = value);
+
+      switch (name) {
+        case 'title':
+          state.title = value as string;
+          break;
+        case 'description':
+          state.description = value as string;
+          break;
+        case 'page':
+          state.page = value as number;
+          break;
+        case 'max_attempts':
+          state.max_attempts = value as number;
+          break;
+        case 'duration':
+          state.duration = value as number;
+          break;
+        default:
+          console.error(`Unknown key: ${name}`);
+      }
     },
     addQuestion: (state) => {
       state.questions.push({

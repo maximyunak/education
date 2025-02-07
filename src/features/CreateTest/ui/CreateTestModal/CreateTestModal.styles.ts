@@ -104,3 +104,10 @@ export const AddQuestionContainer = styled('div')`
 export const QuestionsBlock = styled('div')`
   margin-top: 15px;
 `;
+
+export const ButtonsContainer = styled('div')`
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+`;
