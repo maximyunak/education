@@ -9,7 +9,11 @@ interface AuthResponse {
 
 export const authRequest = async (userData: LoginDataType): Promise<void> => {
   try {
-    const res = await $api.post<AuthResponse>('auth', userData);
+    const formData = new FormData();
+    formData.append('username', userData.username);
+    formData.append('password', userData.password);
+
+    const res = await $api.post<AuthResponse>('auth', formData);
 
     const { access_token, token_type } = res.data;
 

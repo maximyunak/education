@@ -11,7 +11,7 @@ const initialState: CreateTestSlice = {
   page: 1,
   max_attempts: 3,
   passing_score: 0,
-  theme: '',
+  theme_id: 1,
   duration: 0,
   questions: [
     {

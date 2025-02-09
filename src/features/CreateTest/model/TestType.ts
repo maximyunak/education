@@ -20,7 +20,7 @@ export interface TestType {
   description: string;
   max_attempts: number;
   passing_score: number;
-  theme: string;
+  theme_id: number;
   duration: number;
   questions: IQuestion[];
 }

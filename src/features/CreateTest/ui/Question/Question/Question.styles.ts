@@ -90,7 +90,7 @@ export const OptionBlock = styled('div')`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 8px;
 
   li {
     padding-left: 0px;

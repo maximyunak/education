@@ -29,12 +29,12 @@ import { validateForm } from '../../lib/ValidateForm';
 export const LoginForm = () => {
   // ! consts
   const [userData, setUserData] = useState<LoginDataType>({
-    email: '',
+    username: '',
     password: '',
   });
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = useState<LoginDataType>({
-    email: '',
+    username: '',
     password: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -57,9 +57,12 @@ export const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitted(true);
+
     if (validateForm(userData, setErrors)) {
       try {
         await authRequest(userData);
+        console.log(userData);
+
         navigate('/');
       } catch (err) {
         const error = err as AxiosError<{ detail: string }>;
@@ -81,10 +84,10 @@ export const LoginForm = () => {
           <StyledInput
             placeholder="Email"
             type="email"
-            value={userData.email}
-            onChange={handleChange('email')}
-            error={isSubmitted && !!errors.email}
-            errorMessage={errors.email}
+            value={userData.username}
+            onChange={handleChange('username')}
+            error={isSubmitted && !!errors.username}
+            errorMessage={errors.username}
           />
         </TextContainer>
         <TextContainer>

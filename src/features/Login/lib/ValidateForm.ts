@@ -5,18 +5,18 @@ export const validateForm = (
   setErrors: (errors: LoginDataType) => void,
 ): boolean => {
   const newErrors: LoginDataType = {
-    email: '',
+    username: '',
     password: '',
   };
 
   let isValid = true;
 
-  // Проверка email
-  if (!userData.email) {
-    newErrors.email = 'Введите email';
+  // Проверка username
+  if (!userData.username) {
+    newErrors.username = 'Введите username';
     isValid = false;
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.email)) {
-    newErrors.email = 'Некорректный email';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.username)) {
+    newErrors.username = 'Некорректный username';
     isValid = false;
   }
 

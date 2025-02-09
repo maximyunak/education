@@ -24,6 +24,7 @@ import {
 } from 'shared/lib';
 import { thems } from 'entities/Thems';
 import { CreateTestSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
+import { createTestRequest } from 'features/CreateTest/api/createTestRequest';
 
 interface SecondStepProps {
   data: CreateTestSlice;
@@ -73,6 +74,11 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const name = e.target.name;
     name === 'attempts' ? setMax_attempts(data.max_attempts) : setDuration(data.duration);
+  };
+
+  const handleCreateTest = async () => {
+    const res = await createTestRequest(data);
+    console.log(res);
   };
 
   return (
@@ -132,7 +138,7 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
         <StyledButton variant="outlined" maxWidth="160px" onClick={() => handleChangePage(1)}>
           Назад
         </StyledButton>
-        <StyledButton maxWidth="160px" onClick={() => handleChangePage(1)}>
+        <StyledButton maxWidth="160px" onClick={handleCreateTest}>
           Готово
         </StyledButton>
       </ButtonsContainer>
