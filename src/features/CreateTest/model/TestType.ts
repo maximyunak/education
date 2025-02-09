@@ -11,7 +11,7 @@ export type AnswerType = {
 export interface IQuestion {
   questionTitle: string;
   type: QuestionVariant;
-  points?: number;
+  points?: number | '';
   answers: AnswerType[];
 }
 

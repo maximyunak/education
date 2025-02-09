@@ -58,9 +58,19 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
   };
 
   const handleChangePoints = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const valueString = e.target.value;
 
-    dispatch(editQuestion({ points: +value, id }));
+    if (valueString === '') {
+      dispatch(editQuestion({ points: '', id }));
+      return;
+    }
+    dispatch(editQuestion({ points: +valueString, id }));
+  };
+
+  const handleBlurPoints = () => {
+    if (points === '') {
+      dispatch(editQuestion({ points: 0, id }));
+    }
   };
 
   const handleChangeType = (e: SelectChangeEvent) => {
@@ -93,7 +103,7 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
             startAdornment={isMobile && <Text20>{id + 1}.</Text20>}
             endAdornment={
               isMobile && (
-                <IconButton sx={{ width: '50px', height: '50px' }} onClick={handleOpenPopover}>
+                <IconButton onClick={handleOpenPopover}>
                   <MoreVertIcon />
                 </IconButton>
               )
@@ -175,12 +185,14 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
       >
         <OptionBlock>
           <Text16Bold>Выберите действие:</Text16Bold>
-          <div style={{ marginTop: '10px' }}>
+          <div>
             <MenuItem className="points">
               <Text16>Количество баллов </Text16>{' '}
               <input
                 name="points"
                 onChange={handleChangePoints}
+                onBlur={handleBlurPoints}
+                min={0}
                 value={points}
                 type="number"
                 src=""
@@ -190,7 +202,9 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
             <MenuItem sx={{}} onClick={handleDeleteQuestion}>
               <Text16>Удалить вопрос</Text16>
             </MenuItem>
-            <MenuItem onClick={handleClosePopover}>Закрыть</MenuItem>
+            <MenuItem onClick={handleClosePopover}>
+              <Text16>Закрыть</Text16>
+            </MenuItem>
           </div>
         </OptionBlock>
       </Popover>

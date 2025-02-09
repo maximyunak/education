@@ -24,6 +24,10 @@ export const QuestionTitleBlock = styled('div')`
     cursor: pointer;
   }
 
+  .css-lohd6h-MuiSvgIcon-root-MuiSelect-icon {
+    right: 22px;
+  }
+
   @media (max-width: 1050px) {
     grid-template-columns: 406px 50px;
 
@@ -87,6 +91,10 @@ export const OptionBlock = styled('div')`
   display: flex;
   flex-direction: column;
   gap: 3px;
+
+  li {
+    padding-left: 0px;
+  }
 
   .points {
     display: flex;
