@@ -12,10 +12,12 @@ export const ModalContainer = styled('div')`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
+  height: 100%;
   background-color: #fff;
 
+  transition: 0.3s width;
+
   max-height: 750px;
-  height: 100%;
 
   border-radius: 12px;
   padding: 20px 40px;

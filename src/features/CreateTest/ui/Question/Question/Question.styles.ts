@@ -81,3 +81,20 @@ export const Line = styled('div')`
   margin: 40px 0;
   background-color: #e5e5e5;
 `;
+
+export const OptionBlock = styled('div')`
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  .points {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    input {
+      max-width: 100px;
+    }
+  }
+`;

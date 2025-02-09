@@ -17,7 +17,7 @@ const initialState: CreateTestSlice = {
     {
       questionTitle: 'Вопрос без названия',
       type: QuestionVariant.SINGLE,
-      points: 3,
+      points: 2,
       answers: [
         { answerTitle: 'Вариант ответа', is_correct: true },
         { answerTitle: 'Вариант ответа', is_correct: false },
