@@ -10,7 +10,7 @@ import { trashIcon } from 'shared/assets/icons';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export const AnswerBlock = ({
-  answerTitle,
+  text,
   is_correct,
   answerId,
   questionId,
@@ -26,7 +26,7 @@ export const AnswerBlock = ({
     const value = e.target.value;
     dispatch(
       editAnswer({
-        answerTitle: value,
+        text: value,
         answerId,
         questionId,
       }),
@@ -78,7 +78,7 @@ export const AnswerBlock = ({
               </IconButton>
             )
           }
-          value={answerTitle}
+          value={text}
           maxWidth={406}
           rounded={6}
         />

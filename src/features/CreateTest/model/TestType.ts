@@ -1,15 +1,15 @@
 export enum QuestionVariant {
-  SINGLE = 'SINGLE',
-  MULTIPLE = 'MULTIPLE',
+  SINGLE = 'single',
+  MULTIPLE = 'multiple',
 }
 
 export type AnswerType = {
-  answerTitle: string;
+  text: string;
   is_correct: boolean;
 };
 
 export interface IQuestion {
-  questionTitle: string;
+  text: string;
   type: QuestionVariant;
   points?: number | '';
   answers: AnswerType[];

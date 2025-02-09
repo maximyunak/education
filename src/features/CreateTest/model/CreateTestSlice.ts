@@ -5,35 +5,41 @@ export interface CreateTestSlice extends TestType {
   page: number;
 }
 
+const calculateTotalPoints = (questions: IQuestion[]): number => {
+  return questions.reduce((sum, question) => sum + Number(question.points), 0);
+};
+
 const initialState: CreateTestSlice = {
   title: '',
   description: '',
   page: 1,
   max_attempts: 3,
   passing_score: 0,
-  theme_id: 1,
+  theme_id: 4,
   duration: 0,
   questions: [
     {
-      questionTitle: 'Вопрос без названия',
+      text: 'Вопрос без названия',
       type: QuestionVariant.SINGLE,
       points: 2,
       answers: [
-        { answerTitle: 'Вариант ответа', is_correct: true },
-        { answerTitle: 'Вариант ответа', is_correct: false },
+        { text: 'Вариант ответа', is_correct: true },
+        { text: 'Вариант ответа', is_correct: false },
       ],
     },
     {
-      questionTitle: 'Вопрос без названия',
+      text: 'Вопрос без названия',
       type: QuestionVariant.MULTIPLE,
       points: 3,
       answers: [
-        { answerTitle: 'Вариант ответа', is_correct: true },
-        { answerTitle: 'Вариант ответа', is_correct: false },
+        { text: 'Вариант ответа', is_correct: true },
+        { text: 'Вариант ответа', is_correct: false },
       ],
     },
   ],
 };
+
+initialState.passing_score = Math.ceil(calculateTotalPoints(initialState.questions) / 2);
 
 const CreateTestSlice = createSlice({
   name: 'createTask',
@@ -58,20 +64,24 @@ const CreateTestSlice = createSlice({
         case 'duration':
           state.duration = value as number;
           break;
+        case 'passing_score':
+          state.passing_score = value as number;
+          break;
         default:
           console.error(`Unknown key: ${name}`);
       }
     },
     addQuestion: (state) => {
       state.questions.push({
-        questionTitle: 'Вопрос без названия',
+        text: 'Вопрос без названия',
         type: QuestionVariant.SINGLE,
         points: 3,
         answers: [
-          { answerTitle: 'Вариант ответа', is_correct: true },
-          { answerTitle: 'Вариант ответа', is_correct: false },
+          { text: 'Вариант ответа', is_correct: true },
+          { text: 'Вариант ответа', is_correct: false },
         ],
       });
+      state.passing_score = Math.ceil(calculateTotalPoints(state.questions) / 2);
     },
     editQuestion: (state, action: PayloadAction<Partial<IQuestion> & { id: number }>) => {
       const { id, ...updated } = action.payload;
@@ -89,10 +99,13 @@ const CreateTestSlice = createSlice({
         });
       }
       Object.assign(question, updated);
+      if (updated.points !== undefined) {
+        state.passing_score = Math.ceil(calculateTotalPoints(state.questions) / 2);
+      }
     },
     addAnswer: (state, action: PayloadAction<number>) => {
       state.questions[action.payload].answers.push({
-        answerTitle: 'Вариант ответа',
+        text: 'Вариант ответа',
         is_correct: false,
       });
     },
@@ -101,16 +114,16 @@ const CreateTestSlice = createSlice({
       action: PayloadAction<{
         answerId: number;
         questionId: number;
-        answerTitle?: string;
+        text?: string;
         is_correct?: boolean;
       }>,
     ) => {
-      const { answerId, questionId, answerTitle, is_correct } = action.payload;
+      const { answerId, questionId, text, is_correct } = action.payload;
 
       const question = state.questions[questionId];
       const answer = question.answers[answerId];
 
-      if (answerTitle !== undefined) answer.answerTitle = answerTitle;
+      if (text !== undefined) answer.text = text;
       if (is_correct !== undefined) {
         if (question.type === QuestionVariant.SINGLE) {
           question.answers.forEach((a) => (a.is_correct = false));
@@ -121,6 +134,7 @@ const CreateTestSlice = createSlice({
     removeQuestion: (state, action: PayloadAction<number>) => {
       const id = action.payload;
       state.questions.splice(id, 1);
+      state.passing_score = Math.ceil(calculateTotalPoints(state.questions) / 2);
     },
     removeAnswer: (state, action: PayloadAction<{ questionId: number; answerId: number }>) => {
       const { questionId, answerId } = action.payload;

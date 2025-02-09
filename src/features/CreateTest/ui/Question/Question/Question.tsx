@@ -36,7 +36,7 @@ interface IQuestionProps extends IQuestion {
   id: number;
 }
 
-export const Question = ({ questionTitle, points, answers, type, id }: IQuestionProps) => {
+export const Question = ({ text, points, answers, type, id }: IQuestionProps) => {
   const isMobile = useMediaQuery('(max-width: 550px)');
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -45,7 +45,7 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    dispatch(editQuestion({ questionTitle: value, id }));
+    dispatch(editQuestion({ text: value, id }));
   };
 
   const handleAddAnswer = () => {
@@ -98,7 +98,7 @@ export const Question = ({ questionTitle, points, answers, type, id }: IQuestion
             maxWidth={406}
             rounded={6}
             placeholder="Вопрос без названия"
-            value={questionTitle}
+            value={text}
             onChange={handleInputChange}
             startAdornment={isMobile && <Text20>{id + 1}.</Text20>}
             endAdornment={

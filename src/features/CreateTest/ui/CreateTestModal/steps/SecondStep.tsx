@@ -36,7 +36,11 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
   const [max_attempts, setMax_attempts] = React.useState<number | string>(data.max_attempts);
   const [duration, setDuration] = React.useState<number | string>(data.duration);
 
+  const [passing_score, setPassingScore] = React.useState<number | string>(data.passing_score);
+
   const dispatch = useAppDispatch();
+
+  // ! format input values
 
   const formatTimeValue = (value: string | number) => {
     return `Время выполнения - ${value}`;
@@ -46,7 +50,13 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
     return `Количество попыток - ${value}`;
   };
 
-  const handleChangeAssepts = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const formatPassingScore = (value: number | string): string => {
+    return `Проходной балл - ${value}`;
+  };
+
+  // ! actions
+
+  const handleChangeFields = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const valueString = e.target.value;
     const valueNumber = parseInt(valueString.replace(/\D/g, ''), 10);
@@ -58,26 +68,39 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
       } else if (name === 'attempts') {
         dispatch(setField({ name: 'max_attempts', value: 3 }));
         setMax_attempts('');
+      } else if (name === 'passing_score') {
+        const value = Math.ceil(
+          data.questions.reduce((sum, obj) => {
+            return sum + Number(obj.points);
+          }, 0) / 2,
+        );
+        dispatch(setField({ name: 'passing_score', value }));
+        setPassingScore('');
       }
       return;
     }
-
     if (name === 'duration') {
       dispatch(setField({ name: 'duration', value: valueNumber }));
       setDuration(valueNumber);
     } else if (name === 'attempts') {
       dispatch(setField({ name: 'max_attempts', value: valueNumber }));
       setMax_attempts(valueNumber);
+    } else if (name === 'passing_score') {
+      dispatch(setField({ name: 'passing_score', value: valueNumber }));
+      setPassingScore(valueNumber);
     }
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const name = e.target.name;
-    name === 'attempts' ? setMax_attempts(data.max_attempts) : setDuration(data.duration);
+    name === 'attempts' && setMax_attempts(data.max_attempts);
+    name === 'passing_score' && setPassingScore(data.passing_score);
+    name === 'duration' && setDuration(data.duration);
   };
 
   const handleCreateTest = async () => {
     const res = await createTestRequest(data);
+
     console.log(res);
   };
 
@@ -105,8 +128,10 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
         sx={{ maxWidth: '406px', maxHeight: '53px', borderRadius: '6px' }}
         // onChange={handleChangeType}
       >
-        {thems.map((el) => (
-          <MenuItem value={el}>{el}</MenuItem>
+        {thems.map((el, index) => (
+          <MenuItem value={el} key={`${el}_${index}_`}>
+            {el}
+          </MenuItem>
         ))}
       </Select>
       <StyledInput
@@ -114,25 +139,31 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
         rounded={6}
         placeholder="Укажите время"
         value={formatTimeValue(duration)}
-        onChange={handleChangeAssepts}
-        // value={data.duration}
+        onChange={handleChangeFields}
         name={'duration'}
         onBlur={handleBlur}
         endAdornment={'минут'}
       />
-      {/* <TimeInput /> */}
       <StyledInput
         maxWidth={406}
         rounded={6}
         placeholder="Количество попыток"
-        onChange={handleChangeAssepts}
+        onChange={handleChangeFields}
         onBlur={handleBlur}
         name={'attempts'}
-        // value={`Количество попыток - ${data.max_attempts}`}
         value={formatInputValue(max_attempts)}
       />
 
       <StyledInput maxWidth={406} rounded={6} placeholder="Привязать видеолекцию" />
+      <StyledInput
+        maxWidth={406}
+        rounded={6}
+        name="passing_score"
+        onChange={handleChangeFields}
+        placeholder="Проходной балл"
+        onBlur={handleBlur}
+        value={formatPassingScore(passing_score)}
+      />
 
       <ButtonsContainer>
         <StyledButton variant="outlined" maxWidth="160px" onClick={() => handleChangePage(1)}>
