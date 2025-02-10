@@ -36,7 +36,12 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
         {data.page === 1 ? (
           <FirstStep handleChange={handleChange} handleChangePage={handleChangePage} />
         ) : (
-          <SecondStep data={data} handleChange={handleChange} handleChangePage={handleChangePage} />
+          <SecondStep
+            data={data}
+            handleChange={handleChange}
+            onClose={onClick}
+            handleChangePage={handleChangePage}
+          />
         )}
       </ModalContainer>
     );

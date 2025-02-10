@@ -23,16 +23,17 @@ import {
   useAppSelector,
 } from 'shared/lib';
 import { thems } from 'entities/Thems';
-import { CreateTestSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
+import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
 import { createTestRequest } from 'features/CreateTest/api/createTestRequest';
 
 interface SecondStepProps {
   data: CreateTestSlice;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePage: (page: number) => void;
+  onClose: () => void;
 }
 
-export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepProps) => {
+export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: SecondStepProps) => {
   const [max_attempts, setMax_attempts] = React.useState<number | string>(data.max_attempts);
   const [duration, setDuration] = React.useState<number | string>(data.duration);
 
@@ -101,7 +102,12 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
   const handleCreateTest = async () => {
     const res = await createTestRequest(data);
 
-    console.log(res);
+    if (res.status === 200 || res.status === 307) {
+      dispatch(clearSlice());
+      onClose();
+    }
+
+    console.log('res', res);
   };
 
   return (
@@ -128,6 +134,7 @@ export const SecondStep = ({ data, handleChange, handleChangePage }: SecondStepP
         sx={{ maxWidth: '406px', maxHeight: '53px', borderRadius: '6px' }}
         // onChange={handleChangeType}
       >
+        "#fc0000"
         {thems.map((el, index) => (
           <MenuItem value={el} key={`${el}_${index}_`}>
             {el}

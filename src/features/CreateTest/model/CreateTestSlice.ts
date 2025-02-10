@@ -140,6 +140,37 @@ const CreateTestSlice = createSlice({
       const { questionId, answerId } = action.payload;
       state.questions[questionId].answers.splice(answerId, 1);
     },
+    clearSlice: (state) => {
+      state = {
+        title: '',
+        description: '',
+        page: 1,
+        max_attempts: 3,
+        passing_score: 0,
+        theme_id: 4,
+        duration: 0,
+        questions: [
+          {
+            text: 'Вопрос без названия',
+            type: QuestionVariant.SINGLE,
+            points: 2,
+            answers: [
+              { text: 'Вариант ответа', is_correct: true },
+              { text: 'Вариант ответа', is_correct: false },
+            ],
+          },
+          {
+            text: 'Вопрос без названия',
+            type: QuestionVariant.MULTIPLE,
+            points: 3,
+            answers: [
+              { text: 'Вариант ответа', is_correct: true },
+              { text: 'Вариант ответа', is_correct: false },
+            ],
+          },
+        ],
+      };
+    },
   },
 });
 
@@ -151,6 +182,7 @@ export const {
   editAnswer,
   removeQuestion,
   removeAnswer,
+  clearSlice,
 } = CreateTestSlice.actions;
 
 export default CreateTestSlice.reducer;
