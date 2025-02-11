@@ -106,8 +106,6 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
       dispatch(clearSlice());
       onClose();
     }
-
-    console.log('res', res);
   };
 
   return (

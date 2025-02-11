@@ -23,7 +23,7 @@ import { setFilterText, setFilterThema, setSortingMode } from '../model/SearchFi
 
 export const SearchFilter = () => {
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
-    (state) => state.videoFilter,
+    (state) => state.SearchFilter,
   );
 
   const width = useMediaQuery('(max-width: 350px)');

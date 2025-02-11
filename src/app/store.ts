@@ -1,18 +1,20 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import { testsApi } from 'entities/Tests';
 import { CreateTestSlice } from 'features/CreateTest';
-import { VideoFilterSlice } from 'features/SearchFilter';
-
-const rootReducer = combineReducers({
-  videoFilter: VideoFilterSlice,
-  createTest: CreateTestSlice,
-});
+import { SearchFilterSlice } from 'features/SearchFilter';
 
 export const setupStore = () => {
   return configureStore({
-    reducer: rootReducer,
+    reducer: {
+      SearchFilter: SearchFilterSlice,
+      createTest: CreateTestSlice,
+      [testsApi.reducerPath]: testsApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(testsApi.middleware),
   });
 };
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof setupStore>['getState'];
+
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore['dispatch'];

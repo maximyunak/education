@@ -141,7 +141,7 @@ const CreateTestSlice = createSlice({
       state.questions[questionId].answers.splice(answerId, 1);
     },
     clearSlice: (state) => {
-      state = {
+      return Object.assign({}, state, {
         title: '',
         description: '',
         page: 1,
@@ -169,7 +169,7 @@ const CreateTestSlice = createSlice({
             ],
           },
         ],
-      };
+      });
     },
   },
 });
