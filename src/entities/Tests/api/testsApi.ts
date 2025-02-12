@@ -1,12 +1,12 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TestPreview } from 'entities/TestPreview';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { baseQuery } from 'shared/api/baseUrl';
+import { TestType } from '../model/TestType';
 
 export interface FetchTestsResponse {
-  items: TestPreview[];
+  items: TestType[];
   total: number;
   page: number;
   size: number;
-  pages: number;
 }
 
 export interface FetchTestsParams {
@@ -16,10 +16,7 @@ export interface FetchTestsParams {
 
 export const testsApi = createApi({
   reducerPath: 'testsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.ebtest.ru/api/v1/',
-    credentials: 'include',
-  }),
+  baseQuery: baseQuery,
   endpoints: (builder) => ({
     getTests: builder.query<FetchTestsResponse, FetchTestsParams>({
       query: (params) => ({
