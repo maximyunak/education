@@ -1,12 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { TestPreview } from 'entities/TestPreview';
-import { ThemesType } from 'entities/Thems/model/ThemesType';
 import { baseQuery } from 'shared/api/baseUrl';
+import { ThemeType } from '../model/ThemeType';
 
 export interface FetchThemesResponse {
   success: boolean;
   message: string;
-  items: ThemesType[];
+  items: ThemeType[];
 }
 
 export const themesApi = createApi({
@@ -21,4 +20,4 @@ export const themesApi = createApi({
   }),
 });
 
-export const { useGetThemesQuery } = themesApi;
+// export const { useGetThemesQuery } = themesApi;

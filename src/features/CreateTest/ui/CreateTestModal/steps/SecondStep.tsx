@@ -22,7 +22,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from 'shared/lib';
-import { thems } from 'entities/Thems';
 import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
 import { createTestRequest } from 'features/CreateTest/api/createTestRequest';
 
@@ -32,6 +31,8 @@ interface SecondStepProps {
   handleChangePage: (page: number) => void;
   onClose: () => void;
 }
+
+const thems = ['thema 1'];
 
 export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: SecondStepProps) => {
   const [max_attempts, setMax_attempts] = React.useState<number | string>(data.max_attempts);

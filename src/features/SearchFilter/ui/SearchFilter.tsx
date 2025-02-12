@@ -12,16 +12,19 @@ import {
   Chip,
   Input,
   InputAdornment,
+  Popper,
   Switch,
   TextField,
   useMediaQuery,
 } from '@mui/material';
 
 import SearchIcon from '@mui/icons-material/Search';
-import { filterThemaItems, filterThemaItemsType } from '../model/SearchFilterType';
 import { setFilterText, setFilterThema, setSortingMode } from '../model/SearchFilterSlice';
+import { ThemeType, themesApi } from 'entities/Themes';
 
 export const SearchFilter = () => {
+  const { data: themesData, isLoading, error } = themesApi.useGetThemesQuery();
+
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
     (state) => state.SearchFilter,
   );
@@ -44,7 +47,7 @@ export const SearchFilter = () => {
     dispatch(setFilterText(e.target.value));
   };
 
-  const handleChangeFilterThema = (e: any, newValue: filterThemaItemsType[]) => {
+  const handleChangeFilterThema = (e: any, newValue: any[]) => {
     dispatch(setFilterThema(newValue));
   };
 
@@ -66,11 +69,18 @@ export const SearchFilter = () => {
       </SwitchContainer>
       <InputsContainer>
         <Autocomplete
-          // value={filterThema}
           value={filterThema}
           onChange={handleChangeFilterThema}
-          getOptionLabel={(option) => option}
-          options={filterThemaItems}
+          PopperComponent={({ children, ...popperProps }) => (
+            <Popper {...popperProps} sx={{ display: error ? 'none' : 'block' }}>
+              {children}
+            </Popper>
+          )}
+          disablePortal
+          getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
+          options={
+            themesData?.items ? themesData.items : ([{ name: 'ничего не найдено' }] as ThemeType[])
+          }
           multiple
           limitTags={1}
           fullWidth
@@ -91,19 +101,21 @@ export const SearchFilter = () => {
           renderInput={(params) => (
             <TextField {...params} label="Выберите тематику" variant="standard" fullWidth />
           )}
-          renderTags={(value) => (
-            <div style={{ paddingRight: '5px' }}>
-              <Chip label={`${value.length} выбрано`} />
-            </div>
-          )}
+          renderTags={(value) =>
+            themesData?.success && (
+              <div style={{ paddingRight: '5px' }}>
+                <Chip label={`${value.length} выбрано`} />
+              </div>
+            )
+          }
           renderOption={(props, option, { selected }) => {
             const { key, ...optionProps } = props;
-            return (
+            return themesData?.success ? (
               <li key={key} {...optionProps}>
-                <Checkbox style={{ marginRight: 8 }} checked={selected} />
-                {option}
+                {themesData?.success && <Checkbox sx={{ mr: 2 }} checked={selected} />}
+                {option.name}
               </li>
-            );
+            ) : null;
           }}
         />
         <div style={{ width: '100%' }}>

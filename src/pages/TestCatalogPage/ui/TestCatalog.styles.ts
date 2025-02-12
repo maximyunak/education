@@ -24,8 +24,11 @@ export const TestsContainer = styled('div')`
   row-gap: 20px;
 `;
 
-export const MoreButton = styled('div')`
+export const FlexCenter = styled('div')`
+  /* margin-top: 50px; */
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  flex-direction: column;
+  align-items: center;
+  /* margin-bottom: 50px; */
 `;

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { testsApi } from 'entities/Tests';
-import { themesApi } from 'entities/Themes/themesApi';
+import { themesApi } from 'entities/Themes';
 import { CreateTestSlice } from 'features/CreateTest';
 import { SearchFilterSlice } from 'features/SearchFilter';
 
