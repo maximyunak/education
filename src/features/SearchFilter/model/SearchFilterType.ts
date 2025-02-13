@@ -1,10 +1,8 @@
-import { ThemeType } from 'entities/Themes';
-
 export interface SearchFilterType {
   totalItems: number;
   sortingMode: sortingMode;
-  filterThema: ThemeType[];
+  filterThema: number[];
   filterText: string;
 }
 
-export type sortingMode = 'popular' | 'date';
+export type sortingMode = 'popularity_count' | 'updated_at';

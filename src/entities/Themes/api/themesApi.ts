@@ -20,4 +20,4 @@ export const themesApi = createApi({
   }),
 });
 
-// export const { useGetThemesQuery } = themesApi;
+export const { useGetThemesQuery } = themesApi;

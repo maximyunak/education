@@ -2,15 +2,24 @@ import React, { useState } from 'react';
 import {
   Flex,
   InputsContainer,
+  PopperText,
   SwitchContainer,
+  ThemesList,
   VideoFilterContainer,
 } from './SearchFilter.styles';
-import { StyledInput, Text17, TextGray, useAppDispatch, useAppSelector } from 'shared/lib';
+import {
+  StyledInput,
+  Text12,
+  Text16,
+  Text17,
+  TextGray,
+  useAppDispatch,
+  useAppSelector,
+} from 'shared/lib';
 import {
   Autocomplete,
   Checkbox,
   Chip,
-  Input,
   InputAdornment,
   Popper,
   Switch,
@@ -20,14 +29,16 @@ import {
 
 import SearchIcon from '@mui/icons-material/Search';
 import { setFilterText, setFilterThema, setSortingMode } from '../model/SearchFilterSlice';
-import { ThemeType, themesApi } from 'entities/Themes';
+import { ThemeType } from 'entities/Themes';
+import { useGetThemesQuery } from 'entities/Themes/api/themesApi';
 
 export const SearchFilter = () => {
-  const { data: themesData, isLoading, error } = themesApi.useGetThemesQuery();
+  const { data: themesData, isLoading, error } = useGetThemesQuery();
 
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
     (state) => state.SearchFilter,
   );
+  console.log('🚀 ~ SearchFilter ~ filterThema:', filterThema);
 
   const width = useMediaQuery('(max-width: 350px)');
 
@@ -37,9 +48,9 @@ export const SearchFilter = () => {
     const isChecked = e.target.checked;
 
     if (isChecked) {
-      dispatch(setSortingMode('date'));
+      dispatch(setSortingMode('updated_at'));
     } else {
-      dispatch(setSortingMode('popular'));
+      dispatch(setSortingMode('popularity_count'));
     }
   };
 
@@ -47,8 +58,9 @@ export const SearchFilter = () => {
     dispatch(setFilterText(e.target.value));
   };
 
-  const handleChangeFilterThema = (e: any, newValue: any[]) => {
-    dispatch(setFilterThema(newValue));
+  const handleChangeFilterThema = (e: any, newValue: ThemeType[]) => {
+    const themeIds = newValue.map((theme) => theme.id);
+    dispatch(setFilterThema(themeIds));
   };
 
   return (
@@ -61,7 +73,7 @@ export const SearchFilter = () => {
       <SwitchContainer>
         <Text17>По популярности</Text17>
         <Switch
-          checked={sortingMode === 'date'}
+          checked={sortingMode === 'updated_at'}
           onChange={handleSwitchChange}
           size={width ? 'small' : 'medium'}
         />
@@ -69,13 +81,8 @@ export const SearchFilter = () => {
       </SwitchContainer>
       <InputsContainer>
         <Autocomplete
-          value={filterThema}
+          value={themesData?.items.filter((theme) => filterThema.includes(theme.id)) || []}
           onChange={handleChangeFilterThema}
-          PopperComponent={({ children, ...popperProps }) => (
-            <Popper {...popperProps} sx={{ display: error ? 'none' : 'block' }}>
-              {children}
-            </Popper>
-          )}
           disablePortal
           getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
           options={
@@ -85,7 +92,7 @@ export const SearchFilter = () => {
           limitTags={1}
           fullWidth
           sx={{
-            maxWidth: '233px',
+            maxWidth: '263px',
             marginTop: '-15px',
             '@media (max-width: 1060px)': {
               maxWidth: '200px',
@@ -111,10 +118,10 @@ export const SearchFilter = () => {
           renderOption={(props, option, { selected }) => {
             const { key, ...optionProps } = props;
             return themesData?.success ? (
-              <li key={key} {...optionProps}>
-                {themesData?.success && <Checkbox sx={{ mr: 2 }} checked={selected} />}
-                {option.name}
-              </li>
+              <ThemesList key={key} {...optionProps}>
+                {themesData?.success && <Checkbox sx={{ mx: 0, pr: 1 }} checked={selected} />}
+                <PopperText>{option.name}</PopperText>
+              </ThemesList>
             ) : null;
           }}
         />

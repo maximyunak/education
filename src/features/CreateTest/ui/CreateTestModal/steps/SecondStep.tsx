@@ -24,6 +24,7 @@ import {
 } from 'shared/lib';
 import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
 import { createTestRequest } from 'features/CreateTest/api/createTestRequest';
+import { useGetThemesQuery } from 'entities/Themes';
 
 interface SecondStepProps {
   data: CreateTestSlice;
@@ -32,9 +33,11 @@ interface SecondStepProps {
   onClose: () => void;
 }
 
-const thems = ['thema 1'];
-
 export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: SecondStepProps) => {
+  // ! themes data
+  const { data: themesData, isLoading, error } = useGetThemesQuery();
+
+  // ! empty string form
   const [max_attempts, setMax_attempts] = React.useState<number | string>(data.max_attempts);
   const [duration, setDuration] = React.useState<number | string>(data.duration);
 
@@ -126,20 +129,24 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
           placeholder="Описание теста"
         />
       </InputsBlock>
+      {/* {themesData ? ( */}
       <Select
         fullWidth
-        defaultValue={thems[0]}
+        defaultValue={themesData?.items[0].name || 'Ничего не найдено'}
         // value={type}
         sx={{ maxWidth: '406px', maxHeight: '53px', borderRadius: '6px' }}
         // onChange={handleChangeType}
       >
-        "#fc0000"
-        {thems.map((el, index) => (
-          <MenuItem value={el} key={`${el}_${index}_`}>
-            {el}
-          </MenuItem>
-        ))}
+        {themesData &&
+          themesData.items.map((el, index) => (
+            <MenuItem value={el.name} key={`${el.name}_${index}_`}>
+              {el.name}
+            </MenuItem>
+          ))}
+        {!themesData && <MenuItem value="Ничего не найдено">Ошибка</MenuItem>}
       </Select>
+      {/* ) : ( */}
+
       <StyledInput
         maxWidth={406}
         rounded={6}

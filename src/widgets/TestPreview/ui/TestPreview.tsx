@@ -10,7 +10,7 @@ import { Text12, Text17, Text20Bold } from 'shared/lib';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-export const TestPreview = ({ id, title, duration, questions, theme_id, author }: any) => {
+export const TestPreview = ({ title, duration, questions, theme_id, author }: any) => {
   return (
     <TestPreviewContainer>
       <TestInfo>

@@ -65,3 +65,14 @@ export const InputsContainer = styled('div')`
     gap: 20px;
   }
 `;
+
+export const PopperText = styled('p')`
+  letter-spacing: 0;
+  font-size: 14px;
+  line-height: 17px;
+`;
+
+export const ThemesList = styled('li')`
+  padding-left: 2px;
+  margin: 0;
+`;

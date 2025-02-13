@@ -15,12 +15,12 @@ import { NotFound } from 'shared/lib/ui/NotFound';
 import { themesApi } from 'entities/Themes';
 
 export const TestCatalogPage = () => {
-  const data = useAppSelector((state) => state.SearchFilter);
+  const { sortingMode, filterThema, filterText } = useAppSelector((state) => state.SearchFilter);
 
   const [open, setOpen] = useState(false);
   const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(1);
-  console.log('🚀 ~ TestCatalogPage ~ page:', page);
+
   const {
     data: testsData,
     isLoading,
@@ -28,10 +28,14 @@ export const TestCatalogPage = () => {
   } = useGetTestsQuery({
     limit,
     page,
+    sort_by: sortingMode,
+    theme_id: filterThema,
+    search: filterText,
   });
-  console.log('🚀 ~ TestCatalogPage ~ error:', error);
 
-  const { data: themesData } = themesApi.useGetThemesQuery();
+  testsData?.items.forEach((el) => {
+    console.log(el);
+  });
 
   return (
     <div>
@@ -49,7 +53,14 @@ export const TestCatalogPage = () => {
           {testsData && !error && (
             <>
               <TestsContainer>
-                <TestPreview id={1} title={'asd'} author="asasa" />
+                {testsData.items.map((el, index) => (
+                  <TestPreview
+                    key={`${el.id}__${index}`}
+                    title={el.title}
+                    id={el.id}
+                    questions={el.questions.length}
+                  />
+                ))}
               </TestsContainer>
               <FlexCenter>
                 <StyledButton marginTop="10px" maxWidth="180px" onClick={() => setPage(page + 1)}>
@@ -65,10 +76,9 @@ export const TestCatalogPage = () => {
         <CreateTestModal onClick={() => setOpen(false)} />
       </Modal>
       {/* <Container> */}
-      {/* <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
-            Создать тест
-          </StyledButton> */}
-      {/* </Container> */}
+      <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
+        Создать тест
+      </StyledButton>
     </div>
   );
 };
