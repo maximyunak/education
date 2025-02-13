@@ -16,7 +16,7 @@ export interface IQuestion {
 }
 
 export interface TestType {
-  id: number;
+  id?: number;
   title: string;
   description: string;
   max_attempts: number;

@@ -5,10 +5,9 @@ import { StyledButton, Title, useAppSelector } from 'shared/lib';
 
 import { FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
-import { TestPreviewType } from 'entities/TestPreview/model/TestPreviewType';
 import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
-import { useGetTestsQuery } from 'entities/Tests/api/testsApi';
+import { useGetTestsQuery } from 'entities/Tests';
 // import { useGetThemesQuery } from 'entities/Themes';
 import { Loader } from 'shared/lib/ui/Loader';
 import { NotFound } from 'shared/lib/ui/NotFound';

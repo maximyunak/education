@@ -12,7 +12,7 @@ import {
 } from '../CreateTestModal.styles';
 
 import CloseIcon from '@mui/icons-material/Close';
-import { Button, Input, MenuItem, Select } from '@mui/material';
+import { Button, Input, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import {
   StyledButton,
   StyledInput,
@@ -23,11 +23,12 @@ import {
   useAppSelector,
 } from 'shared/lib';
 import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
-import { createTestRequest } from 'features/CreateTest/api/createTestRequest';
 import { useGetThemesQuery } from 'entities/Themes';
+import { useCreateTestMutation } from 'entities/Tests';
+import { TestType } from 'entities/Tests';
 
 interface SecondStepProps {
-  data: CreateTestSlice;
+  data: TestType;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePage: (page: number) => void;
   onClose: () => void;
@@ -36,6 +37,12 @@ interface SecondStepProps {
 export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: SecondStepProps) => {
   // ! themes data
   const { data: themesData, isLoading, error } = useGetThemesQuery();
+
+  const currentTheme = themesData?.items.find((el) => el.id === data.theme_id);
+  console.log('🚀 ~ SecondStep ~ currentTheme:', currentTheme);
+
+  // ! create test
+  const [createTest, { isError, isSuccess, status }] = useCreateTestMutation();
 
   // ! empty string form
   const [max_attempts, setMax_attempts] = React.useState<number | string>(data.max_attempts);
@@ -104,12 +111,23 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
   };
 
   const handleCreateTest = async () => {
-    const res = await createTestRequest(data);
-
-    if (res.status === 200 || res.status === 307) {
+    try {
+      await createTest(data);
       dispatch(clearSlice());
       onClose();
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  const handleChangeTheme = (e: SelectChangeEvent) => {
+    const value = parseInt(e.target.value);
+    dispatch(
+      setField({
+        name: 'theme_id',
+        value,
+      }),
+    );
   };
 
   return (
@@ -131,18 +149,17 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
       </InputsBlock>
       <Select
         fullWidth
-        defaultValue={themesData?.items[0].name || 'Ничего не найдено'}
-        // value={type}
+        defaultValue={themesData?.items[0].id.toString() || 'Ничего не найдено'}
+        value={currentTheme?.id?.toString()}
         sx={{ maxWidth: '406px', maxHeight: '53px', borderRadius: '6px' }}
-        // onChange={handleChangeType}
+        onChange={handleChangeTheme}
       >
         {themesData &&
           themesData.items.map((el, index) => (
-            <MenuItem value={el.name} key={`${el.name}_${index}_`}>
+            <MenuItem value={el.id.toString()} key={`${el.name}_${index}_`}>
               {el.name}
             </MenuItem>
           ))}
-        {!themesData && <MenuItem value="Ничего не найдено">Ошибка</MenuItem>}
       </Select>
 
       <StyledInput

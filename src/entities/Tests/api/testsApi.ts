@@ -20,14 +20,24 @@ export interface FetchTestsParams {
 export const testsApi = createApi({
   reducerPath: 'testsApi',
   baseQuery: baseQuery,
+  tagTypes: ['Tests'],
   endpoints: (builder) => ({
     getTests: builder.query<FetchTestsResponse, FetchTestsParams>({
       query: (params) => ({
         url: 'tests',
         params,
       }),
+      providesTags: () => ['Tests'],
+    }),
+    createTest: builder.mutation<void, TestType>({
+      query: (testData) => ({
+        url: 'tests',
+        method: 'post',
+        body: testData,
+      }),
+      invalidatesTags: () => ['Tests'],
     }),
   }),
 });
 
-export const { useGetTestsQuery } = testsApi;
+export const { useGetTestsQuery, useCreateTestMutation } = testsApi;

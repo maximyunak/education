@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IQuestion, QuestionVariant, TestType } from './TestType';
+import { IQuestion, QuestionVariant, TestType } from 'entities/Tests';
+// import { IQuestion, QuestionVariant, TestType } from './TestType';
 
 export interface CreateTestSlice extends TestType {
   page: number;
@@ -15,7 +16,7 @@ const initialState: CreateTestSlice = {
   page: 1,
   max_attempts: 3,
   passing_score: 0,
-  theme_id: 4,
+  theme_id: 3,
   duration: 0,
   questions: [
     {
@@ -66,6 +67,9 @@ const CreateTestSlice = createSlice({
           break;
         case 'passing_score':
           state.passing_score = value as number;
+          break;
+        case 'theme_id':
+          state.theme_id = value as number;
           break;
         default:
           console.error(`Unknown key: ${name}`);
