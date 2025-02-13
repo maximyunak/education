@@ -13,8 +13,8 @@ export const TestPreviewContainer = styled('div')`
   padding: 40px 30px;
   border-radius: 12px;
   height: auto;
-  @media (max-width: 1000px) {
-    max-width: clamp(16.875rem, 45vw, 28.125rem);
+  @media (max-width: 670px) {
+    max-width: 600px;
     padding: 20px 15px;
     gap: 10px;
   }

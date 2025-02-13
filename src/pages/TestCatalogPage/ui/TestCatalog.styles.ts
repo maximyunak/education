@@ -17,18 +17,20 @@ export const Section = styled('section')`
 `;
 
 export const TestsContainer = styled('div')`
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  justify-content: start;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   justify-content: space-between;
 
   row-gap: 20px;
+  @media (max-width: 670px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const FlexCenter = styled('div')`
-  /* margin-top: 50px; */
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* margin-bottom: 50px; */
 `;

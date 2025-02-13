@@ -13,7 +13,7 @@ export interface FetchTestsParams {
   limit?: number;
   page?: number;
   search?: string;
-  theme_id?: number[];
+  theme_ids?: number[];
   sort_by?: string;
 }
 
@@ -24,14 +24,7 @@ export const testsApi = createApi({
     getTests: builder.query<FetchTestsResponse, FetchTestsParams>({
       query: (params) => ({
         url: 'tests',
-        params: {
-          // limit: params?.limit,
-          // page: params?.page,
-          // sort_by: params?.sort_by,
-          // search: params?.search,
-          // theme_id: params?.theme_id,
-          // theme_id: params?.theme_id ? JSON.stringify(params.theme_id) : undefined,
-        },
+        params,
       }),
     }),
   }),

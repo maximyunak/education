@@ -38,7 +38,6 @@ export const SearchFilter = () => {
   const { totalItems, sortingMode, filterThema, filterText } = useAppSelector(
     (state) => state.SearchFilter,
   );
-  console.log('🚀 ~ SearchFilter ~ filterThema:', filterThema);
 
   const width = useMediaQuery('(max-width: 350px)');
 

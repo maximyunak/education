@@ -129,7 +129,6 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
           placeholder="Описание теста"
         />
       </InputsBlock>
-      {/* {themesData ? ( */}
       <Select
         fullWidth
         defaultValue={themesData?.items[0].name || 'Ничего не найдено'}
@@ -145,7 +144,6 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
           ))}
         {!themesData && <MenuItem value="Ничего не найдено">Ошибка</MenuItem>}
       </Select>
-      {/* ) : ( */}
 
       <StyledInput
         maxWidth={406}
