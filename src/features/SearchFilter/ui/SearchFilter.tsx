@@ -91,7 +91,7 @@ export const SearchFilter = () => {
           limitTags={1}
           fullWidth
           sx={{
-            maxWidth: '263px',
+            maxWidth: '273px',
             marginTop: '-15px',
             '@media (max-width: 1060px)': {
               maxWidth: '200px',

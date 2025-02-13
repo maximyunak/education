@@ -1,13 +1,12 @@
 import { Checkbox, IconButton, Radio, useMediaQuery } from '@mui/material';
 import { editAnswer, removeAnswer } from 'features/CreateTest/model/CreateTestSlice';
-import { AnswerType, QuestionVariant } from 'features/CreateTest/model/TestType';
 import React from 'react';
 import { StyledInput, useAppDispatch } from 'shared/lib';
 import { AnswerContainer, ButtonsContainer, InputContainer } from './Answer.styles';
 
 import { trashIcon } from 'shared/assets/icons';
 
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { AnswerType, QuestionVariant } from 'entities/Tests';
 
 export const AnswerBlock = ({
   text,

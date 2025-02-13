@@ -33,4 +33,19 @@ export const baseQuery = fetchBaseQuery({
     }
     return headers;
   },
+  paramsSerializer: (params) => {
+    const searchParams = new URLSearchParams();
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          searchParams.append(key, item.toString());
+        });
+      } else if (value !== null && value !== undefined) {
+        searchParams.append(key, value.toString());
+      }
+    });
+
+    return searchParams.toString();
+  },
 });

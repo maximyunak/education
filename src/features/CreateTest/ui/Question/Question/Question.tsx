@@ -8,7 +8,6 @@ import {
   QuestionsContainer,
 } from './Question.styles';
 import { StyledInput, Text16, Text16Bold, Text17, Text20, useAppDispatch } from 'shared/lib';
-import { AnswerType, IQuestion, QuestionVariant } from 'features/CreateTest/model/TestType';
 import { AnswerBlock } from '../Answer/Answer';
 import {
   Checkbox,
@@ -31,6 +30,7 @@ import {
 import { trashIcon } from 'shared/assets/icons';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { IQuestion, QuestionVariant } from 'entities/Tests';
 
 interface IQuestionProps extends IQuestion {
   id: number;

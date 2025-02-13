@@ -39,7 +39,7 @@ export const TestCatalogPage = () => {
         <Container>
           <Title>Каталог тестов</Title>
           <SearchFilter />
-          {testsData && !error && (
+          {testsData?.items && testsData.items.length > 0 && !error ? (
             <>
               <TestsContainer>
                 {testsData.items.map((el, index) => (
@@ -52,6 +52,8 @@ export const TestCatalogPage = () => {
                 </StyledButton>
               </FlexCenter>
             </>
+          ) : (
+            <Title>Ничего не найдено</Title>
           )}
           {(isLoading || isFetching) && <Loader />}
           {error && (
