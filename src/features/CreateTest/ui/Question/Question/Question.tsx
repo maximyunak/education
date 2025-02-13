@@ -7,27 +7,20 @@ import {
   QuestionTitleBlock,
   QuestionsContainer,
 } from './Question.styles';
-import { StyledInput, Text16, Text16Bold, Text17, Text20, useAppDispatch } from 'shared/lib';
+import { StyledInput, Text16, Text16Bold, Text20, useAppDispatch } from 'shared/lib';
 import { AnswerBlock } from '../Answer/Answer';
 import {
   Checkbox,
   IconButton,
   MenuItem,
-  Popover, // Импортируем Popover
+  Popover,
   Radio,
   Select,
   SelectChangeEvent,
   useMediaQuery,
 } from '@mui/material';
 
-import {
-  addAnswer,
-  editQuestion,
-  removeQuestion,
-  setField,
-} from 'features/CreateTest/model/CreateTestSlice';
-
-import { trashIcon } from 'shared/assets/icons';
+import { addAnswer, editQuestion, removeQuestion } from 'features/CreateTest/model/CreateTestSlice';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IQuestion, QuestionVariant } from 'entities/Tests';
@@ -134,7 +127,7 @@ export const Question = ({ text, points, answers, type, id }: IQuestionProps) =>
         )}
       </QuestionTitleBlock>
       <AnswersContainer>
-        {answers.map((el, index) => (
+        {answers.map((el, index: number) => (
           <AnswerBlock
             answerId={index}
             type={type}

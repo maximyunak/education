@@ -1,4 +1,3 @@
-import { TestPreviewType } from 'entities/TestPreview/model/TestPreviewType';
 import React from 'react';
 import {
   AuthorContainer,
