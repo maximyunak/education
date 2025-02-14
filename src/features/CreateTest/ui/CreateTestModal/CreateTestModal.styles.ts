@@ -113,3 +113,8 @@ export const ButtonsContainer = styled('div')`
   justify-content: center;
   gap: 20px;
 `;
+
+export const NoWrapText = styled('span')`
+  white-space: nowrap;
+  margin-right: 5px;
+`;

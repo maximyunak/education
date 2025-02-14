@@ -9,6 +9,7 @@ import {
   QuestionsBlock,
   AddQuestionContainer,
   ButtonsContainer,
+  NoWrapText,
 } from '../CreateTestModal.styles';
 
 import CloseIcon from '@mui/icons-material/Close';
@@ -26,6 +27,7 @@ import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model
 import { useGetThemesQuery } from 'entities/Themes';
 import { useCreateTestMutation } from 'entities/Tests';
 import { TestType } from 'entities/Tests';
+import { validatePassingScore } from 'features/CreateTest/lib/ValidateForm';
 
 interface SecondStepProps {
   data: TestType;
@@ -37,89 +39,16 @@ interface SecondStepProps {
 export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: SecondStepProps) => {
   // ! themes data
   const { data: themesData, isLoading, error } = useGetThemesQuery();
-
   const currentTheme = themesData?.items.find((el) => el.id === data.theme_id);
-  console.log('🚀 ~ SecondStep ~ currentTheme:', currentTheme);
 
   // ! create test
   const [createTest, { isError, isSuccess, status }] = useCreateTestMutation();
 
-  // ! empty string form
-  const [max_attempts, setMax_attempts] = React.useState<number | string>(data.max_attempts);
-  const [duration, setDuration] = React.useState<number | string>(data.duration);
-
-  const [passing_score, setPassingScore] = React.useState<number | string>(data.passing_score);
-
+  // ! redux
   const dispatch = useAppDispatch();
-
-  // ! format input values
-
-  const formatTimeValue = (value: string | number) => {
-    return `Время выполнения - ${value}`;
-  };
-
-  const formatInputValue = (value: number | string): string => {
-    return `Количество попыток - ${value}`;
-  };
-
-  const formatPassingScore = (value: number | string): string => {
-    return `Проходной балл - ${value}`;
-  };
+  const maxScore = data.questions.reduce((sum, question) => sum + Number(question.points), 0);
 
   // ! actions
-
-  const handleChangeFields = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const valueString = e.target.value;
-    const valueNumber = parseInt(valueString.replace(/\D/g, ''), 10);
-
-    if (isNaN(valueNumber) || valueNumber === 0) {
-      if (name === 'duration') {
-        dispatch(setField({ name: 'duration', value: 90 }));
-        setDuration('');
-      } else if (name === 'attempts') {
-        dispatch(setField({ name: 'max_attempts', value: 3 }));
-        setMax_attempts('');
-      } else if (name === 'passing_score') {
-        const value = Math.ceil(
-          data.questions.reduce((sum, obj) => {
-            return sum + Number(obj.points);
-          }, 0) / 2,
-        );
-        dispatch(setField({ name: 'passing_score', value }));
-        setPassingScore('');
-      }
-      return;
-    }
-    if (name === 'duration') {
-      dispatch(setField({ name: 'duration', value: valueNumber }));
-      setDuration(valueNumber);
-    } else if (name === 'attempts') {
-      dispatch(setField({ name: 'max_attempts', value: valueNumber }));
-      setMax_attempts(valueNumber);
-    } else if (name === 'passing_score') {
-      dispatch(setField({ name: 'passing_score', value: valueNumber }));
-      setPassingScore(valueNumber);
-    }
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    name === 'attempts' && setMax_attempts(data.max_attempts);
-    name === 'passing_score' && setPassingScore(data.passing_score);
-    name === 'duration' && setDuration(data.duration);
-  };
-
-  const handleCreateTest = async () => {
-    try {
-      await createTest(data);
-      dispatch(clearSlice());
-      onClose();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleChangeTheme = (e: SelectChangeEvent) => {
     const value = parseInt(e.target.value);
     dispatch(
@@ -128,6 +57,40 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
         value,
       }),
     );
+  };
+
+  const handleCreateTest = async () => {
+    try {
+      if (!validatePassingScore(data.passing_score, maxScore)) {
+      }
+      await createTest(data);
+      dispatch(clearSlice());
+      onClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChangeFields = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+
+    const regExp = /^(?:[1-9]\d*|-(?:[1-9]\d*))$|^$/;
+
+    if (regExp.test(value)) {
+      switch (name) {
+        case 'duration':
+          dispatch(setField({ name, value }));
+          break;
+        case 'max_attempts':
+          dispatch(setField({ name, value }));
+          break;
+        case 'passing_score':
+          dispatch(setField({ name, value }));
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   return (
@@ -166,10 +129,10 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
         maxWidth={406}
         rounded={6}
         placeholder="Укажите время"
-        value={formatTimeValue(duration)}
+        value={data.duration}
         onChange={handleChangeFields}
         name={'duration'}
-        onBlur={handleBlur}
+        startAdornment={<NoWrapText>Время выполнения - </NoWrapText>}
         endAdornment={'минут'}
       />
       <StyledInput
@@ -177,9 +140,9 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
         rounded={6}
         placeholder="Количество попыток"
         onChange={handleChangeFields}
-        onBlur={handleBlur}
-        name={'attempts'}
-        value={formatInputValue(max_attempts)}
+        name={'max_attempts'}
+        value={data.max_attempts}
+        startAdornment={<NoWrapText>Количество попыток - </NoWrapText>}
       />
 
       <StyledInput maxWidth={406} rounded={6} placeholder="Привязать видеолекцию" />
@@ -188,9 +151,9 @@ export const SecondStep = ({ data, handleChange, handleChangePage, onClose }: Se
         rounded={6}
         name="passing_score"
         onChange={handleChangeFields}
-        placeholder="Проходной балл"
-        onBlur={handleBlur}
-        value={formatPassingScore(passing_score)}
+        placeholder="Укажите проходной балл"
+        startAdornment={<NoWrapText>Проходной балл - </NoWrapText>}
+        value={data.passing_score}
       />
 
       <ButtonsContainer>

@@ -3,4 +3,5 @@
 
 body {
   font-family: 'Golos Text', sans-serif;
+  overflow-x: hidden;
 }

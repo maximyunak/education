@@ -1,4 +1,4 @@
-import { Modal, styled } from '@mui/material';
+import { Modal } from '@mui/material';
 import { Container } from 'app/layout';
 import { SearchFilter } from 'features/SearchFilter';
 import { StyledButton, Title, useAppSelector } from 'shared/lib';
@@ -8,7 +8,6 @@ import { TestPreview } from 'widgets/TestPreview';
 import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
 import { TestType, useGetTestsQuery } from 'entities/Tests';
-// import { useGetThemesQuery } from 'entities/Themes';
 import { Loader } from 'shared/lib/ui/Loader';
 import { NotFound } from 'shared/lib/ui/NotFound';
 

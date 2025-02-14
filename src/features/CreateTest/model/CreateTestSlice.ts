@@ -6,10 +6,6 @@ export interface CreateTestSlice extends TestType {
   page: number;
 }
 
-const calculateTotalPoints = (questions: IQuestion[]): number => {
-  return questions.reduce((sum, question) => sum + Number(question.points), 0);
-};
-
 const initialState: CreateTestSlice = {
   title: '',
   description: '',
@@ -39,8 +35,6 @@ const initialState: CreateTestSlice = {
     },
   ],
 };
-
-initialState.passing_score = Math.ceil(calculateTotalPoints(initialState.questions) / 2);
 
 const CreateTestSlice = createSlice({
   name: 'createTask',
@@ -85,7 +79,6 @@ const CreateTestSlice = createSlice({
           { text: 'Вариант ответа', is_correct: false },
         ],
       });
-      state.passing_score = Math.ceil(calculateTotalPoints(state.questions) / 2);
     },
     editQuestion: (state, action: PayloadAction<Partial<IQuestion> & { id: number }>) => {
       const { id, ...updated } = action.payload;
@@ -103,9 +96,6 @@ const CreateTestSlice = createSlice({
         });
       }
       Object.assign(question, updated);
-      if (updated.points !== undefined) {
-        state.passing_score = Math.ceil(calculateTotalPoints(state.questions) / 2);
-      }
     },
     addAnswer: (state, action: PayloadAction<number>) => {
       state.questions[action.payload].answers.push({
@@ -138,7 +128,6 @@ const CreateTestSlice = createSlice({
     removeQuestion: (state, action: PayloadAction<number>) => {
       const id = action.payload;
       state.questions.splice(id, 1);
-      state.passing_score = Math.ceil(calculateTotalPoints(state.questions) / 2);
     },
     removeAnswer: (state, action: PayloadAction<{ questionId: number; answerId: number }>) => {
       const { questionId, answerId } = action.payload;
