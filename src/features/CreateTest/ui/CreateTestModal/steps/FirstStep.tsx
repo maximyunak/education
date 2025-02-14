@@ -12,13 +12,13 @@ import { Button, Input } from '@mui/material';
 import { StyledButton, useAppDispatch, useAppSelector } from 'shared/lib';
 import { addQuestion } from 'features/CreateTest/model/CreateTestSlice';
 import { Question } from '../../Question';
+import { TitleBlock } from '../TitleBlock/TitleBlock';
 
 interface FirstStepProps {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleChangePage: (page: number) => void;
 }
 
-export const FirstStep = ({ handleChange, handleChangePage }: FirstStepProps) => {
+export const FirstStep = ({ handleChangePage }: FirstStepProps) => {
   const data = useAppSelector((state) => state.createTest);
 
   const dispatch = useAppDispatch();
@@ -30,21 +30,7 @@ export const FirstStep = ({ handleChange, handleChangePage }: FirstStepProps) =>
   return (
     <>
       <DescriptionContainer>
-        <InputsBlock>
-          <InputTitle
-            value={data.title}
-            name="title"
-            onChange={handleChange}
-            placeholder="Введите название теста"
-          />
-          <Input
-            name="description"
-            value={data.description}
-            onChange={handleChange}
-            fullWidth
-            placeholder="Описание теста"
-          />
-        </InputsBlock>
+        <TitleBlock data={data} />
         <ButtonsBlock>
           <StyledButton variant="outlined" maxWidth="160px">
             Предпросмотр

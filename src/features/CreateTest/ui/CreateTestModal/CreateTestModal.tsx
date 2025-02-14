@@ -14,11 +14,6 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
     const data = useAppSelector((state) => state.createTest);
     const dispatch = useAppDispatch();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { value, name } = e.target;
-      dispatch(setField({ name, value }));
-    };
-
     const handleChangePage = (page: number) => {
       dispatch(
         setField({
@@ -34,11 +29,14 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
           <CloseIcon onClick={onClick} />
         </CloseIconContainer>
         {data.page === 1 ? (
-          <FirstStep handleChange={handleChange} handleChangePage={handleChangePage} />
+          <FirstStep
+            //  handleChange={handleChange}
+            handleChangePage={handleChangePage}
+          />
         ) : (
           <SecondStep
             data={data}
-            handleChange={handleChange}
+            // handleChange={handleChange}
             onClose={onClick}
             handleChangePage={handleChangePage}
           />

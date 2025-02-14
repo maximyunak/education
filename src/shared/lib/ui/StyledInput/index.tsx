@@ -129,7 +129,7 @@ export const StyledInput: FC<StyledInputProps> = ({
         onBlur={onBlur}
         endAdornment={endAdornment}
         ref={ref}
-        // error={''}
+        error={error}
         startAdornment={startAdornment}
       />
       {error && <ErrorText id="component-helper-text">{errorMessage}</ErrorText>}

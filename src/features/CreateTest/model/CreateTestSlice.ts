@@ -13,7 +13,7 @@ const initialState: CreateTestSlice = {
   max_attempts: 3,
   passing_score: 0,
   theme_id: 3,
-  duration: 0,
+  duration: 60,
   questions: [
     {
       text: 'Вопрос без названия',

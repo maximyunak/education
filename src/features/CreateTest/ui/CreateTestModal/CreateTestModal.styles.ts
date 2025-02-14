@@ -11,6 +11,7 @@ export const ModalContainer = styled('div')`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  overflow-x: hidden;
   width: 100%;
   height: 100%;
   background-color: #fff;
@@ -50,9 +51,12 @@ export const DescriptionContainer = styled('div')`
 export const InputsBlock = styled('div')`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
   max-width: 700px;
   width: 100%;
+  div {
+    position: relative;
+  }
 `;
 
 export const ButtonsBlock = styled('div')`
@@ -65,10 +69,40 @@ export const ButtonsBlock = styled('div')`
   }
 `;
 
-export const InputTitle = styled('input')`
+export const InputTitle = styled('input')<{ error?: boolean }>`
   font-size: 32px;
   font-weight: 600;
   width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: ${({ error }) => (error ? '2px solid #d32f2f' : '1px solid transparent')};
+
+  ${({ error }) =>
+    error &&
+    `
+    animation: shake 0.5s ease;
+  `}
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translateX(-2px);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translateX(2px);
+    }
+  }
+
   @media (max-width: 840px) {
     font-size: 28px;
   }
@@ -117,4 +151,15 @@ export const ButtonsContainer = styled('div')`
 export const NoWrapText = styled('span')`
   white-space: nowrap;
   margin-right: 5px;
+`;
+
+export const InfoBlockContainer = styled('div')`
+  /* display: flex; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+  @media (max-width: 500px) {
+    grid-template-columns: 100%;
+  }
+  gap: 25px;
 `;
