@@ -11,7 +11,7 @@ export interface FetchTestsResponse {
 
 export interface FetchTestsParams {
   limit?: number;
-  page?: number;
+  skip?: number;
   search?: string;
   theme_ids?: number[];
   sort_by?: string;
@@ -23,44 +23,15 @@ export const testsApi = createApi({
   tagTypes: ['Tests'],
   endpoints: (builder) => ({
     getTests: builder.query<FetchTestsResponse, FetchTestsParams>({
-      // query: (params) => ({
-      //   url: 'tests',
-      //   params,
-      // }),
-      // providesTags: () => ['Tests'],
-      // query: (params) => {
-      //   const queryParams: Record<string, any> = { ...params };
-
-      //   const filteredParams: Record<string, any> = {};
-
-      //   for (const key in queryParams) {
-      //     const value = queryParams[key];
-
-      //     if (Array.isArray(value)) {
-      //       if (value.length > 0) {
-      //         filteredParams[key] = value;
-      //       }
-      //     } else if (value !== null && value !== undefined && value !== '') {
-      //       filteredParams[key] = value;
-      //     }
-      //   }
-      //   return {
-      //     url: 'tests',
-      //     params: filteredParams,
-      //   };
-      // },
       query: (params) => {
-        // Фильтрация параметров
         const filteredParams: Record<string, any> = {};
 
         console.log('🚀 ~ filteredParams:', filteredParams);
         for (const key in params) {
           const value = params[key as keyof FetchTestsParams];
 
-          // Удаляем пустые значения
           if (value === null || value === undefined || value === '') continue;
 
-          // Для массивов оставляем только непустые
           if (Array.isArray(value) && value.length === 0) continue;
 
           filteredParams[key] = value;

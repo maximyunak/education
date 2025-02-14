@@ -1,14 +1,12 @@
-import { Modal, styled } from '@mui/material';
+import { Modal } from '@mui/material';
 import { Container } from 'app/layout';
 import { SearchFilter } from 'features/SearchFilter';
 import { StyledButton, Title, useAppSelector } from 'shared/lib';
-
 import { FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
 import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
 import { TestType, useGetTestsQuery } from 'entities/Tests';
-// import { useGetThemesQuery } from 'entities/Themes';
 import { Loader } from 'shared/lib/ui/Loader';
 import { NotFound } from 'shared/lib/ui/NotFound';
 
@@ -37,14 +35,11 @@ export const TestCatalogPage = () => {
   console.log('🚀 ~ TestCatalogPage ~ isFetching:', isFetching);
   console.log('🚀 ~ TestCatalogPage ~ testsData:', testsData);
 
+  const maxPage = testsData?.total / limit;
+
   React.useEffect(() => {
-    if (!testsData?.items) {
-      return;
-    }
-    if (page !== 1) {
+    if (testsData?.items) {
       setAllTests((prevTests) => [...prevTests, ...testsData.items].slice(0, limit * page));
-    } else {
-      setAllTests(testsData.items);
     }
   }, [testsData?.items]);
 
@@ -62,7 +57,7 @@ export const TestCatalogPage = () => {
                 ))}
               </TestsContainer>
 
-              {!isFetching && !isLoading && page !== Math.ceil(testsData?.total / limit) && (
+              {!isFetching && !isLoading && page !== maxPage && (
                 <FlexCenter>
                   <StyledButton marginTop="50px" maxWidth="180px" onClick={() => setPage(page + 1)}>
                     Загрузить еще 10
