@@ -1,34 +1,12 @@
-import React, { useState } from 'react';
-import {
-  ButtonsBlock,
-  CloseIconContainer,
-  DescriptionContainer,
-  InputTitle,
-  InputsBlock,
-  ModalContainer,
-  QuestionsBlock,
-  AddQuestionContainer,
-  ButtonsContainer,
-  NoWrapText,
-  InfoBlockContainer,
-} from '../CreateTestModal.styles';
+import React from 'react';
+import { ButtonsContainer, NoWrapText, InfoBlockContainer } from '../CreateTestModal.styles';
 
-import CloseIcon from '@mui/icons-material/Close';
-import { Button, Input, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import {
-  StyledButton,
-  StyledInput,
-  Text20,
-  Text20Bold,
-  Title,
-  useAppDispatch,
-  useAppSelector,
-} from 'shared/lib';
-import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { StyledButton, StyledInput, useAppDispatch } from 'shared/lib';
+import { clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
 import { useGetThemesQuery } from 'entities/Themes';
 import { useCreateTestMutation } from 'entities/Tests';
 import { TestType } from 'entities/Tests';
-import { validatePassingScore } from 'features/CreateTest/lib/ValidateForm';
 import { TitleBlock } from '../TitleBlock/TitleBlock';
 interface SecondStepProps {
   data: TestType;
@@ -38,11 +16,11 @@ interface SecondStepProps {
 
 export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps) => {
   // ! themes data
-  const { data: themesData, isLoading, error } = useGetThemesQuery();
+  const { data: themesData } = useGetThemesQuery();
   const currentTheme = themesData?.items.find((el) => el.id === data.theme_id);
 
   // ! create test
-  const [createTest, { isError, isSuccess, status }] = useCreateTestMutation();
+  const [createTest] = useCreateTestMutation();
 
   // ! errors
   const [errors, setErrors] = React.useState({
@@ -67,6 +45,8 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
     );
   };
 
+  console.log(+data.passing_score);
+
   const validateFields = () => {
     const newErrors = {
       maxAttemptsError: '',
@@ -83,7 +63,11 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
       newErrors.durationError = 'Время выполнения должно быть больше 0';
     }
 
-    if (!data.passing_score || +data.passing_score > maxScore) {
+    if (
+      data.passing_score === undefined ||
+      data.passing_score === null ||
+      +data.passing_score > maxScore
+    ) {
       newErrors.passingScoreError = `Проходной балл не должен превышать ${maxScore}`;
     }
 

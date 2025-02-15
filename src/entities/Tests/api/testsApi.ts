@@ -1,9 +1,9 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from 'shared/api/baseUrl';
-import { TestType } from '../model/TestType';
+import { TestPreviewType, TestType } from '../model/TestType';
 
 export interface FetchTestsResponse {
-  items: TestType[];
+  items: TestPreviewType[];
   total: number;
   page: number;
   size: number;

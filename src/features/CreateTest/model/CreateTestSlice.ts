@@ -16,21 +16,21 @@ const initialState: CreateTestSlice = {
   duration: 60,
   questions: [
     {
-      text: 'Вопрос без названия',
+      text: 'Один вариант ответа',
       type: QuestionVariant.SINGLE,
       points: 2,
       answers: [
-        { text: 'Вариант ответа', is_correct: true },
-        { text: 'Вариант ответа', is_correct: false },
+        { text: 'Вариант 1', is_correct: true },
+        { text: 'Вариант 2', is_correct: false },
       ],
     },
     {
-      text: 'Вопрос без названия',
+      text: 'Несколько вариантов ответа',
       type: QuestionVariant.MULTIPLE,
       points: 3,
       answers: [
-        { text: 'Вариант ответа', is_correct: true },
-        { text: 'Вариант ответа', is_correct: false },
+        { text: 'Вариант 1', is_correct: true },
+        { text: 'Вариант 2', is_correct: false },
       ],
     },
   ],
@@ -71,18 +71,30 @@ const CreateTestSlice = createSlice({
     },
     addQuestion: (state) => {
       state.questions.push({
-        text: 'Вопрос без названия',
+        text: 'Один вариант ответа',
         type: QuestionVariant.SINGLE,
         points: 3,
         answers: [
-          { text: 'Вариант ответа', is_correct: true },
-          { text: 'Вариант ответа', is_correct: false },
+          { text: 'Вариант ответа 1', is_correct: true },
+          { text: 'Вариант ответа 2', is_correct: false },
         ],
       });
     },
     editQuestion: (state, action: PayloadAction<Partial<IQuestion> & { id: number }>) => {
       const { id, ...updated } = action.payload;
       const question = state.questions[id];
+
+      if (
+        updated.type === QuestionVariant.SINGLE &&
+        state.questions[id].text === 'Несколько вариантов ответа'
+      ) {
+        state.questions[id].text = 'Один вариант ответа';
+      } else if (
+        updated.type === QuestionVariant.MULTIPLE &&
+        state.questions[id].text === 'Один вариант ответа'
+      ) {
+        state.questions[id].text = 'Несколько вариантов ответа';
+      }
 
       if (updated.type === QuestionVariant.SINGLE) {
         let hasCorrectAnswer = false;
@@ -95,11 +107,12 @@ const CreateTestSlice = createSlice({
           }
         });
       }
+
       Object.assign(question, updated);
     },
     addAnswer: (state, action: PayloadAction<number>) => {
       state.questions[action.payload].answers.push({
-        text: 'Вариант ответа',
+        text: `Вариант ${state.questions[action.payload].answers.length + 1}`,
         is_correct: false,
       });
     },
@@ -141,24 +154,24 @@ const CreateTestSlice = createSlice({
         max_attempts: 3,
         passing_score: 0,
         theme_id: 4,
-        duration: 0,
+        duration: 60,
         questions: [
           {
-            text: 'Вопрос без названия',
+            text: 'Один вариант ответа',
             type: QuestionVariant.SINGLE,
             points: 2,
             answers: [
-              { text: 'Вариант ответа', is_correct: true },
-              { text: 'Вариант ответа', is_correct: false },
+              { text: 'Вариант 1', is_correct: true },
+              { text: 'Вариант 2', is_correct: false },
             ],
           },
           {
-            text: 'Вопрос без названия',
+            text: 'Несколько вариантов ответа',
             type: QuestionVariant.MULTIPLE,
             points: 3,
             answers: [
-              { text: 'Вариант ответа', is_correct: true },
-              { text: 'Вариант ответа', is_correct: false },
+              { text: 'Вариант 1', is_correct: true },
+              { text: 'Вариант 2', is_correct: false },
             ],
           },
         ],

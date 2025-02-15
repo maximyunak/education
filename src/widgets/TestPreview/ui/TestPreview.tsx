@@ -9,8 +9,15 @@ import { Text12, Text17, Text20Bold } from 'shared/lib';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useGetThemesQuery } from 'entities/Themes';
+import { TestPreviewType } from 'entities/Tests';
 
-export const TestPreview = ({ title, duration, questions_count, theme_id, author }: any) => {
+export const TestPreview = ({
+  title,
+  duration,
+  questions_count,
+  theme_id,
+  author,
+}: TestPreviewType) => {
   const { data: themesData, isLoading, error } = useGetThemesQuery();
 
   const currentTheme = themesData?.items.find((el) => el.id === theme_id);
@@ -37,7 +44,7 @@ export const TestPreview = ({ title, duration, questions_count, theme_id, author
         <Text20Bold>{title}</Text20Bold>
       </DescContainer>
       <AuthorContainer>
-        <Text12>{author}</Text12>
+        <Text12>{author || 'автор'}</Text12>
       </AuthorContainer>
     </TestPreviewContainer>
   );

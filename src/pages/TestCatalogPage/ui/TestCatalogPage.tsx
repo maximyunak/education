@@ -7,9 +7,10 @@ import { FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
 import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
-import { TestType, useGetTestsQuery } from 'entities/Tests';
+import { TestPreviewType, TestType, useGetTestsQuery } from 'entities/Tests';
 import { Loader } from 'shared/lib/ui/Loader';
 import { NotFound } from 'shared/lib/ui/NotFound';
+import { ScrollTop } from 'widgets/ScrollTop';
 
 export const TestCatalogPage = () => {
   // ! filter data
@@ -18,7 +19,7 @@ export const TestCatalogPage = () => {
   const [limit, setLimit] = React.useState(9);
   const [page, setPage] = React.useState(1);
 
-  const [allTests, setAllTests] = useState<TestType[]>([]);
+  const [allTests, setAllTests] = useState<TestPreviewType[]>([]);
 
   // ! tests data
   const {
@@ -87,6 +88,7 @@ export const TestCatalogPage = () => {
           Создать тест
         </StyledButton>
       </FlexCenter>
+      <ScrollTop />
     </div>
   );
 };

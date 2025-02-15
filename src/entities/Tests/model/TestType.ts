@@ -25,3 +25,12 @@ export interface TestType {
   duration: number;
   questions: IQuestion[];
 }
+
+export interface TestPreviewType {
+  id: number;
+  title: string;
+  duration: number;
+  theme_id: number;
+  author: string;
+  questions_count: number;
+}
