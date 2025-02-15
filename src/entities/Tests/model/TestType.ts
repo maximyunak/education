@@ -29,8 +29,11 @@ export interface TestType {
 export interface TestPreviewType {
   id: number;
   title: string;
+  description: string;
   duration: number;
   theme_id: number;
   author: string;
   questions_count: number;
+  updated_at: string;
+  popularity_count: number;
 }
