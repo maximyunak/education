@@ -84,6 +84,10 @@ export const Question = ({ text, points, answers, type, id, error }: IQuestionPr
     setIsVisiblePopup(false);
   };
 
+  const handleFocusPoints = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  };
+
   return (
     <QuestionsContainer>
       <QuestionTitleBlock>
@@ -93,6 +97,7 @@ export const Question = ({ text, points, answers, type, id, error }: IQuestionPr
             maxWidth={406}
             rounded={6}
             placeholder="Вопрос без названия"
+            onFocus={handleFocusPoints}
             value={text}
             onChange={handleInputChange}
             startAdornment={isMobile && <Text20>{id + 1}.</Text20>}

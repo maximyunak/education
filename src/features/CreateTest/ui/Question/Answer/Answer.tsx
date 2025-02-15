@@ -56,6 +56,10 @@ export const AnswerBlock = ({
     dispatch(removeAnswer({ questionId, answerId }));
   };
 
+  const handleFocusPoints = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  };
+
   return (
     <AnswerContainer
       onMouseEnter={() => setIsVisibleOptions(true)}
@@ -63,6 +67,7 @@ export const AnswerBlock = ({
     >
       <InputContainer>
         <StyledInput
+          onFocus={handleFocusPoints}
           onChange={handleChangeAnswer}
           error={!!error?.textError}
           errorMessage={error?.textError}

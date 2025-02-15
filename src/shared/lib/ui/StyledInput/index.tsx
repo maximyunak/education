@@ -17,6 +17,7 @@ interface StyledInputProps {
   disabled?: boolean;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 const ErrorText = styled(FormHelperText)({
@@ -110,6 +111,7 @@ export const StyledInput: FC<StyledInputProps> = ({
   disabled,
   onBlur,
   name,
+  onFocus,
 }) => {
   return (
     <InputContainer>
@@ -121,17 +123,18 @@ export const StyledInput: FC<StyledInputProps> = ({
           pointerEvents: disabled ? 'none' : 'all',
           width: '100%',
         }}
-        placeholder={placeholder}
+        onFocus={onFocus}
         onChange={onChange}
-        disabled={disabled}
-        value={value}
-        type={type}
-        name={name}
         onBlur={onBlur}
-        endAdornment={endAdornment}
-        ref={ref}
+        name={name}
+        value={value}
+        placeholder={placeholder}
         error={error}
+        disabled={disabled}
         startAdornment={startAdornment}
+        endAdornment={endAdornment}
+        type={type}
+        ref={ref}
       />
       {error && <ErrorText id="component-helper-text">{errorMessage}</ErrorText>}
     </InputContainer>
