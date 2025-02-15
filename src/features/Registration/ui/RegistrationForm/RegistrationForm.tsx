@@ -60,7 +60,6 @@ export const RegistrationForm = () => {
     if (validateForm(userData, setErrors)) {
       try {
         const res = await registerRequest(userData);
-        console.log('res', res);
         navigate('/login');
       } catch (error) {
         console.log('error', error);

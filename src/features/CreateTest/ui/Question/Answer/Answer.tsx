@@ -7,6 +7,14 @@ import { AnswerContainer, ButtonsContainer, InputContainer } from './Answer.styl
 import { trashIcon } from 'shared/assets/icons';
 
 import { AnswerType, QuestionVariant } from 'entities/Tests';
+import { AnswerError } from 'features/CreateTest/model/ErrorsType';
+
+interface IAnswerBlockProps extends AnswerType {
+  answerId: number;
+  questionId: number;
+  type: QuestionVariant;
+  error?: AnswerError;
+}
 
 export const AnswerBlock = ({
   text,
@@ -14,7 +22,8 @@ export const AnswerBlock = ({
   answerId,
   questionId,
   type,
-}: AnswerType & { answerId: number; questionId: number; type: QuestionVariant }) => {
+  error,
+}: IAnswerBlockProps) => {
   const [isVisibleOptions, setIsVisibleOptions] = React.useState(false);
 
   const isMobile = useMediaQuery('(max-width: 550px)');
@@ -55,6 +64,8 @@ export const AnswerBlock = ({
       <InputContainer>
         <StyledInput
           onChange={handleChangeAnswer}
+          error={!!error?.textError}
+          errorMessage={error?.textError}
           startAdornment={
             type === QuestionVariant.MULTIPLE ? (
               <Checkbox

@@ -42,7 +42,7 @@ export const QuestionTitleBlock = styled('div')`
     padding-left: 0;
 
     grid-template-columns: 1fr;
-    row-gap: 10px;
+    row-gap: 20px;
     margin-bottom: 10px;
   }
 `;
@@ -70,7 +70,7 @@ export const QuestionTitle = styled('div')`
 export const AnswersContainer = styled('div')`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   margin-top: 20px;
   padding-left: 36px;
 

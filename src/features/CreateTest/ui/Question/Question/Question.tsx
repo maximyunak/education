@@ -24,12 +24,14 @@ import { addAnswer, editQuestion, removeQuestion } from 'features/CreateTest/mod
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IQuestion, QuestionVariant } from 'entities/Tests';
+import { QuestionError } from 'features/CreateTest/model/ErrorsType';
 
 interface IQuestionProps extends IQuestion {
   id: number;
+  error?: QuestionError;
 }
 
-export const Question = ({ text, points, answers, type, id }: IQuestionProps) => {
+export const Question = ({ text, points, answers, type, id, error }: IQuestionProps) => {
   const isMobile = useMediaQuery('(max-width: 550px)');
   const [isVisiblePopup, setIsVisiblePopup] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -94,6 +96,8 @@ export const Question = ({ text, points, answers, type, id }: IQuestionProps) =>
             value={text}
             onChange={handleInputChange}
             startAdornment={isMobile && <Text20>{id + 1}.</Text20>}
+            error={!!error?.textError}
+            errorMessage={error?.textError}
             endAdornment={
               isMobile && (
                 <IconButton onClick={handleOpenPopover}>
@@ -132,6 +136,7 @@ export const Question = ({ text, points, answers, type, id }: IQuestionProps) =>
             answerId={index}
             type={type}
             questionId={id}
+            error={error?.answersError?.[index]}
             key={`${id}-${index}`}
             {...el}
           />

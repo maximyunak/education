@@ -52,8 +52,6 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
     titleError: '',
   });
 
-  console.log(errors);
-
   // ! redux
   const dispatch = useAppDispatch();
   const maxScore = data.questions.reduce((sum, question) => sum + Number(question.points), 0);
@@ -68,8 +66,6 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
       }),
     );
   };
-
-  console.log('passing_score:', +data.passing_score);
 
   const validateFields = () => {
     const newErrors = {
@@ -88,8 +84,6 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
     }
 
     if (!data.passing_score || +data.passing_score > maxScore) {
-      console.log('error', data.passing_score);
-
       newErrors.passingScoreError = `Проходной балл не должен превышать ${maxScore}`;
     }
 
@@ -106,9 +100,9 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
   const handleCreateTest = async () => {
     if (validateFields()) {
       try {
-        // await createTest(data);
-        // dispatch(clearSlice());
-        // onClose();
+        await createTest(data);
+        dispatch(clearSlice());
+        onClose();
       } catch (error) {
         console.log(error);
       }
@@ -137,8 +131,6 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
       }
     }
   };
-
-  console.log(errors.titleError);
 
   return (
     <>

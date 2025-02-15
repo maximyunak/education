@@ -69,6 +69,20 @@ export const ButtonsBlock = styled('div')`
   }
 `;
 
+export const ButtonsBlockMobile = styled('div')`
+  display: none;
+  gap: 15px;
+  align-items: center;
+
+  button {
+    width: 160px;
+  }
+
+  @media (max-width: 670px) {
+    display: flex;
+  }
+`;
+
 export const InputTitle = styled('input')<{ error?: boolean }>`
   font-size: 32px;
   font-weight: 600;

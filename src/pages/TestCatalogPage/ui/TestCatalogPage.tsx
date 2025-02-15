@@ -33,8 +33,6 @@ export const TestCatalogPage = () => {
     theme_ids: filterThema,
     search: filterText,
   });
-  console.log('🚀 ~ TestCatalogPage ~ isFetching:', isFetching);
-  console.log('🚀 ~ TestCatalogPage ~ testsData:', testsData);
 
   React.useEffect(() => {
     if (!testsData?.items) {
@@ -84,9 +82,11 @@ export const TestCatalogPage = () => {
       <Modal open={open} onClose={() => setOpen(false)}>
         <CreateTestModal onClick={() => setOpen(false)} />
       </Modal>
-      <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
-        Создать тест
-      </StyledButton>
+      <FlexCenter>
+        <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
+          Создать тест
+        </StyledButton>
+      </FlexCenter>
     </div>
   );
 };

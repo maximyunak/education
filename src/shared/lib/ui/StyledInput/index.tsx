@@ -26,9 +26,10 @@ const ErrorText = styled(FormHelperText)({
   lineHeight: '10px',
   letterSpacing: '0.25px',
   position: 'absolute',
-  bottom: '-20px',
+  bottom: '-15px',
   opacity: 0,
   transform: 'translateY(-10px)',
+  whiteSpace: 'nowrap',
   animation: 'slideIn 0.3s ease forwards',
   '@keyframes slideIn': {
     '0%': {

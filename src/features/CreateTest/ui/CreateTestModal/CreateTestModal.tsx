@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CloseIconContainer, ModalContainer } from './CreateTestModal.styles';
 
 import CloseIcon from '@mui/icons-material/Close';

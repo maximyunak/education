@@ -40,9 +40,7 @@ export const HomePage = () => {
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
     const target = event.currentTarget as HTMLElement;
-    console.log(target.textContent);
   };
-  console.log(selectedTab);
 
   const sliderData = slides.filter(
     (slider) => slider.title === tabs[selectedTab] || tabs[selectedTab] === 'Все курсы',

@@ -26,7 +26,6 @@ export const testsApi = createApi({
       query: (params) => {
         const filteredParams: Record<string, any> = {};
 
-        console.log('🚀 ~ filteredParams:', filteredParams);
         for (const key in params) {
           const value = params[key as keyof FetchTestsParams];
 
@@ -42,6 +41,7 @@ export const testsApi = createApi({
           params: filteredParams,
         };
       },
+      providesTags: ['Tests'],
     }),
     createTest: builder.mutation<void, TestType>({
       query: (testData) => ({
