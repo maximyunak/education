@@ -8,6 +8,7 @@ interface StyledButtonProps {
   type?: 'button' | 'submit' | 'reset';
   variant?: 'contained' | 'outlined';
   maxWidth?: string;
+  maxHeight?: string;
 }
 
 export const StyledButton: FC<StyledButtonProps> = ({
@@ -17,13 +18,14 @@ export const StyledButton: FC<StyledButtonProps> = ({
   type,
   variant = 'contained',
   maxWidth,
+  maxHeight,
 }) => {
   return (
     <Button
       type={type}
       sx={{
         width: '100%',
-        height: '56px',
+        height: maxHeight || '56px',
         fontSize: '16px',
         textTransform: 'none',
         fontWeight: '500',

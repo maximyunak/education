@@ -4,13 +4,17 @@ import { CloseIconContainer, ModalContainer } from './CreateTestModal.styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppDispatch, useAppSelector } from 'shared/lib';
 import { setField } from '../../model/CreateTestSlice';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
 
 import { SecondStep } from './steps/SecondStep';
 import { FirstStep } from './steps/FirstStep';
 
-export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () => void }>(
+interface CreateTestModalProps {
+  onClick: () => void;
+}
+
+export const CreateTestModal = React.forwardRef<HTMLDivElement, CreateTestModalProps>(
   ({ onClick }, modalRef) => {
-    // ! store
     const data = useAppSelector((state) => state.createTest);
     const dispatch = useAppDispatch();
 
@@ -29,17 +33,9 @@ export const CreateTestModal = React.forwardRef<HTMLDivElement, { onClick: () =>
           <CloseIcon onClick={onClick} />
         </CloseIconContainer>
         {data.page === 1 ? (
-          <FirstStep
-            //  handleChange={handleChange}
-            handleChangePage={handleChangePage}
-          />
+          <FirstStep handleChangePage={handleChangePage} />
         ) : (
-          <SecondStep
-            data={data}
-            // handleChange={handleChange}
-            onClose={onClick}
-            handleChangePage={handleChangePage}
-          />
+          <SecondStep data={data} onClose={onClick} handleChangePage={handleChangePage} />
         )}
       </ModalContainer>
     );

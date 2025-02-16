@@ -1,13 +1,13 @@
-import { Modal } from '@mui/material';
+import { Modal, Dialog, DialogContent, DialogActions, Button } from '@mui/material';
 import { Container } from 'app/layout';
 import { SearchFilter } from 'features/SearchFilter';
-import { StyledButton, Title, useAppSelector } from 'shared/lib';
+import { StyledButton, Text16, Title, useAppSelector } from 'shared/lib';
 
-import { FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
+import { DialogContainer, FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
 import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
-import { TestPreviewType, TestType, useGetTestsQuery } from 'entities/Tests';
+import { TestPreviewType, useGetTestsQuery } from 'entities/Tests';
 import { Loader } from 'shared/lib/ui/Loader';
 import { NotFound } from 'shared/lib/ui/NotFound';
 import { ScrollTop } from 'widgets/ScrollTop';
@@ -16,8 +16,10 @@ export const TestCatalogPage = () => {
   // ! filter data
   const { sortingMode, filterThema, filterText } = useAppSelector((state) => state.SearchFilter);
   const [open, setOpen] = useState(false);
-  const [limit, setLimit] = React.useState(9);
+  const [limit] = React.useState(9);
   const [page, setPage] = React.useState(1);
+
+  const [showCloseDialog, setShowCloseDialog] = useState(false);
 
   const [allTests, setAllTests] = useState<TestPreviewType[]>([]);
 
@@ -44,7 +46,25 @@ export const TestCatalogPage = () => {
     } else {
       setAllTests(testsData.items);
     }
-  }, [testsData?.items]);
+  }, [page, testsData?.items, limit]);
+
+  const handleClose = () => {
+    setOpen(false);
+    setShowCloseDialog(false);
+  };
+
+  const handleContinueEditing = () => {
+    setShowCloseDialog(false);
+  };
+
+  const handleSaveAsDraft = () => {
+    setShowCloseDialog(false);
+    setOpen(false);
+  };
+
+  const handleCloseAttempt = () => {
+    setShowCloseDialog(true);
+  };
 
   return (
     <div>
@@ -80,9 +100,55 @@ export const TestCatalogPage = () => {
           )}
         </Container>
       </Section>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <CreateTestModal onClick={() => setOpen(false)} />
+      <Modal
+        open={open}
+        onClose={(event, reason) => {
+          if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
+            setShowCloseDialog(true);
+          }
+        }}
+      >
+        <CreateTestModal onClick={handleCloseAttempt} />
       </Modal>
+
+      <Dialog
+        open={showCloseDialog}
+        onClose={() => setShowCloseDialog(false)}
+        sx={{
+          '@media (max-width: 540px)': {
+            width: '100%',
+            margin: 0,
+            maxWidth: '100%',
+            '.MuiDialog-paper': {
+              width: '100%',
+              margin: 0,
+              maxWidth: '100%',
+            },
+          },
+        }}
+      >
+        <DialogContainer>
+          <Title>Сохранить тест?</Title>
+          <Text16>Вы хотите сохранить тест в черновиках или продолжить редактирование?</Text16>
+          <div>
+            <Button onClick={handleClose} color="error">
+              Не сохранять
+            </Button>
+            <Button onClick={handleSaveAsDraft} color="primary">
+              Сохранить в черновики
+            </Button>
+          </div>
+          <Button
+            onClick={handleContinueEditing}
+            color="primary"
+            variant="contained"
+            sx={{ py: 1 }}
+          >
+            <Text16>Продолжить редактирование</Text16>
+          </Button>
+        </DialogContainer>
+      </Dialog>
+
       <FlexCenter>
         <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
           Создать тест

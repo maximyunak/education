@@ -73,6 +73,7 @@ export const ButtonsBlockMobile = styled('div')`
   display: none;
   gap: 15px;
   align-items: center;
+  justify-content: center;
 
   button {
     width: 160px;
