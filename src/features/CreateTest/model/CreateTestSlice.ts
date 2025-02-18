@@ -147,35 +147,7 @@ const CreateTestSlice = createSlice({
       state.questions[questionId].answers.splice(answerId, 1);
     },
     clearSlice: (state) => {
-      return Object.assign({}, state, {
-        title: '',
-        description: '',
-        page: 1,
-        max_attempts: 3,
-        passing_score: 0,
-        theme_id: 4,
-        duration: 60,
-        questions: [
-          {
-            text: 'Один вариант ответа',
-            type: QuestionVariant.SINGLE,
-            points: 2,
-            answers: [
-              { text: 'Вариант 1', is_correct: true },
-              { text: 'Вариант 2', is_correct: false },
-            ],
-          },
-          {
-            text: 'Несколько вариантов ответа',
-            type: QuestionVariant.MULTIPLE,
-            points: 3,
-            answers: [
-              { text: 'Вариант 1', is_correct: true },
-              { text: 'Вариант 2', is_correct: false },
-            ],
-          },
-        ],
-      });
+      state = initialState;
     },
   },
 });

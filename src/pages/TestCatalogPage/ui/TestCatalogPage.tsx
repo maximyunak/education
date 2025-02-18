@@ -108,7 +108,7 @@ export const TestCatalogPage = () => {
           }
         }}
       >
-        <CreateTestModal onClick={handleCloseAttempt} />
+        <CreateTestModal onClose={handleClose} onClick={handleCloseAttempt} />
       </Modal>
 
       <Dialog
