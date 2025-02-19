@@ -1,9 +1,9 @@
-import { Modal, Dialog, DialogContent, DialogActions, Button } from '@mui/material';
+import { Modal } from '@mui/material';
 import { Container } from 'app/layout';
 import { SearchFilter } from 'features/SearchFilter';
-import { StyledButton, Text16, Title, useAppSelector } from 'shared/lib';
+import { StyledButton, Title, useAppSelector } from 'shared/lib';
 
-import { DialogContainer, FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
+import { FlexCenter, Section, TestsContainer } from './TestCatalog.styles';
 import { TestPreview } from 'widgets/TestPreview';
 import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
@@ -11,6 +11,7 @@ import { TestPreviewType, useGetTestsQuery } from 'entities/Tests';
 import { Loader } from 'shared/lib/ui/Loader';
 import { NotFound } from 'shared/lib/ui/NotFound';
 import { ScrollTop } from 'widgets/ScrollTop';
+import { DialogCreateTest } from 'features/CreateTest/ui/Dialog/Dialog';
 
 export const TestCatalogPage = () => {
   // ! filter data
@@ -55,11 +56,6 @@ export const TestCatalogPage = () => {
 
   const handleContinueEditing = () => {
     setShowCloseDialog(false);
-  };
-
-  const handleSaveAsDraft = () => {
-    setShowCloseDialog(false);
-    setOpen(false);
   };
 
   const handleCloseAttempt = () => {
@@ -111,43 +107,12 @@ export const TestCatalogPage = () => {
         <CreateTestModal onClose={handleClose} onClick={handleCloseAttempt} />
       </Modal>
 
-      <Dialog
-        open={showCloseDialog}
-        onClose={() => setShowCloseDialog(false)}
-        sx={{
-          '@media (max-width: 540px)': {
-            width: '100%',
-            margin: 0,
-            maxWidth: '100%',
-            '.MuiDialog-paper': {
-              width: '100%',
-              margin: 0,
-              maxWidth: '100%',
-            },
-          },
-        }}
-      >
-        <DialogContainer>
-          <Title>Сохранить тест?</Title>
-          <Text16>Вы хотите сохранить тест в черновиках или продолжить редактирование?</Text16>
-          <div>
-            <Button onClick={handleClose} color="error">
-              Не сохранять
-            </Button>
-            <Button onClick={handleSaveAsDraft} color="primary">
-              Сохранить в черновики
-            </Button>
-          </div>
-          <Button
-            onClick={handleContinueEditing}
-            color="primary"
-            variant="contained"
-            sx={{ py: 1 }}
-          >
-            <Text16>Продолжить редактирование</Text16>
-          </Button>
-        </DialogContainer>
-      </Dialog>
+      <DialogCreateTest
+        showCloseDialog={showCloseDialog}
+        setShowCloseDialog={setShowCloseDialog}
+        handleClose={handleClose}
+        handleContinueEditing={handleContinueEditing}
+      />
 
       <FlexCenter>
         <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>

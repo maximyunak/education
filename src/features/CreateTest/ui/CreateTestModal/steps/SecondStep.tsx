@@ -5,9 +5,10 @@ import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { StyledButton, StyledInput, useAppDispatch } from 'shared/lib';
 import { clearSlice, setField } from 'features/CreateTest/model/CreateTestSlice';
 import { useGetThemesQuery } from 'entities/Themes';
-import { useCreateTestMutation } from 'entities/Tests';
+import { TestStatus, useCreateTestMutation } from 'entities/Tests';
 import { TestType } from 'entities/Tests';
 import { TitleBlock } from '../TitleBlock/TitleBlock';
+
 interface SecondStepProps {
   data: TestType;
   handleChangePage: (page: number) => void;
@@ -81,18 +82,6 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
     return !Object.values(newErrors).some((error) => error !== '');
   };
 
-  const handleCreateTest = async () => {
-    if (validateFields()) {
-      try {
-        await createTest(data);
-        dispatch(clearSlice());
-        onClose();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
-
   const handleChangeFields = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
 
@@ -112,6 +101,18 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
           break;
         default:
           break;
+      }
+    }
+  };
+
+  const handleCreateTest = async () => {
+    if (validateFields()) {
+      try {
+        await createTest({ ...data, status: TestStatus.PUBLISHED });
+        dispatch(clearSlice());
+        onClose();
+      } catch (error) {
+        console.log(error);
       }
     }
   };

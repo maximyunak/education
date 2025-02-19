@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IQuestion, QuestionVariant, TestType } from 'entities/Tests';
-// import { IQuestion, QuestionVariant, TestType } from './TestType';
 
 export interface CreateTestSlice extends TestType {
   page: number;
@@ -147,7 +146,7 @@ const CreateTestSlice = createSlice({
       state.questions[questionId].answers.splice(answerId, 1);
     },
     clearSlice: (state) => {
-      state = initialState;
+      Object.assign(state, initialState);
     },
   },
 });

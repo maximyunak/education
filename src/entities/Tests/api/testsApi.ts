@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from 'shared/api/baseUrl';
-import { TestPreviewType, TestType } from '../model/TestType';
+import { TestPreviewType, TestStatus, TestType } from '../model/TestType';
 
 export interface FetchTestsResponse {
   items: TestPreviewType[];
@@ -43,7 +43,7 @@ export const testsApi = createApi({
       },
       providesTags: ['Tests'],
     }),
-    createTest: builder.mutation<void, TestType>({
+    createTest: builder.mutation<void, TestType & { status: TestStatus }>({
       query: (testData) => ({
         url: 'tests',
         method: 'post',

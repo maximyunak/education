@@ -3,6 +3,12 @@ export enum QuestionVariant {
   MULTIPLE = 'multiple',
 }
 
+export enum TestStatus {
+  DRAFT = 'draft',
+  PUBLISHED = 'published',
+  ARCHIVED = 'archived',
+}
+
 export type AnswerType = {
   text: string;
   is_correct: boolean;

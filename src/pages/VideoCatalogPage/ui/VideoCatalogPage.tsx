@@ -4,8 +4,11 @@ import { VideoPreview } from 'widgets/VideoPreview';
 import { videos } from '../consts/consts';
 import { Section, VideosContainer, MoreButton } from './VideoCatalog.styles';
 import { SearchFilter } from 'features/SearchFilter';
+import { useState } from 'react';
 
 export const VideoCatalogPage = () => {
+  const [state, setstate] = useState('');
+  
   return (
     <div>
       <Section>
