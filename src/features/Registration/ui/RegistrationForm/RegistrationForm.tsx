@@ -60,7 +60,9 @@ export const RegistrationForm = () => {
     if (validateForm(userData, setErrors)) {
       try {
         const res = await registerRequest(userData);
-        navigate('/login');
+        if (res.status === 201) {
+          navigate('/');
+        }
       } catch (error) {
         console.log('error', error);
       }

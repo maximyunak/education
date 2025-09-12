@@ -2,7 +2,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query';
 import axios from 'axios';
 import ls from 'localstorage-slim';
 
-export const BASE_URL = 'https://api.ebtest.ru/api/v1/';
+export const BASE_URL = 'http://127.0.0.1:8000/api';
 
 const $api = axios.create({
   baseURL: BASE_URL,
