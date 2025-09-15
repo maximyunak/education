@@ -29,12 +29,12 @@ import { validateForm } from '../../lib/ValidateForm';
 export const LoginForm = () => {
   // ! consts
   const [userData, setUserData] = useState<LoginDataType>({
-    username: '',
+    email: '',
     password: '',
   });
   const [showPassword, setShowPassword] = React.useState(false);
   const [errors, setErrors] = useState<LoginDataType>({
-    username: '',
+    email: '',
     password: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -50,7 +50,9 @@ export const LoginForm = () => {
     setUserData((prev) => ({ ...prev, [field]: value }));
 
     if (isSubmitted) {
-      validateForm(userData, setErrors);
+      const validated = validateForm(userData);
+
+      setErrors(validated.errors);
     }
   };
 
@@ -58,16 +60,21 @@ export const LoginForm = () => {
     e.preventDefault();
     setIsSubmitted(true);
 
-    if (validateForm(userData, setErrors)) {
+    const validated = validateForm(userData);
+    setErrors(validated.errors);
+
+    if (validated.isValid) {
       try {
         await authRequest(userData);
         console.log(userData);
 
         navigate('/');
       } catch (err) {
-        const error = err as AxiosError<{ detail: string }>;
-        setServerError(error.response?.data?.detail || 'Произошла ошибка при входе');
+        const error = err as AxiosError<{ error: string }>;
+        setServerError(error.response?.data.error || 'Произошла ошибка при входе');
       }
+    } else {
+      console.log('error');
     }
   };
 
@@ -84,10 +91,10 @@ export const LoginForm = () => {
           <StyledInput
             placeholder="Email"
             type="email"
-            value={userData.username}
-            onChange={handleChange('username')}
-            error={isSubmitted && !!errors.username}
-            errorMessage={errors.username}
+            value={userData.email}
+            onChange={handleChange('email')}
+            error={isSubmitted && !!errors.email}
+            errorMessage={errors.email}
           />
         </TextContainer>
         <TextContainer>

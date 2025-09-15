@@ -1,34 +1,37 @@
 import { LoginDataType } from '../model/LoginDataType';
 
-export const validateForm = (
-  userData: LoginDataType,
-  setErrors: (errors: LoginDataType) => void,
-): boolean => {
-  const newErrors: LoginDataType = {
-    username: '',
+interface IValidate {
+  isValid: boolean;
+  errors: LoginDataType;
+}
+
+export const validateForm = (userData: LoginDataType): IValidate => {
+  let isValid = true;
+
+  const errors = {
+    email: '',
     password: '',
   };
 
-  let isValid = true;
-
-  // Проверка username
-  if (!userData.username) {
-    newErrors.username = 'Введите username';
+  if (!userData.email) {
+    errors.email = 'Введите email';
     isValid = false;
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.username)) {
-    newErrors.username = 'Некорректный username';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(userData.email)) {
+    errors.email = 'Некорректный email';
     isValid = false;
   }
 
   // Проверка пароля
   if (!userData.password) {
-    newErrors.password = 'Введите пароль';
+    errors.password = 'Введите пароль';
     isValid = false;
   } else if (userData.password.length < 8) {
-    newErrors.password = 'Пароль должен содержать минимум 8 символов';
+    errors.password = 'Пароль должен содержать минимум 8 символов';
     isValid = false;
   }
 
-  setErrors(newErrors);
-  return isValid;
+  return {
+    isValid,
+    errors,
+  };
 };
