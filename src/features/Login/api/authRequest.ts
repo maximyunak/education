@@ -3,7 +3,7 @@ import { LoginDataType } from '../model/LoginDataType';
 
 export const authRequest = async (userData: LoginDataType) => {
   try {
-    const res = await $api.post('/auth/login', userData);
+    await $api.post('/auth/login', userData);
 
     return 'ok';
   } catch (error) {

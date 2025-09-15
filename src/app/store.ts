@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { testsApi } from 'entities/Tests';
 import { themesApi } from 'entities/Themes';
+import { userApi } from 'entities/User';
 import { CreateTestSlice } from 'features/CreateTest';
 import { SearchFilterSlice } from 'features/SearchFilter';
 
@@ -11,9 +12,13 @@ export const setupStore = () => {
       createTest: CreateTestSlice,
       [testsApi.reducerPath]: testsApi.reducer,
       [themesApi.reducerPath]: themesApi.reducer,
+      [userApi.reducerPath]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(testsApi.middleware).concat(themesApi.middleware),
+      getDefaultMiddleware()
+        .concat(testsApi.middleware)
+        .concat(themesApi.middleware)
+        .concat(userApi.middleware),
   });
 };
 

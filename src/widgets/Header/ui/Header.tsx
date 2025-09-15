@@ -22,8 +22,12 @@ import PhoneIcon from '@mui/icons-material/Phone';
 
 import ExAva from './exAva.png';
 import { useState } from 'react';
+import { useGetCurrentUserQuery } from 'entities/User';
 
 const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
+  const { data: userData } = useGetCurrentUserQuery();
+  console.log(userData);
+
   return (
     <HeaderContainer>
       <HeaderContent>
