@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQuery } from 'shared/api/baseUrl';
+import { baseQueryWithRefresh } from 'shared/api/baseUrl';
 import { UserType } from '../model/UserType';
 
 export interface LoginDataType {
@@ -9,7 +9,7 @@ export interface LoginDataType {
 
 export const userApi = createApi({
   reducerPath: 'userApi',
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithRefresh,
   tagTypes: ['User'],
   endpoints: (builder) => ({
     getCurrentUser: builder.query<UserType, void>({

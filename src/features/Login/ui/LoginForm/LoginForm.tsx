@@ -24,7 +24,6 @@ import { AxiosError } from 'axios';
 import { authRequest } from '../../api/authRequest';
 import { LoginDataType } from '../../model/LoginDataType';
 import { validateForm } from '../../lib/ValidateForm';
-// import { $api } from 'shared/api';
 
 export const LoginForm = () => {
   // ! consts

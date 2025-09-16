@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQuery } from 'shared/api/baseUrl';
+import { baseQueryWithRefresh } from 'shared/api/baseUrl';
 import { TestType } from '../model/TestType';
 
 export interface FetchTestsResponse {
@@ -19,7 +19,7 @@ export interface FetchTestsParams {
 
 export const testsApi = createApi({
   reducerPath: 'testsApi',
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithRefresh,
   tagTypes: ['Tests'],
   endpoints: (builder) => ({
     getTests: builder.query<FetchTestsResponse, FetchTestsParams>({

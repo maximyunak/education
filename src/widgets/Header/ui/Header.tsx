@@ -67,10 +67,12 @@ const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
         <NotificationsNoneOutlinedIcon
           sx={{ marginRight: 2, marginLeft: 1, '@media (max-width: 1120px)': { display: 'none' } }}
         />
-        {localStorage.getItem('access_token') ? (
+        {userData ? (
           <ProfileBlock>
             <Avatar alt="avatar" src={ExAva} />
-            <Text>Федоров Сергей</Text>
+            <Text>
+              {userData.first_name} {userData.last_name}
+            </Text>
             <KeyboardArrowDownIcon />
           </ProfileBlock>
         ) : (
