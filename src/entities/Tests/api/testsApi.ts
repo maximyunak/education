@@ -37,7 +37,7 @@ export const testsApi = createApi({
         }
 
         return {
-          url: 'tests',
+          url: 'test',
           params: filteredParams,
         };
       },
@@ -45,7 +45,7 @@ export const testsApi = createApi({
     }),
     createTest: builder.mutation<void, TestType>({
       query: (testData) => ({
-        url: 'tests',
+        url: 'test',
         method: 'post',
         body: testData,
       }),

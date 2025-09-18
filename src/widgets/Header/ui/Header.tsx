@@ -33,8 +33,8 @@ const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
       <HeaderContent>
         <LogoBlock>
           <Link to="/">
-            {/* <img src={Logo} alt="logo" /> */}
-            logo
+            <img src={Logo} alt="logo" />
+            {/* logo */}
           </Link>
           <Link to="/courses">
             <Button sx={{ textTransform: 'none' }} variant="outlined">

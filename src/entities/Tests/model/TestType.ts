@@ -19,7 +19,7 @@ export interface TestType {
   id?: number;
   title: string;
   description: string;
-  max_attempts: number | '';
+  max_attempts: number;
   passing_score: number;
   theme_id: number;
   duration: number;

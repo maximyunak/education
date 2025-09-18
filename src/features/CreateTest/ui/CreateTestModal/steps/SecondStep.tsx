@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import {
   ButtonsBlock,
   CloseIconContainer,
@@ -28,8 +28,9 @@ import { CreateTestSlice, clearSlice, setField } from 'features/CreateTest/model
 import { useGetThemesQuery } from 'entities/Themes';
 import { useCreateTestMutation } from 'entities/Tests';
 import { TestType } from 'entities/Tests';
-import { validatePassingScore } from 'features/CreateTest/lib/ValidateForm';
+import { validatePassingScore } from 'features/CreateTest/lib/ValidatePassingScore';
 import { TitleBlock } from '../TitleBlock/TitleBlock';
+import { validateForm } from 'features/CreateTest/lib/ValidateForm';
 interface SecondStepProps {
   data: TestType;
   handleChangePage: (page: number) => void;
@@ -70,39 +71,31 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
     );
   };
 
-  // TODO вынести в валидацию
-  const validateFields = () => {
-    const newErrors = {
-      maxAttemptsError: '',
-      durationError: '',
-      passingScoreError: '',
-      titleError: '',
-    };
-
-    if (!data.max_attempts || +data.max_attempts <= 0) {
-      newErrors.maxAttemptsError = 'Количество попыток должно быть больше 0';
+  const handleChangePc = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (value === '') {
+      dispatch(
+        setField({
+          name: 'passing_score',
+          value: '' as any,
+        }),
+      );
+      return;
     }
 
-    if (!data.duration || +data.duration <= 0) {
-      newErrors.durationError = 'Время выполнения должно быть больше 0';
+    if (/^\d+$/.test(value)) {
+      dispatch(
+        setField({
+          name: 'passing_score',
+          value: Number(value),
+        }),
+      );
     }
-
-    if (!data.passing_score || +data.passing_score > maxScore) {
-      newErrors.passingScoreError = `Проходной балл не должен превышать ${maxScore}`;
-    }
-
-    if (!data.title) {
-      newErrors.titleError = 'Название теста обязательно';
-    } else if (data.title.length < 10) {
-      newErrors.titleError = 'Название теста должно быть больше 10 символов';
-    }
-
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== '');
   };
 
   const handleCreateTest = async () => {
-    if (validateFields()) {
+    const { isValid, errors } = validateForm(data, maxScore);
+    if (isValid) {
       try {
         console.log(data, 'create');
 
@@ -112,6 +105,8 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
       } catch (error) {
         console.log(error);
       }
+    } else {
+      setErrors(errors);
     }
   };
 
@@ -173,7 +168,8 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
           maxWidth={406}
           rounded={6}
           placeholder="Количество попыток"
-          onChange={handleChangeFields}
+          // onChange={handleChangeFields}
+          onChange={handleChangePc}
           name={'max_attempts'}
           value={data.max_attempts}
           startAdornment={<NoWrapText>Количество попыток - </NoWrapText>}
@@ -192,13 +188,6 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
           error={!!errors.passingScoreError}
           errorMessage={errors.passingScoreError}
         />
-
-        <StyledInput
-          maxWidth={406}
-          rounded={6}
-          placeholder="Привязать видеолекцию ( в разработке )"
-        />
-        <StyledInput maxWidth={406} rounded={6} placeholder="Привязать лекцию ( в разработке )" />
       </InfoBlockContainer>
 
       <ButtonsContainer>
