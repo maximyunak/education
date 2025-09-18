@@ -9,7 +9,7 @@ import { CreateTestModal } from 'features/CreateTest';
 import React, { useState } from 'react';
 import { TestType, useGetTestsQuery } from 'entities/Tests';
 import { Loader } from 'shared/lib/ui/Loader';
-import { NotFound } from 'shared/lib/ui/NotFound';
+// import { NotFound } from 'shared/lib/ui/NotFound';
 
 export const TestCatalogPage = () => {
   // ! filter data
@@ -50,7 +50,7 @@ export const TestCatalogPage = () => {
       <Section>
         <Container>
           <Title>Каталог тестов</Title>
-          <SearchFilter />
+          {/* <SearchFilter /> */}
           {testsData?.items && testsData.items.length > 0 && !error ? (
             <>
               <TestsContainer>
@@ -73,7 +73,7 @@ export const TestCatalogPage = () => {
           {(isLoading || isFetching) && <Loader />}
           {error && (
             <FlexCenter>
-              <NotFound />
+              {/* <NotFound /> */}
               <Title>Произошла ошибка</Title>
             </FlexCenter>
           )}

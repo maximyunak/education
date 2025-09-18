@@ -39,7 +39,10 @@ interface SecondStepProps {
 export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps) => {
   // ! themes data
   const { data: themesData, isLoading, error } = useGetThemesQuery();
-  const currentTheme = themesData?.items.find((el) => el.id === data.theme_id);
+  console.log('🚀 ~ SecondStep ~ themesData:', themesData);
+  console.log(data);
+
+  const currentTheme = themesData?.find((el) => el.id === data.theme_id);
 
   // ! create test
   const [createTest, { isError, isSuccess, status }] = useCreateTestMutation();
@@ -67,6 +70,7 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
     );
   };
 
+  // TODO вынести в валидацию
   const validateFields = () => {
     const newErrors = {
       maxAttemptsError: '',
@@ -100,6 +104,8 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
   const handleCreateTest = async () => {
     if (validateFields()) {
       try {
+        console.log(data, 'create');
+
         await createTest(data);
         dispatch(clearSlice());
         onClose();
@@ -138,13 +144,13 @@ export const SecondStep = ({ data, handleChangePage, onClose }: SecondStepProps)
       <InfoBlockContainer>
         <Select
           fullWidth
-          defaultValue={themesData?.items[0].id.toString() || 'Ничего не найдено'}
-          value={currentTheme?.id?.toString()}
+          // defaultValue={(themesData && themesData[0].id.toString()) || 'Ничего не найдено'}
+          value={currentTheme?.id?.toString() ?? '1'}
           sx={{ maxWidth: '406px', maxHeight: '53px', borderRadius: '6px' }}
           onChange={handleChangeTheme}
         >
           {themesData &&
-            themesData.items.map((el, index) => (
+            themesData.map((el, index) => (
               <MenuItem value={el.id.toString()} key={`${el.name}_${index}_`}>
                 {el.name}
               </MenuItem>

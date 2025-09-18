@@ -33,7 +33,8 @@ const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
       <HeaderContent>
         <LogoBlock>
           <Link to="/">
-            <img src={Logo} alt="logo" />
+            {/* <img src={Logo} alt="logo" /> */}
+            logo
           </Link>
           <Link to="/courses">
             <Button sx={{ textTransform: 'none' }} variant="outlined">
@@ -42,21 +43,21 @@ const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
           </Link>
         </LogoBlock>
         <NavBlock onClick={onClose}>
-          <Link to="/video-lectures">
+          {/* <Link to="/video-lectures">
             <Text>Видеолекции</Text>
-          </Link>
+          </Link> */}
           <Link to="/test-catalog">
             <Text>Тесты</Text>
           </Link>
-          <Link to="/low-price">
+          {/* <Link to="/low-price">
             <Text>Low price</Text>
           </Link>
           <Link to="/blog">
             <Text>Блог</Text>
-          </Link>
-          <Link to="/about">
+          </Link> */}
+          {/* <Link to="/about">
             <Text>Об организации</Text>
-          </Link>
+          </Link> */}
         </NavBlock>
       </HeaderContent>
       <ProfileContainer>
