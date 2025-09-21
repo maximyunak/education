@@ -17,9 +17,10 @@ export const Section = styled('section')`
 `;
 
 export const TestsContainer = styled('div')`
+  margin-top: 40px;
   display: grid;
-  justify-content: start;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  // grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
 
   row-gap: 20px;

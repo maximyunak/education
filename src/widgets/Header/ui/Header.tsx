@@ -26,7 +26,6 @@ import { useGetCurrentUserQuery } from 'entities/User';
 
 const HeaderUi = ({ onClose }: { onClose?: () => void }) => {
   const { data: userData } = useGetCurrentUserQuery();
-  console.log(userData);
 
   return (
     <HeaderContainer>

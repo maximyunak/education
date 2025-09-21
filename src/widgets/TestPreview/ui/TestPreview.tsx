@@ -11,9 +11,9 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useGetThemesQuery } from 'entities/Themes';
 
 export const TestPreview = ({ title, duration, questions_count, theme_id, author }: any) => {
-  const { data: themesData, isLoading, error } = useGetThemesQuery();
+  const { data: themesData } = useGetThemesQuery();
 
-  const currentTheme = themesData?.items.find((el) => el.id === theme_id);
+  const currentTheme = themesData?.find((el) => el.id === theme_id);
 
   return (
     <TestPreviewContainer>

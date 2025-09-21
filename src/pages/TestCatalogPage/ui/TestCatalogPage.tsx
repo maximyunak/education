@@ -34,16 +34,16 @@ export const TestCatalogPage = () => {
     search: filterText,
   });
 
-  React.useEffect(() => {
-    if (!testsData?.items) {
-      return;
-    }
-    if (page !== 1) {
-      setAllTests((prevTests) => [...prevTests, ...testsData.items].slice(0, limit * page));
-    } else {
-      setAllTests(testsData.items);
-    }
-  }, [testsData?.items]);
+  // React.useEffect(() => {
+  //   if (!testsData?.items) {
+  //     return;
+  //   }
+  //   if (page !== 1) {
+  //     setAllTests((prevTests) => [...prevTests, ...testsData.items].slice(0, limit * page));
+  //   } else {
+  //     setAllTests(testsData.items);
+  //   }
+  // }, [testsData?.items]);
 
   return (
     <div>
@@ -51,21 +51,21 @@ export const TestCatalogPage = () => {
         <Container>
           <Title>Каталог тестов</Title>
           {/* <SearchFilter /> */}
-          {testsData?.items && testsData.items.length > 0 && !error ? (
+          {testsData?.data && testsData.data.length > 0 && !error ? (
             <>
               <TestsContainer>
-                {allTests.map((el, index) => (
+                {testsData?.data.map((el, index) => (
                   <TestPreview key={`${el.id}__${index}`} {...el} />
                 ))}
               </TestsContainer>
 
-              {!isFetching && !isLoading && page !== Math.ceil(testsData?.total / limit) && (
+              {/* {!isFetching && !isLoading && page !== Math.ceil(testsData?.total / limit) && (
                 <FlexCenter>
                   <StyledButton marginTop="50px" maxWidth="180px" onClick={() => setPage(page + 1)}>
                     Загрузить еще 10
                   </StyledButton>
                 </FlexCenter>
-              )}
+              )} */}
             </>
           ) : (
             <Title>Ничего не найдено</Title>
@@ -83,7 +83,7 @@ export const TestCatalogPage = () => {
         <CreateTestModal onClick={() => setOpen(false)} />
       </Modal>
       <FlexCenter>
-        <StyledButton maxWidth="180px" onClick={() => setOpen(true)}>
+        <StyledButton maxWidth="180px" marginBottom="40px" onClick={() => setOpen(true)}>
           Создать тест
         </StyledButton>
       </FlexCenter>

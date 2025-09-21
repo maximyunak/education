@@ -1,13 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithRefresh } from 'shared/api/baseUrl';
 import { TestType } from '../model/TestType';
+import { FetchTestsResponse } from '../model/TestCatalog';
 
-export interface FetchTestsResponse {
-  items: TestType[];
-  total: number;
-  page: number;
-  size: number;
-}
+// export interface FetchTestsResponse {
+//   items: TestType[];
+//   total: number;
+//   page: number;
+//   size: number;
+// }
 
 export interface FetchTestsParams {
   limit?: number;
@@ -38,7 +39,7 @@ export const testsApi = createApi({
 
         return {
           url: 'test',
-          params: filteredParams,
+          // params: filteredParams,
         };
       },
       providesTags: ['Tests'],
