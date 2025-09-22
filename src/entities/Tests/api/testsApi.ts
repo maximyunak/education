@@ -52,7 +52,14 @@ export const testsApi = createApi({
       }),
       invalidatesTags: () => ['Tests'],
     }),
+    getTest: builder.query<any, any>({
+      query: (id) => {
+        return {
+          url: `test/${id}`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetTestsQuery, useCreateTestMutation } = testsApi;
+export const { useGetTestsQuery, useCreateTestMutation, useGetTestQuery } = testsApi;

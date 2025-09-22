@@ -1,7 +1,9 @@
 import { styled } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-export const TestPreviewContainer = styled('div')`
+export const TestPreviewContainer = styled(Link)`
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   gap: 20px;
   border: 1px solid #e5e5e5;

@@ -10,13 +10,13 @@ import { Text12, Text17, Text20Bold } from 'shared/lib';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { useGetThemesQuery } from 'entities/Themes';
 
-export const TestPreview = ({ title, duration, questions_count, theme_id, author }: any) => {
+export const TestPreview = ({ id, title, duration, questions_count, theme_id, author }: any) => {
   const { data: themesData } = useGetThemesQuery();
 
   const currentTheme = themesData?.find((el) => el.id === theme_id);
 
   return (
-    <TestPreviewContainer>
+    <TestPreviewContainer to={`/test/${id}`}>
       <TestInfo>
         <Text17>{currentTheme?.name}</Text17>
         <div className="info">

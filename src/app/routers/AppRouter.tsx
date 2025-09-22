@@ -8,6 +8,7 @@ import {
   VideoLecturePage,
   TestCatalogPage,
 } from 'pages';
+import { TestPage } from 'pages/TestPage';
 
 export const AppRouter = () => {
   return (
@@ -22,6 +23,7 @@ export const AppRouter = () => {
           <Route path="video-lectures" element={<VideoCatalogPage />} />
           <Route path="video-lecture/:id" element={<VideoLecturePage />} />
           <Route path="/test-catalog" element={<TestCatalogPage />} />
+          <Route path="/test/:id" element={<TestPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
